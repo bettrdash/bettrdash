@@ -27,7 +27,7 @@ const main = async () => {
       ":date[iso] :remote-addr :method :url :status :res[content-length] - :response-time ms"
     )
   );
-
+//setup cors
   app.use(
     cors({
       origin: [
