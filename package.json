@@ -16,6 +16,7 @@
     "@types/react-dom": "^16.9.0",
     "@uploadcare/react-widget": "^2.0.0",
     "axios": "^0.26.1",
+    "env-cmd": "^10.1.0",
     "framer-motion": "^4.0.0",
     "moment-timezone": "^0.5.34",
     "react": "^18.0.0",
@@ -32,7 +33,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-qa": "env-cmd -f .env react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
