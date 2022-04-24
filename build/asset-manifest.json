@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.a63a0e82.js",
+    "main.js": "/static/js/main.c4301d4b.js",
     "ucare-widget-chunk.js": "/static/js/ucare-widget-chunk.8eb3e655.chunk.js",
     "ucare-panel-chunk.js": "/static/js/ucare-panel-chunk.013491bb.chunk.js",
     "static/js/377.44801324.chunk.js": "/static/js/377.44801324.chunk.js",
     "static/js/257.d1ed93c0.chunk.js": "/static/js/257.d1ed93c0.chunk.js",
     "index.html": "/index.html",
-    "main.a63a0e82.js.map": "/static/js/main.a63a0e82.js.map",
+    "main.c4301d4b.js.map": "/static/js/main.c4301d4b.js.map",
     "ucare-widget-chunk.8eb3e655.chunk.js.map": "/static/js/ucare-widget-chunk.8eb3e655.chunk.js.map",
     "ucare-panel-chunk.013491bb.chunk.js.map": "/static/js/ucare-panel-chunk.013491bb.chunk.js.map",
     "377.44801324.chunk.js.map": "/static/js/377.44801324.chunk.js.map",
     "257.d1ed93c0.chunk.js.map": "/static/js/257.d1ed93c0.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.a63a0e82.js"
+    "static/js/main.c4301d4b.js"
   ]
 }
