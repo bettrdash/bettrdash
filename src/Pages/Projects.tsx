@@ -128,10 +128,10 @@ const NewProject = () => {
   ]);
 
   const addProject = () => {
-    if (!name || !description || !github_url || !language) {
+    if (!name || !description || !language) {
       toast({
         title: "Error",
-        description: "All fields are required",
+        description: "All fields are required.",
         status: "error",
         duration: 5000,
         isClosable: true,
