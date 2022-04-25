@@ -13,6 +13,7 @@ import {
   Switch,
   Select,
   useToast,
+  GridItem,
 } from "@chakra-ui/react";
 import ModalComp from "../Components/ModalComp";
 import { projectsApi, useAddProject } from "../api";
@@ -38,7 +39,7 @@ const Projects = () => {
   }
 
   if (projectsData.message) {
-    return <Text>{projectsData.message}</Text>
+    return <Text>{projectsData.message}</Text>;
   }
 
   const projects = projectsData.projects;
@@ -48,7 +49,7 @@ const Projects = () => {
         <Heading>Projects</Heading>
         <NewProject />
       </HStack>
-      <Flex justifyContent={"center"}>
+      <Flex h='100%' flexDir='column' w="100%" alignSelf={'center'}>
         <Grid
           w="100%"
           templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
@@ -60,7 +61,9 @@ const Projects = () => {
             <ProjectCard view={view} key={i} />
           ))} */}
           {projects.map((project: ProjectProps, index: number) => (
-            <ProjectCard project={project} view={view} key={index} />
+            <GridItem key={index}>
+              <ProjectCard project={project} view={view} />
+            </GridItem>
           ))}
         </Grid>
       </Flex>
@@ -71,7 +74,7 @@ const Projects = () => {
 const NewProject = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState("");
-  const [live_url, setLiveURL] = useState('')
+  const [live_url, setLiveURL] = useState("");
   const [github_url, setGithubUrl] = useState("");
   const [language, setLanguage] = useState("");
   const [description, setDescription] = useState("");
@@ -145,7 +148,12 @@ const NewProject = () => {
   };
   return (
     <>
-      <Button _hover={{color: 'gray.800', bg: 'gray.200'}} color='white' bgGradient={'linear(to-r, red.400,pink.400)'} onClick={onOpen}>
+      <Button
+        _hover={{ color: "gray.800", bg: "gray.200" }}
+        color="white"
+        bgGradient={"linear(to-r, red.400,pink.400)"}
+        onClick={onOpen}
+      >
         New Project
       </Button>
       <ModalComp

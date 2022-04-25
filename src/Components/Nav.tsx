@@ -213,7 +213,7 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Logo
+        Dashboard
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
