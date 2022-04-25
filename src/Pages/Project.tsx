@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "./App";
 import { useQuery } from "react-query";
 import { projectApi, queryClient } from "../api";
@@ -13,6 +13,7 @@ import {
   Switch,
   Text,
   Textarea,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import Moment from "react-moment";
@@ -22,6 +23,8 @@ import React, { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import axios from "axios";
 import { API_URL } from "../api/constants";
+import { FiTrash2 } from "react-icons/fi";
+import ModalComp from "../Components/ModalComp";
 
 axios.defaults.withCredentials = true;
 
@@ -74,12 +77,15 @@ const ViewMode = ({
           onClick={() => setView("edit")}
           aria-label="Edit project"
           icon={<BiEditAlt />}
+          alignSelf='center'
         />
+        <DeleteProject id={project.id} />
         <Heading ml={3}>{project.name}</Heading>
         <Flex fontWeight={"500"} ml={3} alignSelf={"end"} mb={1.5}>
           <Text mr={3}>•</Text>
           <Moment format="MMMM Do YYYY">{project.createdAt}</Moment>
         </Flex>
+        
       </Flex>
       <Flex fontSize={20} flexDir="column">
         <Flex mt={10}>
@@ -206,6 +212,7 @@ const EditMode = ({
           onChange={handleChange}
           placeholder="Name"
         />
+        <DeleteProject id={project.id} />
       </Flex>
       <Flex fontSize={20} flexDir="column">
         <Flex mt={10}>
@@ -274,5 +281,38 @@ const EditMode = ({
     </>
   );
 };
+
+const DeleteProject = ({id}: {id: number}) => {
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const navigate = useNavigate()
+  const toast = useToast();
+
+  const deleteProject = async () => {
+    await axios
+      .post(`${API_URL}/projects/delete`, { id: id })
+      .then((res) => {
+        if (res.data.success) {
+          queryClient.invalidateQueries("projects");
+          navigate('/')
+        } else {
+          toast({
+            title: "Error",
+            description: res.data.message,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      });
+  }
+  return (
+    <>
+      <IconButton onClick={onOpen} ml={3} colorScheme='red' alignSelf='center' aria-label="delete project" icon={<FiTrash2 />} />
+      <ModalComp title='Are you sure?' onAction={deleteProject} isOpen={isOpen} onClose={onClose} actionText='Delete Project'>
+        <Text>This action is irreversible</Text>
+      </ModalComp>
+    </>
+  )
+}
 
 export default Project;
