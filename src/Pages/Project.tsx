@@ -95,6 +95,19 @@ const ViewMode = ({
           <Text ml={3}>{project.active ? "Yes" : "No"}</Text>
         </Flex>
         <Flex mt={3}>
+          <Text fontWeight={"600"}>Live URL: </Text>
+          <Link
+            href={project.live_url}
+            _hover={{
+              bgClip: "text",
+              bgGradient: "linear(to-r, red.400,pink.400)",
+            }}
+            ml={3}
+          >
+            {project.live_url}
+          </Link>
+        </Flex>
+        <Flex mt={3}>
           <Text fontWeight={"600"}>Github URL: </Text>
           <Link
             href={project.github_url}
@@ -142,8 +155,7 @@ const EditMode = ({
     if (
       updatedProject.name === "" ||
       updatedProject.description === "" ||
-      updatedProject.language === "" ||
-      updatedProject.github_url === ""
+      updatedProject.language === ""
     ) {
       toast({
         title: "Error",
@@ -213,6 +225,7 @@ const EditMode = ({
             ml={3}
             w={400}
             variant="flushed"
+            name='language'
             value={updatedProject.language}
             onChange={handleChange}
             placeholder="Language"
@@ -234,11 +247,24 @@ const EditMode = ({
           />
         </Flex>
         <Flex mt={3}>
+          <Text fontWeight={"600"}>Live URL: </Text>
+          <Input
+            ml={3}
+            w={400}
+            variant="flushed"
+            name='live_url'
+            value={updatedProject.live_url}
+            onChange={handleChange}
+            placeholder="Live Url"
+          />
+        </Flex>
+        <Flex mt={3}>
           <Text fontWeight={"600"}>Github URL: </Text>
           <Input
             ml={3}
             w={400}
             variant="flushed"
+            name='github_url'
             value={updatedProject.github_url}
             onChange={handleChange}
             placeholder="Github Url"

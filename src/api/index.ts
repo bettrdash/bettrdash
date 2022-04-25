@@ -12,12 +12,12 @@ export const checkAuth = async () => {
   return res.data;
 };
 
-export const projectsApi = async (user:number) => {
+export const projectsApi = async (user: number) => {
   const res = await axios.get(`${API_URL}/projects/user/${user}`);
   return res.data;
 };
 
-export const projectApi = async (user:number, id: string) => {
+export const projectApi = async (user: number, id: string) => {
   const res = await axios.get(`${API_URL}/projects/user/${user}/project/${id}`);
   return res.data;
 };
@@ -25,22 +25,23 @@ export const projectApi = async (user:number, id: string) => {
 export const apiKeyAPI = async () => {
   const res = await axios.get(`${API_URL}/api/key`);
   return res.data;
-}
+};
 
 export const apiSettingsApi = async () => {
   const res = await axios.get(`${API_URL}/api/settings`);
   return res.data;
-}
+};
 
 type ProjectProps = {
   name: string;
-  github_url: string;
+  github_url?: string;
   description: string;
   language: string;
   active: boolean;
+  live_url?: string;
 }
 
-const addProject = (project:ProjectProps) => {
+const addProject = (project: ProjectProps) => {
   return axios.post(`${API_URL}/projects/new`, project);
 };
 
@@ -57,8 +58,7 @@ export const useAddProject = () => {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['projects']);
+      queryClient.invalidateQueries(["projects"]);
     },
   });
 };
- 

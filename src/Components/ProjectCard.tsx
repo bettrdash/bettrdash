@@ -16,8 +16,9 @@ type Props = {
     name: string;
     language: string;
     description: string;
-    github_url: string;
+    github_url?: string;
     active: boolean;
+    live_url? : string;
   };
 };
 

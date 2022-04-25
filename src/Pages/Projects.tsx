@@ -71,6 +71,7 @@ const Projects = () => {
 const NewProject = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState("");
+  const [live_url, setLiveURL] = useState('')
   const [github_url, setGithubUrl] = useState("");
   const [language, setLanguage] = useState("");
   const [description, setDescription] = useState("");
@@ -133,7 +134,7 @@ const NewProject = () => {
         isClosable: true,
       });
     } else {
-      addUpload({ name, description, github_url, language, active });
+      addUpload({ name, description, github_url, language, active, live_url });
       onClose();
       setName("");
       setGithubUrl("");
@@ -160,6 +161,14 @@ const NewProject = () => {
           onChange={(e) => setName(e.target.value)}
           variant={"flushed"}
           placeholder="Project Title"
+        />
+        <Input
+          name="live_url"
+          value={live_url}
+          onChange={(e) => setLiveURL(e.target.value)}
+          mt={5}
+          variant={"flushed"}
+          placeholder="Live Link"
         />
         <Input
           name="github_url"

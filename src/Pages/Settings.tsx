@@ -93,7 +93,7 @@ const Settings = () => {
       <Flex mt={3}>
         <Text alignSelf={"center"}>{apiKeyData.message}</Text>
         <Flex>
-          <Text fontSize={20} fontWeight={"600"}>
+          <Text fontSize={20} fontWeight={"500"}>
             API Key:{" "}
           </Text>
           <Text ml={3} alignSelf={"center"}>
