@@ -18,6 +18,7 @@ import axios from "axios";
 import { API_URL } from "../api/constants";
 import { Widget } from "@uploadcare/react-widget";
 import { queryClient } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useUser();
@@ -28,6 +29,8 @@ const Profile = () => {
   const [rePassword, setRePassword] = useState("");
   const toast = useToast();
   const [profileImg, setImageUrl] = useState(user!.profile_img)
+  const navigate = useNavigate()
+
   const updateProfile = async (img:any) => {
     if (name === "" || email === "") {
       toast({
@@ -122,7 +125,7 @@ const Profile = () => {
             User Profile Edit
           </Heading>
           <FormControl id="userName">
-            <FormLabel>User Icon</FormLabel>
+            <FormLabel>Profile picture</FormLabel>
             <Stack direction={["column", "row"]} spacing={6}>
               <Center>
                 <Text></Text>
@@ -188,6 +191,7 @@ const Profile = () => {
           </FormControl>
           <Stack spacing={6} direction={["column", "row"]}>
             <Button
+            onClick={() => navigate('/')}
               bg={"red.400"}
               color={"white"}
               w="full"
