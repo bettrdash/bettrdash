@@ -289,7 +289,7 @@ const DeleteProject = ({id}: {id: number}) => {
 
   const deleteProject = async () => {
     await axios
-      .post(`${API_URL}/projects/delete`, { id: id })
+      .post(`${API_URL}/projects/delete`, { id})
       .then((res) => {
         if (res.data.success) {
           queryClient.invalidateQueries("projects");
