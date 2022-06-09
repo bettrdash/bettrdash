@@ -102,11 +102,11 @@ const Settings = () => {
             API URL:{" "}
           </Text>
           <Text ml={3} alignSelf={"center"}>
-          https://api.bettrdash.eliaswambugu.com/v1/api/projects?key={apiKeyData.key}
+          https://api.bettrdash.eliaswambugu.com/v1/api/projects?key={apiKeyData.apiKey}
           </Text>
           <Button
             bgGradient={"linear(to-r, red.400,pink.400)"}
-            onClick={() => copyToClipboard(`https://api.bettrdash.eliaswambugu.com/v1/api/projects?key=${apiKeyData.key}`)}
+            onClick={() => copyToClipboard(`https://api.bettrdash.eliaswambugu.com/v1/api/projects?key=${apiKeyData.apiKey}`)}
             size="sm"
             ml={3}
             color="white"
