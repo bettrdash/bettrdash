@@ -19,6 +19,7 @@ type Props = {
     github_url?: string;
     active: boolean;
     live_url? : string;
+    image_url: string;
   };
 };
 
@@ -55,7 +56,7 @@ const ProjectCard = ({ project, view }: Props) => {
             pos: "absolute",
             top: 5,
             left: 0,
-            backgroundImage: `url(${IMAGE})`,
+            backgroundImage: `url(${project.image_url})`,
             filter: "blur(15px)",
             zIndex: -1,
           }}
@@ -70,7 +71,8 @@ const ProjectCard = ({ project, view }: Props) => {
             height={230}
             width={282}
             objectFit={"cover"}
-            src={IMAGE}
+            src={project.image_url}
+            fallbackSrc={IMAGE}
           />
         </Box>
         <Stack pt={10} align={"center"}>

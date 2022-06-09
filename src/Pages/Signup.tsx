@@ -22,6 +22,8 @@ import { useState } from "react";
 import { API_URL } from "../api/constants";
 import { ColorModeSwitcher } from "../Components/ColorModeSwitcher";
 
+axios.defaults.withCredentials = false;
+
 const avatars = [
   {
     name: "Ryan Florence",

@@ -39,6 +39,7 @@ type ProjectProps = {
   language: string;
   active: boolean;
   live_url?: string;
+  image_url?: string;
 }
 
 const addProject = (project: ProjectProps) => {

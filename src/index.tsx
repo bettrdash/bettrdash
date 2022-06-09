@@ -19,7 +19,7 @@ import Project from "./Pages/Project";
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initalColorMode} />
         <Router>
           <Routes>

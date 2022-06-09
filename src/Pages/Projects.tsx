@@ -79,6 +79,7 @@ const NewProject = () => {
   const [language, setLanguage] = useState("");
   const [description, setDescription] = useState("");
   const [active, setActive] = useState(false);
+  const [image_url, setImageUrl] = useState("");
   const toast = useToast();
 
   const {
@@ -137,7 +138,7 @@ const NewProject = () => {
         isClosable: true,
       });
     } else {
-      addUpload({ name, description, github_url, language, active, live_url });
+      addUpload({ name, description, github_url, language, active, live_url, image_url });
       onClose();
       setName("");
       setGithubUrl("");
@@ -185,6 +186,14 @@ const NewProject = () => {
           mt={5}
           variant={"flushed"}
           placeholder="Github URL"
+        />
+        <Input
+          name="image_url"
+          value={image_url}
+          onChange={(e) => setImageUrl(e.target.value)}
+          mt={5}
+          variant={"flushed"}
+          placeholder="Image URL"
         />
         <Select
           value={language}

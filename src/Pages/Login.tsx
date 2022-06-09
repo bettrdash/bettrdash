@@ -18,6 +18,8 @@ import { useState } from "react";
 import { API_URL } from "../api/constants";
 import { ColorModeSwitcher } from "../Components/ColorModeSwitcher";
 
+axios.defaults.withCredentials = false;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +43,6 @@ const Login = () => {
             email,
             password,
           },
-          { withCredentials: true }
         )
         .then((res) => {
           if (res.data.success) {

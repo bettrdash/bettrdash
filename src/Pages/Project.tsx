@@ -146,6 +146,7 @@ const EditMode = ({
     language: project.language,
     description: project.description,
     active: project.active,
+    image_url: project.image_url
   });
 
   const handleChange = (
@@ -275,6 +276,18 @@ const EditMode = ({
             value={updatedProject.github_url}
             onChange={handleChange}
             placeholder="Github Url"
+          />
+        </Flex>
+        <Flex mt={3}>
+          <Text fontWeight={"600"}>Image URL: </Text>
+          <Input
+            ml={3}
+            w={400}
+            variant="flushed"
+            name='image_url'
+            value={updatedProject.image_url}
+            onChange={handleChange}
+            placeholder="Image Url"
           />
         </Flex>
       </Flex>
