@@ -208,6 +208,7 @@ const EditMode = ({
         <Input
           ml={3}
           w={400}
+          name='name'
           variant="flushed"
           value={updatedProject.name}
           onChange={handleChange}
