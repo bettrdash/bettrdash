@@ -53,7 +53,7 @@ const Project = () => {
 
   return (
     <>
-      <Image w="100%" h={200} src={project.image_url} />
+      <Image w={200} h={200} src={project.image_url} />
       {view === "view" ? (
         <ViewMode project={project} setView={setView} />
       ) : (
