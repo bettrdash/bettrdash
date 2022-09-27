@@ -1,0 +1,35 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "lint",
+        "^build",
+        "$REACT_APP_UPLOADCARE_PUBLIC_KEY",
+        "$NODE_ENV",
+        "$REACT_APP_PROD_API_URL",
+        "$REACT_APP_DEV_API_URL",
+        "$PUBLIC_URL"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "dependsOn": ["db#db:generate"],
+      "cache": false
+    },
+    "db:generate": {
+      "outputs": ["dist/**"],
+      "cache": false
+    }
+  },
+  "globalDependencies": [
+    "$REACT_APP_UPLOADCARE_PUBLIC_KEY",
+    "$NODE_ENV",
+    "$REACT_APP_PROD_API_URL",
+    "$REACT_APP_DEV_API_URL",
+    "$PUBLIC_URL"
+  ]
+}
