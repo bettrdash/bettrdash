@@ -3,6 +3,7 @@
   "pipeline": {
     "build": {
       "dependsOn": [
+        "lint",
         "^build",
         "$REACT_APP_UPLOADCARE_PUBLIC_KEY",
         "$NODE_ENV",
@@ -10,7 +11,7 @@
         "$REACT_APP_DEV_API_URL",
         "$PUBLIC_URL"
       ],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**"]
     },
     "lint": {
       "outputs": []
@@ -23,5 +24,12 @@
       "outputs": ["dist/**"],
       "cache": false
     }
-  }
+  },
+  "globalDependencies": [
+    "$REACT_APP_UPLOADCARE_PUBLIC_KEY",
+    "$NODE_ENV",
+    "$REACT_APP_PROD_API_URL",
+    "$REACT_APP_DEV_API_URL",
+    "$PUBLIC_URL"
+  ]
 }
