@@ -22,7 +22,7 @@ AdminJS.registerAdapter({
 const authenticate = async (email: string, password: string) => {
   const admin = await prisma.user.findUnique({
     where: {
-      email,
+     email,
     },
   });
   if (admin && admin.password === password && admin.role === "admin") {
