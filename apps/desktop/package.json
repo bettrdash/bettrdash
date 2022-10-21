@@ -38,7 +38,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "yarn electron:build && tsc -p electron && electron-builder -c.extraMetadata.main=build/electron/main.js",
     "start:electron": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
     "electron:build": "react-scripts build",
     "desktop": "yarn start:electron",
