@@ -3,7 +3,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import App from "./Pages/App";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -21,7 +21,7 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initalColorMode} />
-        <Router>
+        <Router >
           <Routes>
             <Route path="/" element={<App />}>
               <Route index element={<Projects />} />

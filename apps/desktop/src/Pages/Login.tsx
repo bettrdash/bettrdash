@@ -5,7 +5,6 @@ import {
   FormLabel,
   Input,
   Stack,
-  Link,
   Button,
   Heading,
   Text,
@@ -13,10 +12,13 @@ import {
   HStack,
   useToast,
 } from "@chakra-ui/react";
+import { useNavigate } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { API_URL } from "../api/constants";
 import { ColorModeSwitcher } from "../Components/ColorModeSwitcher";
+import history from "../utils/history";
 
 axios.defaults.withCredentials = false;
 
@@ -24,6 +26,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +49,7 @@ const Login = () => {
         )
         .then((res) => {
           if (res.data.success) {
-            window.location.href = "/";
+            navigate('/')
           } else {
             toast({
               title: "Error",
@@ -109,7 +112,7 @@ const Login = () => {
               <Stack spacing={10}>
                 <HStack>
                   <Text>New User?</Text>
-                  <Link bgClip='text' bgGradient={"linear(to-r, red.400,pink.400)"} href="/signup" >
+                  <Link  to="/signup" >
                     Sign Up!
                   </Link>
                 </HStack>

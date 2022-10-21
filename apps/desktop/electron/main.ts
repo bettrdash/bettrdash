@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
+import * as isDev from 'electron-is-dev'
+const url = require('url');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -15,23 +17,27 @@ const createWindow = () => {
   });
   if (app.isPackaged) {
     // win.loadURL(`file://${path.join(__dirname, "../index.html")}`);
-    win.loadFile(path.join(__dirname, "../index.html"));
+    win.loadURL('file://' + path.join(__dirname, "../index.html"));
   } else {
-    win.loadFile(path.join(__dirname, "../index.html"));
-    // win.loadURL("http://localhost:3000");
-    // // Hot Reloading on 'node_modules/.bin/electronPath'
-    // require("electron-reload")(__dirname, {
-    //   electron: path.join(
-    //     __dirname,
-    //     "..",
-    //     "..",
-    //     "node_modules",
-    //     ".bin",
-    //     "electron" + (process.platform === "win32" ? ".cmd" : "")
-    //   ),
-    //   forceHardReset: true,
-    //   hardResetMethod: "exit",
-    // });
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, "../index.html"),
+      protocol: 'file:',
+      slashes: true
+    }))
+    win.loadURL("http://localhost:3000");
+    // Hot Reloading on 'node_modules/.bin/electronPath'
+    require("electron-reload")(__dirname, {
+      electron: path.join(
+        __dirname,
+        "..",
+        "..",
+        "node_modules",
+        ".bin",
+        "electron" + (process.platform === "win32" ? ".cmd" : "")
+      ),
+      forceHardReset: true,
+      hardResetMethod: "exit",
+    });
   }
 };
 

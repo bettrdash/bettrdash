@@ -1,2 +1,4 @@
 import * as React from "react";
-export * from "./Button";
+import ProjectCard from "./ProjectCard";
+
+export { ProjectCard };

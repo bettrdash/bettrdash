@@ -72,8 +72,8 @@ const ProjectCard = ({ project, view }: Props) => {
             height={230}
             width={282}
             objectFit={"cover"}
-            src={project.image_url}
-            fallbackSrc={IMAGE}
+            src={require('./assets/images/react.png')}
+            // fallbackSrc={}
           />
         </Box>
         <Stack pt={10} align={"center"}>

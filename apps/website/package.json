@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.1.7",
-    "@chakra-ui/react": "^1.8.8",
+    "@chakra-ui/react": "2.3.6",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@testing-library/jest-dom": "^5.9.0",
@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^12.0.2",
     "@types/jest": "^25.0.0",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
+    "@types/react": "18",
     "@types/react-dom": "^16.9.0",
     "@uploadcare/react-widget": "^2.0.0",
     "axios": "^0.26.1",

@@ -15,12 +15,12 @@ import {
   Icon,
   useToast,
   HStack,
-  Link,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { API_URL } from "../api/constants";
 import { ColorModeSwitcher } from "../Components/ColorModeSwitcher";
+import {Link} from 'react-router-dom'
 
 axios.defaults.withCredentials = false;
 
@@ -262,9 +262,7 @@ const Signup = () => {
                   <HStack mt={5} color="gray.800">
                     <Text>Already a user?</Text>
                     <Link
-                      bgClip="text"
-                      bgGradient={"linear(to-r, red.400,pink.400)"}
-                      href="/login"
+                      to="/login"
                     >
                       Login
                     </Link>
