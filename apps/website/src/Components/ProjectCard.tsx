@@ -18,7 +18,7 @@ type Props = {
     description: string;
     github_url?: string;
     active: boolean;
-    live_url? : string;
+    live_url?: string;
     image_url: string;
   };
 };
@@ -27,11 +27,11 @@ const IMAGE =
   "https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png";
 
 const ProjectCard = ({ project, view }: Props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <Box
-      _hover={{cursor: 'pointer'}}
+        _hover={{ cursor: "pointer" }}
         onClick={() => navigate(`/projects/${project.id}`)}
         role={"group"}
         p={6}
@@ -67,6 +67,7 @@ const ProjectCard = ({ project, view }: Props) => {
           }}
         >
           <Image
+            alt=""
             rounded={"lg"}
             height={230}
             width={282}
@@ -76,13 +77,17 @@ const ProjectCard = ({ project, view }: Props) => {
           />
         </Box>
         <Stack pt={10} align={"center"}>
-          <Text color={useColorModeValue("green.400", "green.200")} fontSize={"sm"} textTransform={"uppercase"}>
-            {project.active ? 'Active' : 'Inactive'}
+          <Text
+            color={useColorModeValue("green.400", "green.200")}
+            fontSize={"sm"}
+            textTransform={"uppercase"}
+          >
+            {project.active ? "Active" : "Inactive"}
           </Text>
           <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
             {project.name}
           </Heading>
-          <Text fontWeight={'200'}>{project.description}</Text>
+          <Text fontWeight={"200"}>{project.description}</Text>
         </Stack>
       </Box>
     </>

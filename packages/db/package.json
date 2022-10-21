@@ -10,8 +10,9 @@
     "db:pre-build": "yarn prisma migrate deploy && prisma generate && tsc"
   },
   "dependencies": {
-    "@prisma/client": "^3.6.0",
-    "dotenv-safe": "^8.2.0"
+    "@prisma/client": "4",
+    "dotenv-safe": "^8.2.0",
+    "prisma": "4"
   },
   "devDependencies": {
     "config": "*",

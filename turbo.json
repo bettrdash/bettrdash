@@ -5,6 +5,9 @@
       "dependsOn": ["lint", "^db#db:pre-build", "^build"],
       "outputs": ["dist/**"]
     },
+    "desktop": {
+      "dependsOn": ["db#db:generate"]
+    },
     "lint": {
       "outputs": []
     },
