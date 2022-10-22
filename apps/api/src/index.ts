@@ -56,6 +56,7 @@ const main = async () => {
       resave: false,
       saveUninitialized: false,
       cookie: {
+        domain: process.env.COOKIE_DOMAIN,
         secure: false,
         // secure: process.env.NODE_ENV === 'production' ? true : false, // if true: only transmit cookie over https, in prod, always activate this
         httpOnly: true, // if true: prevents client side JS from reading the cookie
