@@ -45,6 +45,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         resave: false,
         saveUninitialized: false,
         cookie: {
+            domain: process.env.COOKIE_DOMAIN,
             secure: false,
             httpOnly: true,
             maxAge: 60 * 60 * 1000 * 24 * 3,

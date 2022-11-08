@@ -10,7 +10,7 @@ router.get(
   "/current-session",
   (req: express.Request, res: express.Response) => {
     const user = req.session?.user;
-    console.log(req.session)
+    (req.session)
     if (!user) {
       res.status(200).json({ success: false, message: "Unauthorized" });
       return;

@@ -3,6 +3,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { Navigate, Outlet, useOutletContext } from "react-router-dom";
 import { checkAuth } from "../api";
+import Loading from "../Components/Loading";
 import Nav from "../Components/Nav";
 import { UserProps } from "../utils/types";
 
@@ -12,7 +13,11 @@ const App = () => {
   const { data, status } = useQuery("session", checkAuth);
 
   if (status === "loading") {
-    return <Text>Loading...</Text>;
+    return (
+      <Flex w="100%" h="100vh">
+        <Loading />
+      </Flex>
+    );
   }
 
   if (status === "error") {

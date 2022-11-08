@@ -2,8 +2,8 @@ import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import express from "express";
 import { Database, Resource } from "@adminjs/prisma";
-import { DMMFClass } from '@prisma/client/runtime'
-import {prisma} from 'db'
+import { DMMFClass } from "@prisma/client/runtime";
+import { prisma } from "db";
 
 const session = require("express-session");
 const connectRedis = require("connect-redis");
@@ -22,7 +22,7 @@ AdminJS.registerAdapter({
 const authenticate = async (email: string, password: string) => {
   const admin = await prisma.user.findUnique({
     where: {
-     email,
+      email,
     },
   });
   if (admin && admin.password === password && admin.role === "admin") {
@@ -33,7 +33,7 @@ const authenticate = async (email: string, password: string) => {
 const start = async () => {
   const app = express();
 
-  const dmmf = ((prisma as any)._baseDmmf as DMMFClass)
+  const dmmf = (prisma as any)._baseDmmf as DMMFClass;
   const adminOptions = {
     resources: [
       {

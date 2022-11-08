@@ -18,7 +18,7 @@ model User {
   show_inactive_projects Boolean   @default(false)
   api_key                Apikey?
   projects               Project[]
-  role                   String      @default("user")
+  role                   String    @default("user")
 }
 
 model Project {
@@ -36,6 +36,7 @@ model Project {
   live_url    String?
   image_url   String   @default("https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png")
   owner       User     @relation(fields: [ownerId], references: [id])
+  status      String   @default("pending")
 }
 
 model Apikey {
