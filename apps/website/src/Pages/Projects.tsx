@@ -21,6 +21,7 @@ import { useQuery } from "react-query";
 import { ProjectProps } from "../utils/types";
 import { useUser } from "./App";
 import * as Sentry from "@sentry/react";
+import Loading from "../Components/Loading";
 const Projects = () => {
   const [view, _] = useState("list");
   const { user } = useUser();
@@ -30,7 +31,7 @@ const Projects = () => {
   });
 
   if (projectsStatus === "loading") {
-    return <Text>Loading...</Text>;
+    return <Loading />;
   }
 
   if (projectsStatus === "error") {

@@ -25,6 +25,7 @@ import axios from "axios";
 import { API_URL } from "../api/constants";
 import { FiTrash2 } from "react-icons/fi";
 import ModalComp from "../Components/ModalComp";
+import Loading from "../Components/Loading";
 
 axios.defaults.withCredentials = true;
 
@@ -38,7 +39,7 @@ const Project = () => {
   });
 
   if (projectStatus === "loading") {
-    return <Text>Loading...</Text>;
+    return <Loading />;
   }
 
   if (projectStatus === "error") {
