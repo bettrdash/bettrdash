@@ -14,9 +14,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API_URL } from "../api/constants";
 import { ColorModeSwitcher } from "../Components/ColorModeSwitcher";
+import * as Sentry from '@sentry/react'
+import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = false;
 
@@ -24,9 +26,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     if (email === "" || password === "") {
       toast({
         title: "Error",
@@ -46,8 +50,10 @@ const Login = () => {
         )
         .then((res) => {
           if (res.data.success) {
-            window.location.href = "/";
+            Sentry.setUser({ email: email });
+            navigate('/')
           } else {
+            Sentry.captureMessage(res.data.message);
             toast({
               title: "Error",
               description: res.data.message,

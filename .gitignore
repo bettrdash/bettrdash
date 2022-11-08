@@ -32,3 +32,6 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+#Desktop 
+desktop/dist

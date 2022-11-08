@@ -15,6 +15,18 @@ import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import theme from './utils/theme'
 import Project from "./Pages/Project";
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
+
+Sentry.init({
+  dsn: "https://af1db286b9844d3c852640f235b4ab2b@o4504119170105344.ingest.sentry.io/4504119172464640",
+  integrations: [new BrowserTracing()],
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
 
 ReactDOM.render(
   <React.StrictMode>

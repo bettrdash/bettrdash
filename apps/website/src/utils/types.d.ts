@@ -8,6 +8,7 @@ export type ProjectProps = {
   active: boolean;
   image_url: string;
   live_url?: string;
+  status: string;
 };
 
 export type UserProps = {
