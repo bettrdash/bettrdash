@@ -53,7 +53,20 @@ const Project = () => {
 
   return (
     <>
-      <Image w={200} h={200} src={project.image_url} />
+      <Image alt="project image" w={200} h={200} src={project.image_url} />
+      <Flex mt={5}>
+        <Text fontWeight={'700'} alignSelf={"center"}>Status:</Text>
+        <Text
+        color='white'
+          ml={2}
+          rounded={5}
+          p={1}
+          fontSize={12}
+          bg={project.status === "UP" ? "green.400" : "red.400"}
+        >
+          {project.status}
+        </Text>
+      </Flex>
       {view === "view" ? (
         <ViewMode project={project} setView={setView} />
       ) : (

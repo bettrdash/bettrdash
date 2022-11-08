@@ -24,7 +24,7 @@ const main = () => {
     app.use("/v1/status", status_1.default);
     const CronJob = cron_1.default.CronJob;
     try {
-        const job = new CronJob("*/1 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        const job = new CronJob("*/5 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             let projects = yield db_1.prisma.project.findMany({
                 where: {
                     active: true,
