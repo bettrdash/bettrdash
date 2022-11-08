@@ -10,7 +10,6 @@ import {
   VStack,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
@@ -24,6 +23,8 @@ import {
   MenuList,
   useToast,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+
 import {
   FiTrendingUp,
   FiSettings,
@@ -36,6 +37,7 @@ import axios from "axios";
 import { API_URL } from "../api/constants";
 import { UserProps } from "../utils/types";
 import { useNavigate } from "react-router-dom";
+import * as Sentry from "@sentry/react";
 
 interface LinkItemProps {
   name: string;
@@ -119,9 +121,9 @@ interface NavItemProps extends FlexProps {
 const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
   return (
     <Link
-      href={path}
+      to={path}
       style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
+      // _focus={{ boxShadow: "none" }}
     >
       <Flex
         align="center"

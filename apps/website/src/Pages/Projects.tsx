@@ -20,7 +20,7 @@ import { projectsApi, useAddProject } from "../api";
 import { useQuery } from "react-query";
 import { ProjectProps } from "../utils/types";
 import { useUser } from "./App";
-
+import * as Sentry from "@sentry/react";
 const Projects = () => {
   const [view, _] = useState("list");
   const { user } = useUser();
@@ -129,6 +129,9 @@ const NewProject = () => {
 
   const addProject = () => {
     if (!name || !description || !language) {
+      // Sentry.setUser({email: 'randomemail@mail.com'})
+      Sentry.setTag('testTag', 'randomuser')
+      Sentry.captureMessage('Missing required fields');
       toast({
         title: "Error",
         description: "All fields are required.",

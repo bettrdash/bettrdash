@@ -77,7 +77,7 @@ const ViewMode = ({
           onClick={() => setView("edit")}
           aria-label="Edit project"
           icon={<BiEditAlt />}
-          alignSelf='center'
+          alignSelf="center"
         />
         <DeleteProject id={project.id} />
         <Heading ml={3}>{project.name}</Heading>
@@ -85,7 +85,6 @@ const ViewMode = ({
           <Text mr={3}>•</Text>
           <Moment format="MMMM Do YYYY">{project.createdAt}</Moment>
         </Flex>
-        
       </Flex>
       <Flex fontSize={20} flexDir="column">
         <Flex mt={10}>
@@ -142,11 +141,12 @@ const EditMode = ({
   const [updatedProject, setUpdatedProject] = useState<any>({
     id: project.id,
     name: project.name,
+    live_url: project.live_url,
     github_url: project.github_url,
     language: project.language,
     description: project.description,
     active: project.active,
-    image_url: project.image_url
+    image_url: project.image_url,
   });
 
   const handleChange = (
@@ -176,10 +176,9 @@ const EditMode = ({
         .post(`${API_URL}/projects/update`, { project: updatedProject })
         .then((res) => {
           if (res.data.success) {
-          
             queryClient.invalidateQueries("project");
             setView("view");
-            window.location.reload()            
+            window.location.reload();
           } else {
             toast({
               title: "Error",
@@ -208,7 +207,7 @@ const EditMode = ({
         <Input
           ml={3}
           w={400}
-          name='name'
+          name="name"
           variant="flushed"
           value={updatedProject.name}
           onChange={handleChange}
@@ -234,7 +233,7 @@ const EditMode = ({
             ml={3}
             w={400}
             variant="flushed"
-            name='language'
+            name="language"
             value={updatedProject.language}
             onChange={handleChange}
             placeholder="Language"
@@ -261,7 +260,7 @@ const EditMode = ({
             ml={3}
             w={400}
             variant="flushed"
-            name='live_url'
+            name="live_url"
             value={updatedProject.live_url}
             onChange={handleChange}
             placeholder="Live Url"
@@ -273,7 +272,7 @@ const EditMode = ({
             ml={3}
             w={400}
             variant="flushed"
-            name='github_url'
+            name="github_url"
             value={updatedProject.github_url}
             onChange={handleChange}
             placeholder="Github Url"
@@ -285,7 +284,7 @@ const EditMode = ({
             ml={3}
             w={400}
             variant="flushed"
-            name='image_url'
+            name="image_url"
             value={updatedProject.image_url}
             onChange={handleChange}
             placeholder="Image Url"
@@ -296,37 +295,48 @@ const EditMode = ({
   );
 };
 
-const DeleteProject = ({id}: {id: number}) => {
-  const {isOpen, onOpen, onClose} = useDisclosure();
-  const navigate = useNavigate()
+const DeleteProject = ({ id }: { id: number }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   const toast = useToast();
 
   const deleteProject = async () => {
-    await axios
-      .post(`${API_URL}/projects/delete`, { id})
-      .then((res) => {
-        if (res.data.success) {
-          queryClient.invalidateQueries("projects");
-          navigate('/')
-        } else {
-          toast({
-            title: "Error",
-            description: res.data.message,
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
-        }
-      });
-  }
+    await axios.post(`${API_URL}/projects/delete`, { id }).then((res) => {
+      if (res.data.success) {
+        queryClient.invalidateQueries("projects");
+        navigate("/");
+      } else {
+        toast({
+          title: "Error",
+          description: res.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    });
+  };
   return (
     <>
-      <IconButton onClick={onOpen} ml={3} colorScheme='red' alignSelf='center' aria-label="delete project" icon={<FiTrash2 />} />
-      <ModalComp title='Are you sure?' onAction={deleteProject} isOpen={isOpen} onClose={onClose} actionText='Delete Project'>
+      <IconButton
+        onClick={onOpen}
+        ml={3}
+        colorScheme="red"
+        alignSelf="center"
+        aria-label="delete project"
+        icon={<FiTrash2 />}
+      />
+      <ModalComp
+        title="Are you sure?"
+        onAction={deleteProject}
+        isOpen={isOpen}
+        onClose={onClose}
+        actionText="Delete Project"
+      >
         <Text>This action is irreversible</Text>
       </ModalComp>
     </>
-  )
-}
+  );
+};
 
 export default Project;
