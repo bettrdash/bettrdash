@@ -1,7 +1,6 @@
 import "dotenv-safe/config";
 import "reflect-metadata";
 import express from "express";
-// import cors from "cors";
 const morgan = require("morgan");
 
 //routes
