@@ -33,7 +33,6 @@ const main = async () => {
       next: express.NextFunction
     ) => {
       const origin = req.headers.origin || "";
-      console.log(origin);
       res.setHeader("Access-Control-Allow-Origin", origin as string);
       res.setHeader(
         "Access-Control-Allow-Methods",
@@ -55,7 +54,6 @@ const main = async () => {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        domain: process.env.COOKIE_DOMAIN,
         secure: false,
         // secure: process.env.NODE_ENV === 'production' ? true : false, // if true: only transmit cookie over https, in prod, always activate this
         httpOnly: true, // if true: prevents client side JS from reading the cookie

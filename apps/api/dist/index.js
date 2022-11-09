@@ -31,7 +31,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     app.use(morgan(":date[iso] :remote-addr :method :url :status :res[content-length] - :response-time ms"));
     app.use((req, res, next) => {
         const origin = req.headers.origin || "";
-        console.log(origin);
         res.setHeader("Access-Control-Allow-Origin", origin);
         res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
         res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -45,7 +44,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         resave: false,
         saveUninitialized: false,
         cookie: {
-            domain: process.env.COOKIE_DOMAIN,
             secure: false,
             httpOnly: true,
             maxAge: 60 * 60 * 1000 * 24 * 3,
