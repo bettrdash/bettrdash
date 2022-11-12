@@ -28,35 +28,31 @@ const main = () => {
         });
         projects.forEach(async (project) => {
           if (isURL(project.live_url as string)) {
-            console.log(
-              `fetching project - ${project.live_url} - ${project.status} - ${project.id}`
-            );
             await axios
               .get(project.live_url!)
               .then(async (res) => {
-                if (project.id === 7)
-                  if (res.status === 200) {
-                    await prisma.project.update({
-                      where: {
-                        id: project.id,
-                      },
-                      data: {
-                        status: "UP",
-                      },
-                    });
-                  } else {
-                    await prisma.project.update({
-                      where: {
-                        id: project.id,
-                      },
-                      data: {
-                        status: "DOWN",
-                      },
-                    });
-                  }
+                if (res.status === 200) {
+                  await prisma.project.update({
+                    where: {
+                      id: project.id,
+                    },
+                    data: {
+                      status: "UP",
+                    },
+                  });
+                } else {
+                  await prisma.project.update({
+                    where: {
+                      id: project.id,
+                    },
+                    data: {
+                      status: "DOWN",
+                    },
+                  });
+                }
               })
-              .catch((e) => {
-                prisma.project.update({
+              .catch(async (e) => {
+                await prisma.project.update({
                   where: {
                     id: project.id,
                   },
