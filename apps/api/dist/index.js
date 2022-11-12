@@ -20,6 +20,7 @@ const auth_1 = __importDefault(require("./routes/auth"));
 const project_1 = __importDefault(require("./routes/project"));
 const auth_2 = __importDefault(require("./routes/api/auth"));
 const noauth_1 = __importDefault(require("./routes/api/noauth"));
+const monitor_1 = __importDefault(require("./routes/monitor"));
 const session = require("express-session");
 const connectRedis = require("connect-redis");
 const redis = require("redis");
@@ -65,6 +66,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     app.use(authenticate);
     app.use("/v1/projects", project_1.default);
     app.use("/v1/api", auth_2.default);
+    app.use('/v1/monitor', monitor_1.default);
     app.use((_, res) => {
         res.status(404).json({ status: "404" });
     });
