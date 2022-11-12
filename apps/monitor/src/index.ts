@@ -52,6 +52,14 @@ const main = () => {
                 }
               })
               .catch((e) => {
+                prisma.project.update({
+                  where: {
+                    id: project.id,
+                  },
+                  data: {
+                    status: "INVALID URL",
+                  },
+                });
                 console.log(e);
                 return e;
               });
