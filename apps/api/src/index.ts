@@ -8,6 +8,7 @@ import auth from "./routes/auth";
 import project from "./routes/project";
 import apiAuth from "./routes/api/auth";
 import apiNoAuth from "./routes/api/noauth";
+import monitor from './routes/monitor'
 
 const session = require("express-session");
 const connectRedis = require("connect-redis");
@@ -88,6 +89,7 @@ const main = async () => {
   app.use(authenticate);
   app.use("/v1/projects", project);
   app.use("/v1/api", apiAuth);
+  app.use('/v1/monitor', monitor)
 
   app.use((_, res: express.Response) => {
     res.status(404).json({ status: "404" });

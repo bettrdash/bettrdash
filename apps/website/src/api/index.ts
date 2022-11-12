@@ -7,18 +7,23 @@ axios.defaults.withCredentials = true;
 
 export const queryClient = new QueryClient();
 
+export const projectMonitor = async () => {
+  const res = await axios.get(`${API_URL}/monitor`);
+  return res.data;
+}
+
 export const checkAuth = async () => {
   const res = await axios.get(`${API_URL}/auth/current-session`);
   return res.data;
 };
 
-export const projectsApi = async (user: number) => {
-  const res = await axios.get(`${API_URL}/projects/user/${user}`);
+export const projectsApi = async () => {
+  const res = await axios.get(`${API_URL}/projects/all`);
   return res.data;
 };
 
-export const projectApi = async (user: number, id: string) => {
-  const res = await axios.get(`${API_URL}/projects/user/${user}/project/${id}`);
+export const projectApi = async (id: string) => {
+  const res = await axios.get(`${API_URL}/projects/single/${id}`);
   return res.data;
 };
 

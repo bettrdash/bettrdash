@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = require("db");
 const router = express_1.default.Router();
-router.get('/user/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const projects = yield db_1.prisma.project.findMany({
             where: {
@@ -37,7 +37,7 @@ router.get('/user/:id', (req, res) => __awaiter(void 0, void 0, void 0, function
         res.status(200).json({ success: false, message: "An error has occurred" });
     }
 }));
-router.get('/user/:id/project/:projectId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/single/:projectId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const project = yield db_1.prisma.project.findUnique({
             where: {
