@@ -24,11 +24,8 @@ const main = () => {
     app.use("/v1/status", status_1.default);
     const CronJob = cron_1.default.CronJob;
     try {
-        const job = new CronJob("*/5 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        const job = new CronJob("*/1 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             let projects = yield db_1.prisma.project.findMany({
-                where: {
-                    active: true,
-                },
                 select: {
                     id: true,
                     live_url: true,
@@ -37,27 +34,42 @@ const main = () => {
             projects.forEach((project) => __awaiter(void 0, void 0, void 0, function* () {
                 console.log(`fetching project - ${project.id}`);
                 if ((0, url_1.isURL)(project.live_url)) {
-                    let status = yield axios_1.default.get(project.live_url);
-                    if (status.status === 200) {
-                        yield db_1.prisma.project.update({
+                    yield axios_1.default
+                        .get(project.live_url)
+                        .then((res) => {
+                        if (res.status === 200) {
+                            db_1.prisma.project.update({
+                                where: {
+                                    id: project.id,
+                                },
+                                data: {
+                                    status: "UP",
+                                },
+                            });
+                        }
+                        else {
+                            db_1.prisma.project.update({
+                                where: {
+                                    id: project.id,
+                                },
+                                data: {
+                                    status: "DOWN",
+                                },
+                            });
+                        }
+                    })
+                        .catch((e) => {
+                        db_1.prisma.project.update({
                             where: {
                                 id: project.id,
                             },
                             data: {
-                                status: "UP",
+                                status: "INVALID URL",
                             },
                         });
-                    }
-                    else {
-                        yield db_1.prisma.project.update({
-                            where: {
-                                id: project.id,
-                            },
-                            data: {
-                                status: "DOWN",
-                            },
-                        });
-                    }
+                        console.log(e);
+                        return e;
+                    });
                 }
                 else {
                     yield db_1.prisma.project.update({

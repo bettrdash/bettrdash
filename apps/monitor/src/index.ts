@@ -16,12 +16,9 @@ const main = () => {
   //run every 5 minutes
   try {
     const job = new CronJob(
-      "*/5 * * * *",
+      "*/1 * * * *",
       async () => {
         let projects = await prisma.project.findMany({
-          where: {
-            active: true,
-          },
           select: {
             id: true,
             live_url: true,
@@ -31,26 +28,41 @@ const main = () => {
         projects.forEach(async (project) => {
           console.log(`fetching project - ${project.id}`);
           if (isURL(project.live_url as string)) {
-            let status = await axios.get(project.live_url as string);
-            if (status.status === 200) {
-              await prisma.project.update({
-                where: {
-                  id: project.id,
-                },
-                data: {
-                  status: "UP",
-                },
+            await axios
+              .get(project.live_url as string)
+              .then((res) => {
+                if (res.status === 200) {
+                  prisma.project.update({
+                    where: {
+                      id: project.id,
+                    },
+                    data: {
+                      status: "UP",
+                    },
+                  });
+                } else {
+                  prisma.project.update({
+                    where: {
+                      id: project.id,
+                    },
+                    data: {
+                      status: "DOWN",
+                    },
+                  });
+                }
+              })
+              .catch((e) => {
+                prisma.project.update({
+                  where: {
+                    id: project.id,
+                  },
+                  data: {
+                    status: "INVALID URL",
+                  },
+                });
+                console.log(e);
+                return e;
               });
-            } else {
-              await prisma.project.update({
-                where: {
-                  id: project.id,
-                },
-                data: {
-                  status: "DOWN",
-                },
-              });
-            }
           } else {
             await prisma.project.update({
               where: {
