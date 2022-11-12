@@ -50,7 +50,7 @@ const Monitor = () => {
         <TableContainer
           h="100%"
           overflowY="auto"
-          boxShadow={"2xl"}
+          boxShadow={"lg"}
           w="100%"
           rounded={10}
           mt={10}

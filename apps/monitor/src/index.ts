@@ -19,9 +19,6 @@ const main = () => {
       "*/1 * * * *",
       async () => {
         let projects = await prisma.project.findMany({
-          where: {
-            active: true,
-          },
           select: {
             id: true,
             live_url: true,
