@@ -16,40 +16,44 @@ const main = () => {
   //run every 5 minutes
   try {
     const job = new CronJob(
-      "*/1 * * * *",
+      "*/5 * * * *",
       async () => {
         let projects = await prisma.project.findMany({
           select: {
             id: true,
             live_url: true,
+            name: true,
+            status: true,
           },
         });
-
         projects.forEach(async (project) => {
-          console.log(`fetching project - ${project.id}`);
           if (isURL(project.live_url as string)) {
+            console.log(
+              `fetching project - ${project.live_url} - ${project.status} - ${project.id}`
+            );
             await axios
-              .get(project.live_url as string)
-              .then((res) => {
-                if (res.status === 200) {
-                  prisma.project.update({
-                    where: {
-                      id: project.id,
-                    },
-                    data: {
-                      status: "UP",
-                    },
-                  });
-                } else {
-                  prisma.project.update({
-                    where: {
-                      id: project.id,
-                    },
-                    data: {
-                      status: "DOWN",
-                    },
-                  });
-                }
+              .get(project.live_url!)
+              .then(async (res) => {
+                if (project.id === 7)
+                  if (res.status === 200) {
+                    await prisma.project.update({
+                      where: {
+                        id: project.id,
+                      },
+                      data: {
+                        status: "UP",
+                      },
+                    });
+                  } else {
+                    await prisma.project.update({
+                      where: {
+                        id: project.id,
+                      },
+                      data: {
+                        status: "DOWN",
+                      },
+                    });
+                  }
               })
               .catch((e) => {
                 prisma.project.update({
@@ -79,7 +83,6 @@ const main = () => {
       true,
       "America/Los_Angeles"
     );
-
     job.start();
   } catch (e) {
     console.log(e);
