@@ -34,27 +34,34 @@ const main = () => {
             projects.forEach((project) => __awaiter(void 0, void 0, void 0, function* () {
                 console.log(`fetching project - ${project.id}`);
                 if ((0, url_1.isURL)(project.live_url)) {
-                    let status = yield axios_1.default.get(project.live_url);
-                    if (status.status === 200) {
-                        yield db_1.prisma.project.update({
-                            where: {
-                                id: project.id,
-                            },
-                            data: {
-                                status: "UP",
-                            },
-                        });
-                    }
-                    else {
-                        yield db_1.prisma.project.update({
-                            where: {
-                                id: project.id,
-                            },
-                            data: {
-                                status: "DOWN",
-                            },
-                        });
-                    }
+                    yield axios_1.default
+                        .get(project.live_url)
+                        .then((res) => {
+                        if (res.status === 200) {
+                            db_1.prisma.project.update({
+                                where: {
+                                    id: project.id,
+                                },
+                                data: {
+                                    status: "UP",
+                                },
+                            });
+                        }
+                        else {
+                            db_1.prisma.project.update({
+                                where: {
+                                    id: project.id,
+                                },
+                                data: {
+                                    status: "DOWN",
+                                },
+                            });
+                        }
+                    })
+                        .catch((e) => {
+                        console.log(e);
+                        return e;
+                    });
                 }
                 else {
                     yield db_1.prisma.project.update({
