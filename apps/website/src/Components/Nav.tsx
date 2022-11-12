@@ -63,7 +63,7 @@ const Nav = ({ children, user }: { children: ReactNode; user: UserProps }) => {
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
-      />
+      /> 
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -219,7 +219,7 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Dashboard
+        BettrDash
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>

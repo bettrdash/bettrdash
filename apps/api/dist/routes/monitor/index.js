@@ -27,10 +27,10 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         },
         orderBy: [
             {
-                name: "asc",
+                name: "desc",
             },
             {
-                status: "asc",
+                status: "desc",
             },
         ],
         select: {
