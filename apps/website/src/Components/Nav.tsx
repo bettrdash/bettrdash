@@ -22,6 +22,8 @@ import {
   MenuItem,
   MenuList,
   useToast,
+  Heading,
+  Center,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -30,6 +32,7 @@ import {
   FiSettings,
   FiMenu,
   FiChevronDown,
+  FiActivity,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
@@ -49,6 +52,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Projects", icon: FiTrendingUp, path: "/" },
   // { name: "Explore", icon: FiCompass },
   // { name: "Favourites", icon: FiStar },
+  { name: "Monitor", icon: FiActivity, path: "/monitor" },
   { name: "Settings", icon: FiSettings, path: "/settings" },
 ];
 
@@ -75,7 +79,7 @@ const Nav = ({ children, user }: { children: ReactNode; user: UserProps }) => {
       </Drawer>
       {/* mobilenav */}
       <MobileNav user={user} onOpen={onOpen} />
-      <Box minH="100vh" h="auto" ml={{ base: 0, md: 60 }} p="4">
+      <Box minH="100%" h="100%" ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
     </Box>
@@ -242,7 +246,6 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
                   ml="2"
                 >
                   <Text fontSize="sm">{user.name}</Text>
-                  
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
                   <FiChevronDown />

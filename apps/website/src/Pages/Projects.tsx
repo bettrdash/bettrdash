@@ -14,6 +14,7 @@ import {
   Select,
   useToast,
   GridItem,
+  Center,
 } from "@chakra-ui/react";
 import ModalComp from "../Components/ModalComp";
 import { projectsApi, useAddProject } from "../api";
@@ -27,7 +28,7 @@ const Projects = () => {
   const { user } = useUser();
   const { data: projectsData, status: projectsStatus } = useQuery({
     queryKey: "projects",
-    queryFn: () => projectsApi(user!.id),
+    queryFn: () => projectsApi(),
   });
 
   if (projectsStatus === "loading") {
@@ -49,9 +50,8 @@ const Projects = () => {
         <Heading>Projects</Heading>
         <NewProject />
       </HStack>
-      <Flex h='100%' flexDir='column' w="100%" alignSelf={'center'}>
+        {/* <Flex h='100%' flexDir='column' w="100%" alignSelf={'center'}> */}
         <Grid
-          w="100%"
           templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
           autoRows={"inherit"}
           gap={20}
@@ -66,7 +66,8 @@ const Projects = () => {
             </GridItem>
           ))}
         </Grid>
-      </Flex>
+
+      {/* </Flex> */}
     </>
   );
 };
@@ -131,8 +132,8 @@ const NewProject = () => {
   const addProject = () => {
     if (!name || !description || !language) {
       // Sentry.setUser({email: 'randomemail@mail.com'})
-      Sentry.setTag('testTag', 'randomuser')
-      Sentry.captureMessage('Missing required fields');
+      Sentry.setTag("testTag", "randomuser");
+      Sentry.captureMessage("Missing required fields");
       toast({
         title: "Error",
         description: "All fields are required.",
@@ -141,7 +142,15 @@ const NewProject = () => {
         isClosable: true,
       });
     } else {
-      addUpload({ name, description, github_url, language, active, live_url, image_url });
+      addUpload({
+        name,
+        description,
+        github_url,
+        language,
+        active,
+        live_url,
+        image_url,
+      });
       onClose();
       setName("");
       setGithubUrl("");

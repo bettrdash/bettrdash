@@ -35,7 +35,7 @@ const Project = () => {
   const { user } = useUser();
   const { data: projectData, status: projectStatus } = useQuery({
     queryKey: "project",
-    queryFn: () => projectApi(user!.id, id!),
+    queryFn: () => projectApi(id!),
   });
 
   if (projectStatus === "loading") {

@@ -17,6 +17,7 @@ import theme from './utils/theme'
 import Project from "./Pages/Project";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
+import Monitor from "./Pages/Monitor";
 
 Sentry.init({
   dsn: "https://af1db286b9844d3c852640f235b4ab2b@o4504119170105344.ingest.sentry.io/4504119172464640",
@@ -37,6 +38,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route index element={<Projects />} />
+              <Route path='/monitor' element={<Monitor />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/profile" element={<Profile />} />
               <Route path='/projects/:id' element={<Project />} />
