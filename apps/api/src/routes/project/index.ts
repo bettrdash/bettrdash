@@ -4,7 +4,7 @@ import { prisma } from 'db'
 const router = express.Router()
 
 //get users projects
-router.get('/user/:id', async (req: express.Request, res: express.Response) => {
+router.get('/all', async (req: express.Request, res: express.Response) => {
   try {
     const projects = await prisma.project.findMany({
       where: {
@@ -27,7 +27,7 @@ router.get('/user/:id', async (req: express.Request, res: express.Response) => {
 })
 
 //get single project by id
-router.get('/user/:id/project/:projectId', async (req: express.Request, res: express.Response) => {
+router.get('/single/:projectId', async (req: express.Request, res: express.Response) => {
   try {
     const project = await prisma.project.findUnique({
       where: {

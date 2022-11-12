@@ -29,6 +29,7 @@ import {
   FiSettings,
   FiMenu,
   FiChevronDown,
+  FiActivity,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
@@ -47,6 +48,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Projects", icon: FiTrendingUp, path: "/" },
   // { name: "Explore", icon: FiCompass },
   // { name: "Favourites", icon: FiStar },
+  { name: "Monitor", icon: FiActivity, path: "/monitor" },
   { name: "Settings", icon: FiSettings, path: "/settings" },
 ];
 
@@ -120,7 +122,7 @@ const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
   return (
     <Link
       href={path}
-      className='btn'
+      className="btn"
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
@@ -217,7 +219,7 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
         Dashboard
       </Text>
 
-      <HStack  spacing={{ base: "0", md: "6" }}>
+      <HStack spacing={{ base: "0", md: "6" }}>
         <ColorModeSwitcher />
         {/* <IconButton
           size="lg"
@@ -225,7 +227,7 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
           aria-label="open menu"
           icon={<FiBell />}
         /> */}
-        <Flex  alignItems={"center"}>
+        <Flex alignItems={"center"}>
           <Menu>
             <MenuButton
               py={2}
