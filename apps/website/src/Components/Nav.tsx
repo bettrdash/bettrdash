@@ -125,6 +125,7 @@ interface NavItemProps extends FlexProps {
 const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
   return (
     <Link
+      
       to={path}
       style={{ textDecoration: "none" }}
       // _focus={{ boxShadow: "none" }}
