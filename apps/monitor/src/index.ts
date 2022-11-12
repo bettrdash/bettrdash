@@ -16,7 +16,7 @@ const main = () => {
   //run every 5 minutes
   try {
     const job = new CronJob(
-      "*/5 * * * *",
+      "*/1 * * * *",
       async () => {
         let projects = await prisma.project.findMany({
           where: {
