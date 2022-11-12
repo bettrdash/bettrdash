@@ -16,23 +16,23 @@ const main = () => {
   //run every 5 minutes
   try {
     const job = new CronJob(
-      "*/1 * * * *",
+      "*/5 * * * *",
       async () => {
         let projects = await prisma.project.findMany({
           select: {
             id: true,
             live_url: true,
+            name: true,
+            status: true,
           },
         });
-
         projects.forEach(async (project) => {
-          console.log(`fetching project - ${project.id}`);
           if (isURL(project.live_url as string)) {
             await axios
-              .get(project.live_url as string)
-              .then((res) => {
+              .get(project.live_url!)
+              .then(async (res) => {
                 if (res.status === 200) {
-                  prisma.project.update({
+                  await prisma.project.update({
                     where: {
                       id: project.id,
                     },
@@ -41,7 +41,7 @@ const main = () => {
                     },
                   });
                 } else {
-                  prisma.project.update({
+                  await prisma.project.update({
                     where: {
                       id: project.id,
                     },
@@ -51,8 +51,8 @@ const main = () => {
                   });
                 }
               })
-              .catch((e) => {
-                prisma.project.update({
+              .catch(async (e) => {
+                await prisma.project.update({
                   where: {
                     id: project.id,
                   },
@@ -79,7 +79,6 @@ const main = () => {
       true,
       "America/Los_Angeles"
     );
-
     job.start();
   } catch (e) {
     console.log(e);

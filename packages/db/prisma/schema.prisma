@@ -25,10 +25,7 @@ model Project {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  // name field with string and citext extension
   name        String   @db.Citext
-  // name        String   @db.Citext
-  ownerId     Int
   github_url  String?
   language    String
   description String
@@ -36,6 +33,7 @@ model Project {
   live_url    String?
   image_url   String   @default("https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png")
   owner       User     @relation(fields: [ownerId], references: [id])
+  ownerId     Int
   status      String   @default("pending")
 }
 

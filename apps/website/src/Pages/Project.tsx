@@ -28,6 +28,8 @@ import ModalComp from "../Components/ModalComp";
 import Loading from "../Components/Loading";
 
 axios.defaults.withCredentials = true;
+const IMAGE =
+  "https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png";
 
 const Project = () => {
   const [view, setView] = useState("view");
@@ -54,7 +56,7 @@ const Project = () => {
 
   return (
     <>
-      <Image alt="project image" w={200} h={200} src={project.image_url} />
+      <Image alt="project image" w={200} h={200} src={project.image_url} fallbackSrc={IMAGE} />
       <Flex mt={5}>
         <Text fontWeight={'700'} alignSelf={"center"}>Status:</Text>
         <Text
