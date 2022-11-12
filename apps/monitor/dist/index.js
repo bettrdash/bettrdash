@@ -26,9 +26,6 @@ const main = () => {
     try {
         const job = new CronJob("*/1 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             let projects = yield db_1.prisma.project.findMany({
-                where: {
-                    active: true,
-                },
                 select: {
                     id: true,
                     live_url: true,
