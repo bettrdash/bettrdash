@@ -10,8 +10,10 @@ import {
   TableContainer,
   Text,
   Flex,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useQuery } from "react-query";
+import { ScaleLoader } from "react-spinners";
 import { projectMonitor } from "../api";
 import Loading from "../Components/Loading";
 
@@ -21,6 +23,8 @@ type ProjectProp = {
   live_url: string;
 };
 const Monitor = () => {
+  const color = useColorModeValue('#F2F2F2', '#171923')
+
   const { data: projectMonitorData, status: projectMonitorStatus } = useQuery(
     "projectMonitor",
     projectMonitor
@@ -65,16 +69,21 @@ const Monitor = () => {
                   <Td>
                     {" "}
                     <Flex>
-                      <Text
-                        color="white"
+                      <Flex
                         ml={2}
                         rounded={5}
                         p={1}
                         fontSize={12}
+                        color={color}
                         bg={project.status === "UP" ? "green.400" : "red.400"}
                       >
                         {project.status}
-                      </Text>
+                        {project.status === "pending" ? (
+                         <Flex ml={2} alignSelf={'center'}>
+                           <ScaleLoader color={color} width={2} height={10} />
+                           </Flex>
+                        ) : null}
+                      </Flex>
                     </Flex>
                   </Td>
                 </Tr>

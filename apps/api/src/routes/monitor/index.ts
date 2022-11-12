@@ -17,10 +17,10 @@ router.get("/", async (req: express.Request, res: express.Response) => {
     },
     orderBy: [
       {
-        name: "asc",
+        name: "desc",
       },
       {
-        status: "asc",
+        status: "desc",
       },
     ],
     select: {
