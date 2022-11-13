@@ -4,26 +4,23 @@ import { useQuery } from "react-query";
 import { projectApi, queryClient } from "../api";
 import {
   Button,
+  Center,
   Flex,
   Heading,
-  IconButton,
   Image,
   Input,
-  Link,
   Switch,
   Text,
   Textarea,
+  useColorModeValue,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import Moment from "react-moment";
 import "moment-timezone";
 import { ProjectProps } from "../utils/types";
 import React, { useState } from "react";
-import { BiEditAlt } from "react-icons/bi";
 import axios from "axios";
 import { API_URL } from "../api/constants";
-import { FiTrash2 } from "react-icons/fi";
 import ModalComp from "../Components/ModalComp";
 import Loading from "../Components/Loading";
 
@@ -32,9 +29,7 @@ const IMAGE =
   "https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png";
 
 const Project = () => {
-  const [view, setView] = useState("view");
   const { id } = useParams();
-  const { user } = useUser();
   const { data: projectData, status: projectStatus } = useQuery({
     queryKey: "project",
     queryFn: () => projectApi(id!),
@@ -56,103 +51,22 @@ const Project = () => {
 
   return (
     <>
-      <Image alt="project image" w={200} h={200} src={project.image_url} fallbackSrc={IMAGE} />
-      <Flex mt={5}>
-        <Text fontWeight={'700'} alignSelf={"center"}>Status:</Text>
-        <Text
-        color='white'
-          ml={2}
-          rounded={5}
-          p={1}
-          fontSize={12}
-          bg={project.status === "UP" ? "green.400" : "red.400"}
-        >
-          {project.status}
-        </Text>
-      </Flex>
-      {view === "view" ? (
-        <ViewMode project={project} setView={setView} />
-      ) : (
-        <EditMode project={project} setView={setView} />
-      )}
+      <Image
+        rounded={10}
+        alt="project image"
+        w={"100%"}
+        h={250}
+        src={project.image_url}
+        fallbackSrc={IMAGE}
+      />
+      <EditMode project={project} />
     </>
   );
 };
 
-const ViewMode = ({
-  project,
-  setView,
-}: {
-  project: ProjectProps;
-  setView: React.Dispatch<React.SetStateAction<string>>;
-}) => {
-  return (
-    <>
-      <Flex mt={5}>
-        <IconButton
-          onClick={() => setView("edit")}
-          aria-label="Edit project"
-          icon={<BiEditAlt />}
-          alignSelf="center"
-        />
-        <DeleteProject id={project.id} />
-        <Heading ml={3}>{project.name}</Heading>
-        <Flex fontWeight={"500"} ml={3} alignSelf={"end"} mb={1.5}>
-          <Text mr={3}>•</Text>
-          <Moment format="MMMM Do YYYY">{project.createdAt}</Moment>
-        </Flex>
-      </Flex>
-      <Flex fontSize={20} flexDir="column">
-        <Flex mt={10}>
-          <Text fontWeight={"600"}>Description: </Text>
-          <Text ml={3}>{project.description}</Text>
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Language: </Text>
-          <Text ml={3}>{project.language}</Text>
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Active: </Text>
-          <Text ml={3}>{project.active ? "Yes" : "No"}</Text>
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Live URL: </Text>
-          <Link
-            href={project.live_url}
-            _hover={{
-              bgClip: "text",
-              bgGradient: "linear(to-r, red.400,pink.400)",
-            }}
-            ml={3}
-          >
-            {project.live_url}
-          </Link>
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Github URL: </Text>
-          <Link
-            href={project.github_url}
-            _hover={{
-              bgClip: "text",
-              bgGradient: "linear(to-r, red.400,pink.400)",
-            }}
-            ml={3}
-          >
-            {project.github_url}
-          </Link>
-        </Flex>
-      </Flex>
-    </>
-  );
-};
-
-const EditMode = ({
-  project,
-  setView,
-}: {
-  project: ProjectProps;
-  setView: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+const EditMode = ({ project }: { project: ProjectProps }) => {
+  const [loading, setLoading] = useState(false);
+  const [unsaved, setUnsaved] = useState(false);
   const toast = useToast();
   const [updatedProject, setUpdatedProject] = useState<any>({
     id: project.id,
@@ -171,6 +85,7 @@ const EditMode = ({
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    setUnsaved(true);
     setUpdatedProject({ ...updatedProject, [name]: value });
   };
 
@@ -188,13 +103,20 @@ const EditMode = ({
         isClosable: true,
       });
     } else {
+      setLoading(true);
       await axios
         .post(`${API_URL}/projects/update`, { project: updatedProject })
         .then((res) => {
+          setLoading(false);
           if (res.data.success) {
+            setUnsaved(false);
             queryClient.invalidateQueries("project");
-            setView("view");
-            window.location.reload();
+            toast({
+              description: "Project updated successfully",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+            });
           } else {
             toast({
               title: "Error",
@@ -207,106 +129,136 @@ const EditMode = ({
         });
     }
   };
-
+  const bg = useColorModeValue("#f2f2f2", "#1A202C");
   return (
     <>
-      <Flex mt={5}>
-        <Button onClick={() => setView("view")}>Cancel</Button>
-        <Button
-          ml={3}
-          color="white"
-          onClick={handleSave}
-          bgGradient={"linear(to-r, red.400,pink.400)"}
+      <Center mt={3} flexDir={"column"}>
+        <Flex
+          flexDir={"column"}
+          boxShadow={"xl"}
+          w={"100%"}
+          padding={5}
+          rounded={5}
         >
-          Save
-        </Button>
-        <Input
-          ml={3}
-          w={400}
-          name="name"
-          variant="flushed"
-          value={updatedProject.name}
-          onChange={handleChange}
-          placeholder="Name"
-        />
-        <DeleteProject id={project.id} />
-      </Flex>
-      <Flex fontSize={20} flexDir="column">
-        <Flex mt={10}>
-          <Text fontWeight={"600"}>Description: </Text>
-          <Textarea
-            ml={3}
-            w={400}
-            name="description"
-            placeholder="Description"
-            value={updatedProject.description}
-            onChange={handleChange}
-          />
+          <Flex alignSelf={"center"} mt={5}>
+            <Heading alignSelf={"center"} fontSize={15}>
+              Status:
+            </Heading>
+            <Text
+              color="white"
+              ml={2}
+              rounded={5}
+              p={1}
+              fontSize={12}
+              bg={project.status === "UP" ? "green.400" : "red.400"}
+            >
+              {project.status}
+            </Text>
+          </Flex>
+          <Flex w={"100%"} flexDir={"column"}>
+            <Heading fontSize={15}>Name</Heading>
+            <Input
+              mt={2}
+              w="100%"
+              bg={bg}
+              name="name"
+              border="none"
+              value={updatedProject.name}
+              onChange={handleChange}
+              placeholder="Name"
+            />
+          </Flex>
+          <Flex flexDir={"column"} mt={5}>
+            <Heading fontSize={15}>Description: </Heading>
+            <Textarea
+              w="100%"
+              mt={2}
+              bg={bg}
+              border="none"
+              name="description"
+              placeholder="Description"
+              value={updatedProject.description}
+              onChange={handleChange}
+            />
+          </Flex>
+          <Flex flexDir={"column"} mt={5}>
+            <Heading fontSize={15}>Language: </Heading>
+            <Input
+              mt={2}
+              bg={bg}
+              border="none"
+              name="language"
+              value={updatedProject.language}
+              onChange={handleChange}
+              placeholder="Language"
+            />
+          </Flex>
+          <Flex mt={5}>
+            <Heading fontSize={15}>Active: </Heading>
+            <Switch
+              onChange={() => {
+                setUnsaved(true);
+                setUpdatedProject({
+                  ...updatedProject,
+                  active: !updatedProject.active,
+                });
+              }}
+              isChecked={updatedProject.active}
+              colorScheme={"green"}
+              ml={3}
+              alignSelf={"center"}
+            />
+          </Flex>
+          <Flex flexDir={"column"} mt={5}>
+            <Heading fontSize={15}>Live URL: </Heading>
+            <Input
+              mt={2}
+              bg={bg}
+              border="none"
+              name="live_url"
+              value={updatedProject.live_url}
+              onChange={handleChange}
+              placeholder="Live Url"
+            />
+          </Flex>
+          <Flex flexDir={"column"} mt={5}>
+            <Heading fontSize={15}>Github URL: </Heading>
+            <Input
+              mt={2}
+              border="none"
+              bg={bg}
+              name="github_url"
+              value={updatedProject.github_url}
+              onChange={handleChange}
+              placeholder="Github Url"
+            />
+          </Flex>
+          <Flex flexDir={"column"} mt={5}>
+            <Heading fontSize={15}>Image URL: </Heading>
+            <Input
+              mt={2}
+              bg={bg}
+              border="none"
+              name="image_url"
+              value={updatedProject.image_url}
+              onChange={handleChange}
+              placeholder="Image Url"
+            />
+          </Flex>
+          <Button
+          isLoading={loading}
+            _hover={{ color: "#1A202C", bg: "gray.200" }}
+            disabled={!unsaved}
+            mt={5}
+            color="white"
+            onClick={handleSave}
+            bgGradient={"linear(to-r, red.400,pink.400)"}
+          >
+            Save
+          </Button>
+          <DeleteProject id={project.id} />
         </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Language: </Text>
-          <Input
-            ml={3}
-            w={400}
-            variant="flushed"
-            name="language"
-            value={updatedProject.language}
-            onChange={handleChange}
-            placeholder="Language"
-          />
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Active: </Text>
-          <Switch
-            onChange={() =>
-              setUpdatedProject({
-                ...updatedProject,
-                active: !updatedProject.active,
-              })
-            }
-            isChecked={updatedProject.active}
-            colorScheme={"green"}
-            ml={3}
-            alignSelf={"center"}
-          />
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Live URL: </Text>
-          <Input
-            ml={3}
-            w={400}
-            variant="flushed"
-            name="live_url"
-            value={updatedProject.live_url}
-            onChange={handleChange}
-            placeholder="Live Url"
-          />
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Github URL: </Text>
-          <Input
-            ml={3}
-            w={400}
-            variant="flushed"
-            name="github_url"
-            value={updatedProject.github_url}
-            onChange={handleChange}
-            placeholder="Github Url"
-          />
-        </Flex>
-        <Flex mt={3}>
-          <Text fontWeight={"600"}>Image URL: </Text>
-          <Input
-            ml={3}
-            w={400}
-            variant="flushed"
-            name="image_url"
-            value={updatedProject.image_url}
-            onChange={handleChange}
-            placeholder="Image Url"
-          />
-        </Flex>
-      </Flex>
+      </Center>
     </>
   );
 };
@@ -334,14 +286,9 @@ const DeleteProject = ({ id }: { id: number }) => {
   };
   return (
     <>
-      <IconButton
-        onClick={onOpen}
-        ml={3}
-        colorScheme="red"
-        alignSelf="center"
-        aria-label="delete project"
-        icon={<FiTrash2 />}
-      />
+      <Button onClick={onOpen} colorScheme="red" mt={3}>
+        <Text>Delete Project</Text>
+      </Button>
       <ModalComp
         title="Are you sure?"
         onAction={deleteProject}
