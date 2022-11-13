@@ -65,6 +65,7 @@ const Project = () => {
 };
 
 const EditMode = ({ project }: { project: ProjectProps }) => {
+  const [loading, setLoading] = useState(false);
   const [unsaved, setUnsaved] = useState(false);
   const toast = useToast();
   const [updatedProject, setUpdatedProject] = useState<any>({
@@ -102,9 +103,11 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
         isClosable: true,
       });
     } else {
+      setLoading(true);
       await axios
         .post(`${API_URL}/projects/update`, { project: updatedProject })
         .then((res) => {
+          setLoading(false);
           if (res.data.success) {
             setUnsaved(false);
             queryClient.invalidateQueries("project");
@@ -243,6 +246,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             />
           </Flex>
           <Button
+          isLoading={loading}
             _hover={{ color: "#1A202C", bg: "gray.200" }}
             disabled={!unsaved}
             mt={5}
