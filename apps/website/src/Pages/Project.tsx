@@ -106,6 +106,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
         .post(`${API_URL}/projects/update`, { project: updatedProject })
         .then((res) => {
           if (res.data.success) {
+            setUnsaved(false);
             queryClient.invalidateQueries("project");
             toast({
               description: "Project updated successfully",
