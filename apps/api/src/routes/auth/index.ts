@@ -89,6 +89,19 @@ router.post("/signup", async (req: express.Request, res: express.Response) => {
             },
           });
           const { password, createdAt, updatedAt, ...other } = newUser;
+          /* 
+          Needs testing to see if this works
+          // await prisma.apikey.create({
+          //   data: {
+          //     key: v1(),
+          //     user: {
+          //       connect: {
+          //         id: req.session!.user!.id,
+          //       },
+          //     },
+          //   },
+          // });
+          */
           req.session.user = other;
           res.status(200).json({ success: true });
         });
