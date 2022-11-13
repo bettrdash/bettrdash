@@ -124,7 +124,7 @@ const Settings = () => {
             <Flex flexDir={"column"}>
               <Heading fontSize={15}>API Key: </Heading>
               <Flex justify={"space-between"}>
-                <Text alignSelf={"center"}>{apiKeyData.apiKey}</Text>
+                <Text w={{base:  '70%',md: "90%"}} alignSelf={"center"}>{apiKeyData.apiKey}</Text>
                 <Button
                   bgGradient={"linear(to-r, red.400,pink.400)"}
                   onClick={() => copyToClipboard(`${apiKeyData.apiKey}`)}
