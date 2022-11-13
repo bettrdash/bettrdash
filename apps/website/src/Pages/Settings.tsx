@@ -99,7 +99,7 @@ const Settings = () => {
             <Flex flexDir={"column"}>
               <Heading fontSize={15}>API URL: </Heading>
               <Flex justify={"space-between"}>
-                <Text w={"90%"} alignSelf={"center"}>
+                <Text w={{base:  '70%',md: "90%"}} alignSelf={"center"}>
                   https://api.bettrdash.eliaswambugu.com/v1/api/projects?key=
                   {apiKeyData.apiKey}
                 </Text>
