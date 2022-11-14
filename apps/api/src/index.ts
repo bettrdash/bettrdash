@@ -53,16 +53,15 @@ const main = async () => {
       store: new RedisStore({ client: redisClient }),
       secret: process.env.SESSION_SECRET,
       resave: false,
-      saveUninitialized: false,
       cookie: {
-        secure: false,
+        secure: true,
         // secure: process.env.NODE_ENV === 'production' ? true : false, // if true: only transmit cookie over https, in prod, always activate this
-        httpOnly: true, // if true: prevents client side JS from reading the cookie
+        // httpOnly: true, // if true: prevents client side JS from reading the cookie
         maxAge: 60 * 60 * 1000 * 24 * 3, // session max age in milliseconds (3 days)
         // explicitly set cookie to lax
         // to make sure that all cookies accept it
         // you should never use none anyway
-        sameSite: "none",
+        // sameSite: "none",
       },
     })
   );

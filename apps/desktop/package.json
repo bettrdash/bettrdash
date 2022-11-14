@@ -38,10 +38,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build:desktop": "yarn --cwd ../website build && yarn copy && tsc -p electron && electron-builder -c.extraMetadata.main=build/electron/main.js",
+    "build:desktop": "yarn electron:build && tsc -p electron && electron-builder -c.extraMetadata.main=build/electron/main.js",
     "start:electron": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
     "electron:build": "react-scripts build",
-    "copy": "copyfiles -u 3 \"../website/build/**/*\" ./build",
     "desktop": "yarn start:electron",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
