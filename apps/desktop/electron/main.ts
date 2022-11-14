@@ -19,11 +19,11 @@ const createWindow = () => {
     // win.loadURL(`file://${path.join(__dirname, "../index.html")}`);
     win.loadURL('file://' + path.join(__dirname, "../index.html"));
   } else {
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, "../index.html"),
-      protocol: 'file:',
-      slashes: true
-    }))
+    // win.loadURL(url.format({
+    //   pathname: path.join(__dirname, "../index.html"),
+    //   protocol: 'file:',
+    //   slashes: true
+    // }))
     win.loadURL("http://localhost:3000");
     // Hot Reloading on 'node_modules/.bin/electronPath'
     require("electron-reload")(__dirname, {

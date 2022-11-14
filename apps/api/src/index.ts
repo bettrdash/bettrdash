@@ -62,7 +62,7 @@ const main = async () => {
         // explicitly set cookie to lax
         // to make sure that all cookies accept it
         // you should never use none anyway
-        sameSite: "lax",
+        sameSite: "none",
       },
     })
   );
@@ -73,6 +73,7 @@ const main = async () => {
     next: express.NextFunction
   ) => {
     if (!req.session || !req.session.user) {
+      req
       res.status(200).json({ success: false, message: "Unauthorized" });
       return;
     }

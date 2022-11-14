@@ -1,0 +1,86 @@
+"filename", "language", "TypeScript", "TypeScript React", "JSON", "JSON with Comments", "CSS", "JavaScript", "Markdown", "HTML", "comment", "blank", "total"
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/admin/.adminjs/.entry.js", "JavaScript", 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 2
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/admin/package.json", "JSON", 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 27
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/admin/src/env.d.ts", "TypeScript", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/admin/src/index.ts", "TypeScript", 75, 0, 0, 0, 0, 0, 0, 0, 0, 10, 85
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/admin/tsconfig.json", "JSON with Comments", 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/package.json", "JSON", 0, 0, 45, 0, 0, 0, 0, 0, 0, 1, 46
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/custom_typings.ts", "TypeScript", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/env.d.ts", "TypeScript", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/index.ts", "TypeScript", 82, 0, 0, 0, 0, 0, 0, 0, 6, 16, 104
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/routes/api/auth.ts", "TypeScript", 83, 0, 0, 0, 0, 0, 0, 0, 5, 10, 98
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/routes/api/noauth.ts", "TypeScript", 75, 0, 0, 0, 0, 0, 0, 0, 0, 5, 80
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/routes/auth/index.ts", "TypeScript", 168, 0, 0, 0, 0, 0, 0, 0, 14, 9, 191
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/routes/monitor/index.ts", "TypeScript", 30, 0, 0, 0, 0, 0, 0, 0, 0, 6, 36
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/src/routes/project/index.ts", "TypeScript", 142, 0, 0, 0, 0, 0, 0, 0, 5, 8, 155
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/api/tsconfig.json", "JSON with Comments", 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 8
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 40, 0, 0, 20, 60
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/electron/main.ts", "TypeScript", 46, 0, 0, 0, 0, 0, 0, 0, 8, 5, 59
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/electron/preload.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/electron/tsconfig.json", "JSON with Comments", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 14
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/package.json", "JSON", 0, 0, 86, 0, 0, 0, 0, 0, 0, 1, 87
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/public/index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 18, 25, 1, 44
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/public/manifest.json", "JSON", 0, 0, 25, 0, 0, 0, 0, 0, 0, 1, 26
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Components/ColorModeSwitcher.tsx", "TypeScript React", 0, 27, 0, 0, 0, 0, 0, 0, 0, 4, 31
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Components/ModalComp.tsx", "TypeScript React", 0, 42, 0, 0, 0, 0, 0, 0, 0, 4, 46
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Components/Nav.tsx", "TypeScript React", 0, 250, 0, 0, 0, 0, 0, 0, 11, 11, 272
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Components/ProjectCard.tsx", "TypeScript React", 0, 89, 0, 0, 0, 0, 0, 0, 0, 5, 94
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Components/Stat.tsx", "TypeScript React", 0, 17, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/App.tsx", "TypeScript React", 0, 30, 0, 0, 0, 0, 0, 0, 0, 9, 39
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/Home.tsx", "TypeScript React", 0, 15, 0, 0, 0, 0, 0, 0, 0, 3, 18
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/Login.tsx", "TypeScript React", 0, 138, 0, 0, 0, 0, 0, 0, 0, 5, 143
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/Profile.tsx", "TypeScript React", 0, 219, 0, 0, 0, 0, 0, 0, 0, 3, 222
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/Project.tsx", "TypeScript React", 0, 315, 0, 0, 0, 0, 0, 0, 0, 18, 333
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/Projects.tsx", "TypeScript React", 0, 221, 0, 0, 0, 0, 0, 0, 3, 11, 235
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/Settings.tsx", "TypeScript React", 0, 192, 0, 0, 0, 0, 0, 0, 12, 14, 218
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/Pages/Signup.tsx", "TypeScript React", 0, 316, 0, 0, 0, 0, 0, 0, 0, 7, 323
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/api/constants.ts", "TypeScript", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/api/index.ts", "TypeScript", 55, 0, 0, 0, 0, 0, 0, 0, 0, 11, 66
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/index.css", "CSS", 0, 0, 0, 0, 15, 0, 0, 0, 0, 4, 19
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/index.tsx", "TypeScript React", 0, 42, 0, 0, 0, 0, 0, 0, 6, 3, 51
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/react-app-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/reportWebVitals.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/serviceWorker.ts", "TypeScript", 102, 0, 0, 0, 0, 0, 0, 0, 31, 14, 147
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/setupTests.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 4, 1, 6
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/test-utils.tsx", "TypeScript React", 0, 9, 0, 0, 0, 0, 0, 0, 0, 4, 13
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/utils/history.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/utils/theme.ts", "TypeScript", 7, 0, 0, 0, 0, 0, 0, 0, 2, 4, 13
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/src/utils/types.d.ts", "TypeScript", 17, 0, 0, 0, 0, 0, 0, 0, 0, 2, 19
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/desktop/tsconfig.json", "JSON with Comments", 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/monitor/package.json", "JSON", 0, 0, 29, 0, 0, 0, 0, 0, 0, 1, 30
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/monitor/src/env.d.ts", "TypeScript", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/monitor/src/index.ts", "TypeScript", 85, 0, 0, 0, 0, 0, 0, 0, 2, 6, 93
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/monitor/src/routes/status.ts", "TypeScript", 17, 0, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/monitor/src/utils/url.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/monitor/tsconfig.json", "JSON with Comments", 0, 0, 0, 8, 0, 0, 0, 0, 0, 1, 9
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 40, 0, 0, 20, 60
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/package.json", "JSON", 0, 0, 54, 0, 0, 0, 0, 0, 0, 1, 55
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/public/index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 18, 25, 1, 44
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/public/manifest.json", "JSON", 0, 0, 25, 0, 0, 0, 0, 0, 0, 1, 26
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Components/ColorModeSwitcher.tsx", "TypeScript React", 0, 27, 0, 0, 0, 0, 0, 0, 0, 4, 31
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Components/Loading.tsx", "TypeScript React", 0, 23, 0, 0, 0, 0, 0, 0, 0, 3, 26
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Components/ModalComp.tsx", "TypeScript React", 0, 42, 0, 0, 0, 0, 0, 0, 0, 4, 46
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Components/Nav.tsx", "TypeScript React", 0, 251, 0, 0, 0, 0, 0, 0, 12, 12, 275
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Components/ProjectCard.tsx", "TypeScript React", 0, 93, 0, 0, 0, 0, 0, 0, 0, 5, 98
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Components/Stat.tsx", "TypeScript React", 0, 17, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/App.tsx", "TypeScript React", 0, 36, 0, 0, 0, 0, 0, 0, 0, 9, 45
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Home.tsx", "TypeScript React", 0, 15, 0, 0, 0, 0, 0, 0, 0, 3, 18
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Login.tsx", "TypeScript React", 0, 140, 0, 0, 0, 0, 0, 0, 0, 6, 146
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Monitor.tsx", "TypeScript React", 0, 92, 0, 0, 0, 0, 0, 0, 0, 8, 100
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Profile.tsx", "TypeScript React", 0, 219, 0, 0, 0, 0, 0, 0, 0, 3, 222
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Project.tsx", "TypeScript React", 0, 292, 0, 0, 0, 0, 0, 0, 0, 14, 306
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Projects.tsx", "TypeScript React", 0, 231, 0, 0, 0, 0, 0, 0, 6, 11, 248
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Settings.tsx", "TypeScript React", 0, 202, 0, 0, 0, 0, 0, 0, 0, 12, 214
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/Pages/Signup.tsx", "TypeScript React", 0, 312, 0, 0, 0, 0, 0, 0, 0, 7, 319
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/api/constants.ts", "TypeScript", 4, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/api/index.ts", "TypeScript", 59, 0, 0, 0, 0, 0, 0, 0, 0, 12, 71
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/index.tsx", "TypeScript React", 0, 50, 0, 0, 0, 0, 0, 0, 9, 6, 65
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/react-app-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/reportWebVitals.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/serviceWorker.ts", "TypeScript", 102, 0, 0, 0, 0, 0, 0, 0, 31, 14, 147
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/setupTests.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 4, 1, 6
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/test-utils.tsx", "TypeScript React", 0, 9, 0, 0, 0, 0, 0, 0, 0, 4, 13
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/utils/theme.ts", "TypeScript", 7, 0, 0, 0, 0, 0, 0, 0, 2, 4, 13
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/src/utils/types.d.ts", "TypeScript", 18, 0, 0, 0, 0, 0, 0, 0, 0, 2, 20
+"/Users/eliaswambugu/Documents/projects/dashboard/bettrdash/apps/website/tsconfig.json", "JSON with Comments", 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5
+"Total", "-", 1246, 3973, 290, 48, 15, 1, 80, 36, 225, 430, 6344
