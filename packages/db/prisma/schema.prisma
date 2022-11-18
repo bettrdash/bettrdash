@@ -57,3 +57,13 @@ model Apikey {
   authorized_urls String[]
   user            User     @relation(fields: [userId], references: [id])
 }
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  prefix    String
+  target    String
+  name      String
+  status    String   @default("pending")
+}

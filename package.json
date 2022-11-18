@@ -12,7 +12,8 @@
     "desktop": "turbo run desktop --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "db:generate": "turbo run db:generate"
+    "db:generate": "turbo run db:generate",
+    "build:desktop": "turbo run build:desktop"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
