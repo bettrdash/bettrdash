@@ -42,6 +42,7 @@ const ProjectCard = ({ project, view }: Props) => {
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
+        h='100%'
       >
         <Box
           rounded={"lg"}
