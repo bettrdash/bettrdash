@@ -3,6 +3,7 @@ import { useUser } from "./App";
 import { useQuery } from "react-query";
 import { projectApi, queryClient } from "../api";
 import {
+  Badge,
   Button,
   Center,
   Flex,
@@ -153,16 +154,9 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             <Heading alignSelf={"center"} fontSize={15}>
               Status:
             </Heading>
-            <Text
-              color="white"
-              ml={2}
-              rounded={5}
-              p={1}
-              fontSize={12}
-              bg={project.status === "UP" ? "green.400" : "red.400"}
-            >
+            <Badge ml={2} colorScheme={project.status === "ONLINE" ? "green" : "red"}>
               {project.status}
-            </Text>
+            </Badge>
           </Flex>
           <Flex mt={5} w={"100%"} flexDir={"column"}>
             <Heading fontSize={15}>Name</Heading>
@@ -180,7 +174,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
           <Flex flexDir={"column"} mt={5}>
             <Heading fontSize={15}>Description: </Heading>
             <Textarea
-            minH={92}
+              minH={92}
               w="100%"
               mt={2}
               bg={inputBg}
