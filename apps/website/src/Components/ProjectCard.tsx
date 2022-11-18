@@ -37,7 +37,7 @@ const ProjectCard = ({ project, view }: Props) => {
         p={6}
         maxW={"330px"}
         w={"full"}
-        bg={useColorModeValue("white", "blue.800")}
+        bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded={"lg"}
         pos={"relative"}
