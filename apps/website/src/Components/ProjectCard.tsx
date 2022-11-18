@@ -42,6 +42,7 @@ const ProjectCard = ({ project, view }: Props) => {
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
+        h='100%'
       >
         <Box
           rounded={"lg"}
@@ -87,7 +88,7 @@ const ProjectCard = ({ project, view }: Props) => {
           <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
             {project.name}
           </Heading>
-          <Text fontWeight={"200"}>{project.description}</Text>
+          <Text fontWeight={"200"} textAlign='center'>{project.description}</Text>
         </Stack>
       </Box>
     </>

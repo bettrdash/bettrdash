@@ -14,7 +14,7 @@ const main = async () => {
   })
     .start(process.env.PORT)
     .then(() => {
-      console.log(`Server is running on port ${process.env.PORT}`);
+      console.log(`API Gateway is running on port ${process.env.PORT}`);
     });
 };
 

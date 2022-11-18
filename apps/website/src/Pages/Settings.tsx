@@ -12,12 +12,16 @@ import {
   useDisclosure,
   Switch,
   Center,
+  Divider,
+  Select,
+  useColorMode,
 } from "@chakra-ui/react";
 import ModalComp from "../Components/ModalComp";
 
 axios.defaults.withCredentials = true;
 
 const Settings = () => {
+  const {toggleColorMode, colorMode} = useColorMode();
   const [settings, setSettings] = useState<any>({});
   const toast = useToast();
   const { data: apiKeyData, status: apiKeyStatus } = useQuery(
@@ -95,11 +99,28 @@ const Settings = () => {
           rounded={5}
         >
           <Flex flexDir={"column"} mt={5}>
-            <Text alignSelf={"center"}>{apiKeyData.message}</Text>
-            <Flex flexDir={"column"}>
+            <Heading>Appearance</Heading>
+            <Flex mt={3}>
+              <Heading alignSelf={'center'} fontSize={15}>Mode: </Heading>
+              <Select
+                ml={3}
+                value={colorMode}
+                onChange={(e) => toggleColorMode()}
+                w={120}
+              >
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </Select>
+            </Flex>
+            <Divider mt={5} />
+            <Heading mt={5}>API Settings</Heading>
+            <Text mt={5} alignSelf={"center"}>
+              {apiKeyData.message}
+            </Text>
+            <Flex mt={3} flexDir={"column"}>
               <Heading fontSize={15}>API URL: </Heading>
               <Flex justify={"space-between"}>
-                <Text w={{base:  '70%',md: "90%"}} alignSelf={"center"}>
+                <Text w={{ base: "70%", md: "90%" }} alignSelf={"center"}>
                   https://api.bettrdash.eliaswambugu.com/projects/?key=
                   {apiKeyData.apiKey}
                 </Text>
@@ -124,7 +145,9 @@ const Settings = () => {
             <Flex flexDir={"column"}>
               <Heading fontSize={15}>API Key: </Heading>
               <Flex justify={"space-between"}>
-                <Text w={{base:  '70%',md: "90%"}} alignSelf={"center"}>{apiKeyData.apiKey}</Text>
+                <Text w={{ base: "70%", md: "90%" }} alignSelf={"center"}>
+                  {apiKeyData.apiKey}
+                </Text>
                 <Button
                   bgGradient={"linear(to-r, red.400,pink.400)"}
                   onClick={() => copyToClipboard(`${apiKeyData.apiKey}`)}
