@@ -3,7 +3,7 @@ import { prisma } from "db";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/projects", async (req, res) => {
   const key = req.query.key as string;
   try {
     if (key) {

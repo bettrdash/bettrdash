@@ -4,6 +4,9 @@
       "./custom_typings",
       "./node_modules/@types"
     ],
+    "types": [
+      "node"
+    ],
     "target": "es6",
     "module": "commonjs",
     "lib": [

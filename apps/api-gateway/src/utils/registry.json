@@ -1,0 +1,14 @@
+[
+  {
+    "prefix": "/web",
+    "target": "http://localhost:5001"
+  },
+  {
+    "prefix": "/projects",
+    "target": "http://localhost:5002"
+  },
+  {
+    "prefix": "/monitor",
+    "target": "http://localhost:5003"
+  }
+]
