@@ -46,11 +46,12 @@ const Projects = () => {
   const projects = projectsData.projects;
   return (
     <>
-      <HStack>
+      <HStack justify={{base: 'center', md: 'flex-start'}}>
         <Heading>Projects</Heading>
         <NewProject />
       </HStack>
       <Grid
+        w="100%"
         templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
         autoRows={"inherit"}
         gap={20}
@@ -58,7 +59,9 @@ const Projects = () => {
       >
         {projects.map((project: ProjectProps, index: number) => (
           <GridItem key={index}>
-            <ProjectCard project={project} view={view} />
+            <Center>
+              <ProjectCard project={project} view={view} />
+            </Center>
           </GridItem>
         ))}
       </Grid>

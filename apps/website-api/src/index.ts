@@ -32,6 +32,7 @@ const main = async () => {
         "http://localhost:3000",
         "https://dev.bettrdash.eliaswambugu.com",
         "https://bettrdash.eliaswambugu.com",
+        'http://172.20.10.2:3000'
       ],
       credentials: true,
     })

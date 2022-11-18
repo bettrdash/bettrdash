@@ -140,12 +140,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex> */}
       <Flex h={105} alignItems="center" justify={{base: "flex-start", md: "center"}}>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
-        <Heading left={{base: '25%', md: '0%'}} pos={{base: 'absolute', md: 'relative'}} fontFamily="monospace" fontWeight="bold">
+        <CloseButton ml={4} display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <Heading left={{base: '30%', md: '0%'}} pos={{base: 'absolute', md: 'relative'}} fontFamily="monospace" fontWeight="bold">
           BettrDash
         </Heading>
       </Flex>
-      <Flex h="85%" flexDir={"column"} justify="space-between">
+      <Flex h="80%" flexDir={"column"} justify="space-between">
         <Flex flexDir={"column"}>
           {LinkItems.map((link) => (
             <NavItem
