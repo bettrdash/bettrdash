@@ -6,18 +6,18 @@ const router = express.Router();
 //get users projects
 router.get("/all", async (req: express.Request, res: express.Response) => {
   try {
+    const { filter } = req.query;
+    console.log(filter)
     const projects = await prisma.project.findMany({
       where: {
         ownerId: req!.session!.user!.id,
       },
-      orderBy: [
-        {
-          active: "desc",
-        },
-        {
-          name: "asc",
-        },
-      ],
+      orderBy:
+        filter === "name"
+          ? { name: "asc" }
+          : filter === "active"
+          ? { active: "desc" }
+          : { status: "desc" },
     });
     res.status(200).json({ success: true, projects });
   } catch (e) {
@@ -38,9 +38,7 @@ router.get(
         include: { owner: { select: { id: true } } },
       });
       if (project) {
-        if (
-          project.ownerId === req!.session!.user!.id
-        ) {
+        if (project.ownerId === req!.session!.user!.id) {
           res.status(200).json({ success: true, project });
         } else {
           res.status(200).json({ success: false, message: "Unauthorizedsss" });
@@ -135,12 +133,10 @@ router.post("/delete", async (req: express.Request, res: express.Response) => {
         });
         res.status(200).json({ success: true });
       } else {
-        res
-          .status(200)
-          .json({
-            success: false,
-            message: "You can only delete your own projects",
-          });
+        res.status(200).json({
+          success: false,
+          message: "You can only delete your own projects",
+        });
       }
     } else {
       res.status(200).json({ success: false, message: "Project not found" });

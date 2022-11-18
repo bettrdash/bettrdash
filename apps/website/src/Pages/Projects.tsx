@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ProjectCard from "../Components/ProjectCard";
 import {
   Flex,
-  Heading,
   HStack,
   Grid,
   Button,
@@ -15,24 +14,53 @@ import {
   useToast,
   GridItem,
   Center,
+  Stack,
+  IconButton,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Avatar,
+  useColorModeValue,
+  Divider,
+  Tfoot,
 } from "@chakra-ui/react";
 import ModalComp from "../Components/ModalComp";
-import { projectsApi, useAddProject } from "../api";
+import { projectsApi, queryClient, useAddProject } from "../api";
 import { useQuery } from "react-query";
 import { ProjectProps } from "../utils/types";
-import { useUser } from "./App";
 import * as Sentry from "@sentry/react";
 import Loading from "../Components/Loading";
+import { FiGrid, FiList } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+
 const Projects = () => {
+  const [filter, setFilter] = useState<string>("name");
   const [view, _] = useState("list");
-  const { user } = useUser();
-  const { data: projectsData, status: projectsStatus } = useQuery({
-    queryKey: "projects",
-    queryFn: () => projectsApi(),
-  });
+  const [display, setDisplay] = useState<string>("grid");
+  const { data: projectsData, status: projectsStatus } = useQuery(
+    ["projects", filter],
+    () => projectsApi({ filter })
+  );
 
   if (projectsStatus === "loading") {
-    return <Loading />;
+    return (
+      <>
+        <Flex flexDir={"column"} w="100%" h="100%">
+          <Header
+            setDisplay={setDisplay}
+            display={display}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <Center w="100%" h="100%">
+            <Loading />
+          </Center>
+        </Flex>
+      </>
+    );
   }
 
   if (projectsStatus === "error") {
@@ -46,25 +74,76 @@ const Projects = () => {
   const projects = projectsData.projects;
   return (
     <>
-      <HStack justify={{base: 'center', md: 'flex-start'}}>
-        <Heading>Projects</Heading>
+      <Header
+        setDisplay={setDisplay}
+        display={display}
+        filter={filter}
+        setFilter={setFilter}
+      />
+      {display === "grid" ? (
+        <GridView projects={projects} />
+      ) : (
+        <ListView projects={projects} />
+      )}
+    </>
+  );
+};
+
+const Header = ({
+  filter,
+  setFilter,
+  display,
+  setDisplay,
+}: {
+  filter: string;
+  display: string;
+  setDisplay: React.Dispatch<React.SetStateAction<string>>;
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const bg = useColorModeValue("gray.200", "gray.700");
+  return (
+    <>
+      <Stack direction={{ base: "column", md: "row" }}>
         <NewProject />
-      </HStack>
-      <Grid
-        w="100%"
-        templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
-        autoRows={"inherit"}
-        gap={20}
-        mt={55}
-      >
-        {projects.map((project: ProjectProps, index: number) => (
-          <GridItem key={index}>
-            <Center>
-              <ProjectCard project={project} view={view} />
-            </Center>
-          </GridItem>
-        ))}
-      </Grid>
+        <HStack w="100%" justify="space-between">
+          <Flex>
+            <IconButton
+              onClick={() => setDisplay("grid")}
+              color={display === "grid" ? "pink.400" : ""}
+              bg={display === "grid" ? bg : "none"}
+              _hover={{ bg }}
+              aria-label="Grid"
+              icon={<FiGrid size={20} />}
+            />
+            <IconButton
+              onClick={() => setDisplay("list")}
+              color={display === "list" ? "pink.400" : ""}
+              bg={display === "list" ? bg : "none"}
+              ml={1}
+              _hover={{ bg }}
+              aria-label="List"
+              icon={<FiList size={20} />}
+            />
+          </Flex>
+          <Flex alignSelf={{ base: "center", md: "start" }}>
+            <Text alignSelf={"center"}>Sort by: </Text>
+            <Select
+              value={filter}
+              ml={2}
+              onChange={(e) => {
+                setFilter(e.target.value);
+              }}
+              size="sm"
+              variant="filled"
+              w={170}
+            >
+              <option value="name">Name</option>
+              <option value="active">Active</option>
+              <option value="status">Status</option>
+            </Select>
+          </Flex>
+        </HStack>
+      </Stack>
     </>
   );
 };
@@ -159,6 +238,7 @@ const NewProject = () => {
   return (
     <>
       <Button
+        mb={{ base: 5, md: 0 }}
         _hover={{ color: "gray.800", bg: "gray.200" }}
         color="white"
         bgGradient={"linear(to-r, red.400,pink.400)"}
@@ -237,6 +317,72 @@ const NewProject = () => {
           />
         </HStack>
       </ModalComp>
+    </>
+  );
+};
+
+const GridView = ({ projects }: { projects: any }) => {
+  return (
+    <>
+      <Grid
+        w="100%"
+        templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
+        autoRows={"inherit"}
+        gap={20}
+        mt={55}
+      >
+        {projects.map((project: ProjectProps, index: number) => (
+          <GridItem key={index}>
+            <Center>
+              <ProjectCard project={project} />
+            </Center>
+          </GridItem>
+        ))}
+      </Grid>
+    </>
+  );
+};
+
+const ListView = ({ projects }: { projects: any }) => {
+  const tableBg = useColorModeValue("white", "gray.800");
+  const navigate = useNavigate();
+  const hoverBg = useColorModeValue("gray.100", "gray.700");
+  return (
+    <>
+      <Table mt={10} rounded={5} bg={tableBg} boxShadow={"lg"} variant="simple">
+        <Thead>
+          <Tr>
+            <Th>Project</Th>
+            <Th>Description</Th>
+            <Th>Active</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {projects.map((project: ProjectProps, index: number) => (
+            <Tr
+              onClick={() => navigate(`/projects/${project.id}`)}
+              _hover={{ cursor: "pointer", bg: hoverBg }}
+              key={index}
+            >
+              <Td>
+                <HStack>
+                  <Avatar size={"sm"} src={project.image_url} />
+                  <Text>{project.name}</Text>
+                </HStack>
+              </Td>
+              <Td>{project.description}</Td>
+              <Td>{project.active ? "Yes" : "No"}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+        <Tfoot>
+          <Tr>
+            <Th>Project</Th>
+            <Th>Description</Th>
+            <Th>Active</Th>
+          </Tr>
+        </Tfoot>
+      </Table>
     </>
   );
 };

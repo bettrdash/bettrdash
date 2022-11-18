@@ -10,15 +10,15 @@ export const queryClient = new QueryClient();
 export const projectMonitor = async () => {
   const res = await axios.get(`${API_URL}/monitor`);
   return res.data;
-}
+};
 
 export const checkAuth = async () => {
   const res = await axios.get(`${API_URL}/auth/current-session`);
   return res.data;
 };
 
-export const projectsApi = async () => {
-  const res = await axios.get(`${API_URL}/projects/all`);
+export const projectsApi = async ({ filter }: { filter: string }) => {
+  const res = await axios.get(`${API_URL}/projects/all?filter=${filter}`);
   return res.data;
 };
 
@@ -45,7 +45,7 @@ type ProjectProps = {
   active: boolean;
   live_url?: string;
   image_url?: string;
-}
+};
 
 const addProject = (project: ProjectProps) => {
   return axios.post(`${API_URL}/projects/new`, project);

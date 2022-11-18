@@ -192,17 +192,6 @@ const Profile = () => {
           </FormControl>
           <Stack spacing={6} direction={["column", "row"]}>
             <Button
-              onClick={() => navigate("/")}
-              bg={"red.400"}
-              color={"white"}
-              w="full"
-              _hover={{
-                bg: "red.500",
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
               onClick={() => updateProfile(null)}
               bg={"blue.400"}
               color={"white"}
@@ -212,6 +201,17 @@ const Profile = () => {
               }}
             >
               Save
+            </Button>
+            <Button
+              onClick={() => navigate("/")}
+              bg={"red.400"}
+              color={"white"}
+              w="full"
+              _hover={{
+                bg: "red.500",
+              }}
+            >
+              Cancel
             </Button>
           </Stack>
         </Stack>

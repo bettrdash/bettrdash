@@ -10,7 +10,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-  view: string;
   project: {
     id: number;
     name: string;
@@ -26,7 +25,7 @@ type Props = {
 const IMAGE =
   "https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png";
 
-const ProjectCard = ({ project, view }: Props) => {
+const ProjectCard = ({ project }: Props) => {
   const navigate = useNavigate();
   return (
     <>
@@ -35,19 +34,20 @@ const ProjectCard = ({ project, view }: Props) => {
         onClick={() => navigate(`/projects/${project.id}`)}
         role={"group"}
         p={6}
-        maxW={"330px"}
+        maxW={"100%"}
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
-        h='100%'
+        h="100%"
       >
         <Box
           rounded={"lg"}
           mt={-12}
           pos={"relative"}
+          alignSelf="center"
           height={"230px"}
           _after={{
             transition: "all .3s ease",
@@ -68,10 +68,11 @@ const ProjectCard = ({ project, view }: Props) => {
           }}
         >
           <Image
+            alignSelf={"center"}
             alt=""
             rounded={"lg"}
             height={230}
-            width={282}
+            width={"100%"}
             objectFit={"cover"}
             src={project.image_url}
             fallbackSrc={IMAGE}
@@ -88,7 +89,9 @@ const ProjectCard = ({ project, view }: Props) => {
           <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
             {project.name}
           </Heading>
-          <Text fontWeight={"200"} textAlign='center'>{project.description}</Text>
+          <Text fontWeight={"200"} textAlign="center">
+            {project.description}
+          </Text>
         </Stack>
       </Box>
     </>
