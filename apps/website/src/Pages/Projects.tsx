@@ -347,7 +347,7 @@ const ListView = ({ projects }: { projects: any }) => {
           <Tr>
             <Th>Project</Th>
             <Th>Description</Th>
-            <Th>Active</Th>
+            <Th display={{base: 'none', sm: 'block'}}>Active</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -364,7 +364,7 @@ const ListView = ({ projects }: { projects: any }) => {
                 </HStack>
               </Td>
               <Td>{project.description}</Td>
-              <Td>{project.active ? "Yes" : "No"}</Td>
+              <Td display={{base: 'none', sm: 'block'}}>{project.active ? "Yes" : "No"}</Td>
             </Tr>
           ))}
         </Tbody>
@@ -372,7 +372,7 @@ const ListView = ({ projects }: { projects: any }) => {
           <Tr>
             <Th>Project</Th>
             <Th>Description</Th>
-            <Th>Active</Th>
+            <Th display={{base: 'none', sm: 'block'}}>Active</Th>
           </Tr>
         </Tfoot>
       </Table>
