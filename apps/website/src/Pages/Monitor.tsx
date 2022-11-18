@@ -52,7 +52,7 @@ const Monitor = () => {
         w="100%"
         rounded={5}
         flexDir="column"
-        p={4}
+        p={5}
         bg={bg}
       >
         <Flex w="100%" justify={"space-between"}>
