@@ -1,10 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useUser } from "./App";
 import { useQuery } from "react-query";
 import { projectApi, queryClient } from "../api";
 import {
+  Badge,
   Button,
-  Center,
   Flex,
   Heading,
   Image,
@@ -51,14 +50,6 @@ const Project = () => {
 
   return (
     <>
-      <Image
-        rounded={10}
-        alt="project image"
-        w={"100%"}
-        h={250}
-        src={project.image_url}
-        fallbackSrc={IMAGE}
-      />
       <EditMode project={project} />
     </>
   );
@@ -129,38 +120,48 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
         });
     }
   };
-  const bg = useColorModeValue("#f2f2f2", "#1A202C");
+  const inputBg = useColorModeValue("#f2f2f2", "gray.900");
+  const bg = useColorModeValue("white", "gray.800");
+  const imageBG = useColorModeValue("gray.100", "gray.900");
   return (
     <>
-      <Center mt={3} flexDir={"column"}>
+      <Flex
+        w="100%"
+        bg={bg}
+        rounded={5}
+        boxShadow="lg"
+        flexDir={{ base: "column", md: "row" }}
+        padding={5}
+      >
+        <Image
+          rounded={10}
+          bg={imageBG}
+          alt="project image"
+          w={{ base: "100%", md: 330 }}
+          h={250}
+          src={project.image_url}
+          fallbackSrc={IMAGE}
+        />
         <Flex
+          ml={{ base: 0, md: 5 }}
+          w="100%"
           flexDir={"column"}
-          boxShadow={"xl"}
-          w={"100%"}
-          padding={5}
-          rounded={5}
+          mt={{ base: 5, md: 0 }}
         >
-          <Flex alignSelf={"center"} mt={5}>
+          <Flex>
             <Heading alignSelf={"center"} fontSize={15}>
               Status:
             </Heading>
-            <Text
-              color="white"
-              ml={2}
-              rounded={5}
-              p={1}
-              fontSize={12}
-              bg={project.status === "UP" ? "green.400" : "red.400"}
-            >
+            <Badge ml={2} colorScheme={project.status === "ONLINE" ? "green" : "red"}>
               {project.status}
-            </Text>
+            </Badge>
           </Flex>
-          <Flex w={"100%"} flexDir={"column"}>
+          <Flex mt={5} w={"100%"} flexDir={"column"}>
             <Heading fontSize={15}>Name</Heading>
             <Input
               mt={2}
               w="100%"
-              bg={bg}
+              bg={inputBg}
               name="name"
               border="none"
               value={updatedProject.name}
@@ -171,9 +172,10 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
           <Flex flexDir={"column"} mt={5}>
             <Heading fontSize={15}>Description: </Heading>
             <Textarea
+              minH={92}
               w="100%"
               mt={2}
-              bg={bg}
+              bg={inputBg}
               border="none"
               name="description"
               placeholder="Description"
@@ -185,7 +187,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             <Heading fontSize={15}>Language: </Heading>
             <Input
               mt={2}
-              bg={bg}
+              bg={inputBg}
               border="none"
               name="language"
               value={updatedProject.language}
@@ -213,7 +215,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             <Heading fontSize={15}>Live URL: </Heading>
             <Input
               mt={2}
-              bg={bg}
+              bg={inputBg}
               border="none"
               name="live_url"
               value={updatedProject.live_url}
@@ -226,7 +228,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             <Input
               mt={2}
               border="none"
-              bg={bg}
+              bg={inputBg}
               name="github_url"
               value={updatedProject.github_url}
               onChange={handleChange}
@@ -237,7 +239,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             <Heading fontSize={15}>Image URL: </Heading>
             <Input
               mt={2}
-              bg={bg}
+              bg={inputBg}
               border="none"
               name="image_url"
               value={updatedProject.image_url}
@@ -246,7 +248,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             />
           </Flex>
           <Button
-          isLoading={loading}
+            isLoading={loading}
             _hover={{ color: "#1A202C", bg: "gray.200" }}
             disabled={!unsaved}
             mt={5}
@@ -258,7 +260,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
           </Button>
           <DeleteProject id={project.id} />
         </Flex>
-      </Center>
+      </Flex>
     </>
   );
 };

@@ -39,24 +39,28 @@ const main = () => {
                         .get(project.live_url)
                         .then((res) => __awaiter(void 0, void 0, void 0, function* () {
                         if (res.status === 200) {
-                            yield db_1.prisma.project.update({
-                                where: {
-                                    id: project.id,
-                                },
-                                data: {
-                                    status: "UP",
-                                },
-                            });
+                            if (project.status !== "ONLINE") {
+                                yield db_1.prisma.project.update({
+                                    where: {
+                                        id: project.id,
+                                    },
+                                    data: {
+                                        status: "ONLINE",
+                                    },
+                                });
+                            }
                         }
                         else {
-                            yield db_1.prisma.project.update({
-                                where: {
-                                    id: project.id,
-                                },
-                                data: {
-                                    status: "DOWN",
-                                },
-                            });
+                            if (project.status !== "DOWN") {
+                                yield db_1.prisma.project.update({
+                                    where: {
+                                        id: project.id,
+                                    },
+                                    data: {
+                                        status: "DOWN",
+                                    },
+                                });
+                            }
                         }
                     }))
                         .catch((e) => __awaiter(void 0, void 0, void 0, function* () {

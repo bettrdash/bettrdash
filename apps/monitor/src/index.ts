@@ -32,23 +32,27 @@ const main = () => {
               .get(project.live_url!)
               .then(async (res) => {
                 if (res.status === 200) {
-                  await prisma.project.update({
-                    where: {
-                      id: project.id,
-                    },
-                    data: {
-                      status: "UP",
-                    },
-                  });
+                  if (project.status !== "ONLINE") {
+                    await prisma.project.update({
+                      where: {
+                        id: project.id,
+                      },
+                      data: {
+                        status: "ONLINE",
+                      },
+                    });
+                  }
                 } else {
-                  await prisma.project.update({
-                    where: {
-                      id: project.id,
-                    },
-                    data: {
-                      status: "DOWN",
-                    },
-                  });
+                  if (project.status !== "DOWN") {
+                    await prisma.project.update({
+                      where: {
+                        id: project.id,
+                      },
+                      data: {
+                        status: "DOWN",
+                      },
+                    });
+                  }
                 }
               })
               .catch(async (e) => {

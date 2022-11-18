@@ -26,7 +26,7 @@ const Settings = () => {
   const { toggleColorMode, colorMode } = useColorMode();
   const [settings, setSettings] = useState<any>({});
   const toast = useToast();
-  const bg = useColorModeValue("white", "gray.800")
+  const bg = useColorModeValue("white", "gray.800");
   const { data: apiKeyData, status: apiKeyStatus } = useQuery(
     "api_key",
     apiKeyAPI
@@ -92,7 +92,6 @@ const Settings = () => {
 
   return (
     <>
-      <Heading textAlign={{ base: "center", md: "start" }}>Settings</Heading>
       <Center>
         <Flex
           bg={bg}
@@ -101,9 +100,8 @@ const Settings = () => {
           w={"100%"}
           padding={5}
           rounded={5}
-          mt={10}
         >
-          <Flex flexDir={"column"} mt={5}>
+          <Flex flexDir={"column"}>
             <Heading>Appearance</Heading>
             <Flex mt={3}>
               <Heading alignSelf={"center"} fontSize={15}>

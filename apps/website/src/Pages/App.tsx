@@ -1,5 +1,4 @@
 import { Flex, Text } from "@chakra-ui/react";
-import React from "react";
 import { useQuery } from "react-query";
 import { Navigate, Outlet, useOutletContext } from "react-router-dom";
 import { checkAuth } from "../api";

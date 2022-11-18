@@ -3,14 +3,12 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   useColorModeValue,
   Avatar,
-  Center,
   useToast,
-  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { useUser } from "./App";
 import { useState } from "react";
@@ -29,7 +27,10 @@ const Profile = () => {
   const [rePassword, setRePassword] = useState("");
   const toast = useToast();
   const [profileImg, setImageUrl] = useState(user!.profile_img);
-  const navigate = useNavigate();
+  const imageBG = useColorModeValue("gray.100", "gray.900");
+  const bg = useColorModeValue("white", "gray.800");
+  const [loading, setLoading] = useState(false);
+  const [unsaved, setUnsaved] = useState(false);
 
   const updateProfile = async (img: any) => {
     if (name === "" || email === "") {
@@ -41,7 +42,7 @@ const Profile = () => {
         isClosable: true,
       });
     } else if (
-      newPassword.length > 0 &&
+      (newPassword.length > 0 || rePassword.length > 0) &&
       currentPassword === "" &&
       rePassword === ""
     ) {
@@ -52,7 +53,10 @@ const Profile = () => {
         duration: 5000,
         isClosable: true,
       });
-    } else if (newPassword.length > 0 && newPassword !== rePassword) {
+    } else if (
+      (newPassword.length > 0 || rePassword.length > 0) &&
+      newPassword !== rePassword
+    ) {
       toast({
         title: "Error",
         description: "Password do not match",
@@ -60,7 +64,16 @@ const Profile = () => {
         duration: 5000,
         isClosable: true,
       });
+    } else if (newPassword.length < 6 && newPassword.length > 0) {
+      toast({
+        title: "Error",
+        description: "Password must be at least 6 characters",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     } else {
+      setLoading(true);
       await axios
         .post(
           `${API_URL}/auth/update-profile`,
@@ -74,7 +87,9 @@ const Profile = () => {
           { withCredentials: true }
         )
         .then((res) => {
+          setLoading(false);
           if (res.data.success) {
+            setUnsaved(false);
             toast({
               title: "Success",
               description: "Profile updated",
@@ -107,57 +122,72 @@ const Profile = () => {
         });
     }
   };
+
+  const handleCancel = () => {
+    setName(user!.name);
+    setEmail(user!.email);
+    setUnsaved(false);
+  };
+
   return (
     <>
-      <Heading textAlign={{ base: "center", md: "start" }}>Profile</Heading>
-      <Flex minH={"100vh"} align={"center"} justify={"center"}>
-        <Stack
-          spacing={4}
-          w={"full"}
-          maxW={"100%"}
-          bg={useColorModeValue("white", "gray.800")}
-          rounded={"xl"}
-          boxShadow={"lg"}
-          p={6}
-          my={10}
+      <Flex
+        w="100%"
+        bg={bg}
+        rounded={5}
+        boxShadow="lg"
+        flexDir={{ base: "column", md: "row" }}
+        padding={5}
+      >
+        <Flex
+          justify={"center"}
+          align={"center"}
+          h={255}
+          p={5}
+          rounded={10}
+          bg={imageBG}
+          flexDir={["column", "column"]}
+        >
+          <Avatar mb={5} size="xl" src={profileImg} />
+          <Widget
+            onChange={(res) => {
+              console.log(res.cdnUrl);
+              setImageUrl(res.cdnUrl as string);
+              updateProfile(res.cdnUrl);
+            }}
+            publicKey={process.env.REACT_APP_UPLOADCARE_PUBLIC_KEY as string}
+          />
+        </Flex>
+        <VStack
+          ml={{ base: 0, md: 5 }}
+          mt={{ base: 5, md: 0 }}
+          w="100%"
+          spacing={5}
         >
           <FormControl id="userName">
-            <Center flexDir={["column", "column"]}>
-              <FormLabel>Profile picture</FormLabel>
-
-              <Center mb={5} mt={5}>
-                <Avatar size="xl" src={profileImg} />
-              </Center>
-              <Widget
-                onChange={(res) => {
-                  console.log(res.cdnUrl);
-                  setImageUrl(res.cdnUrl as string);
-                  updateProfile(res.cdnUrl);
-                }}
-                publicKey={
-                  process.env.REACT_APP_UPLOADCARE_PUBLIC_KEY as string
-                }
-              />
-            </Center>
-          </FormControl>
-          <FormControl id="userName" isRequired>
             <FormLabel>Name</FormLabel>
             <Input
               placeholder="Name"
               _placeholder={{ color: "gray.500" }}
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setUnsaved(true);
+                setName(e.target.value);
+              }}
             />
           </FormControl>
-          <FormControl id="email" isRequired>
+          <FormControl id="email">
             <FormLabel>Email address</FormLabel>
             <Input
               placeholder="your-email@example.com"
               _placeholder={{ color: "gray.500" }}
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setUnsaved(true);
+                setEmail(e.target.value);
+              }}
             />
           </FormControl>
           <FormControl id="password">
@@ -167,7 +197,10 @@ const Profile = () => {
               _placeholder={{ color: "gray.500" }}
               type="password"
               value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
+              onChange={(e) => {
+                setUnsaved(true);
+                setCurrentPassword(e.target.value);
+              }}
             />
           </FormControl>
           <FormControl id="password">
@@ -177,7 +210,10 @@ const Profile = () => {
               _placeholder={{ color: "gray.500" }}
               type="password"
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => {
+                setUnsaved(true);
+                setNewPassword(e.target.value);
+              }}
             />
           </FormControl>
           <FormControl id="repassword">
@@ -187,13 +223,28 @@ const Profile = () => {
               _placeholder={{ color: "gray.500" }}
               type="password"
               value={rePassword}
-              onChange={(e) => setRePassword(e.target.value)}
+              onChange={(e) => {
+                setUnsaved(true);
+                setRePassword(e.target.value);
+              }}
             />
           </FormControl>
-          <Stack spacing={6} direction={["column", "row"]}>
+          <Stack w="100%" spacing={3} direction={"column"}>
             <Button
-              onClick={() => navigate("/")}
-              bg={"red.400"}
+              isLoading={loading}
+              _hover={{ color: "#1A202C", bg: "gray.200" }}
+              disabled={!unsaved}
+              color="white"
+              onClick={() => updateProfile(null)}
+              bgGradient={"linear(to-r, red.400,pink.400)"}
+            >
+              Save
+            </Button>
+
+            <Button
+              disabled={!unsaved}
+              onClick={handleCancel}
+              colorScheme="gray"
               color={"white"}
               w="full"
               _hover={{
@@ -202,19 +253,8 @@ const Profile = () => {
             >
               Cancel
             </Button>
-            <Button
-              onClick={() => updateProfile(null)}
-              bg={"blue.400"}
-              color={"white"}
-              w="full"
-              _hover={{
-                bg: "blue.500",
-              }}
-            >
-              Save
-            </Button>
           </Stack>
-        </Stack>
+        </VStack>
       </Flex>
     </>
   );

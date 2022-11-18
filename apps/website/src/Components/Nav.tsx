@@ -139,9 +139,22 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Heading>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex> */}
-      <Flex h={105} alignItems="center" justify={{base: "flex-start", md: "center"}}>
-        <CloseButton ml={4} display={{ base: "flex", md: "none" }} onClick={onClose} />
-        <Heading left={{base: '30%', md: '0%'}} pos={{base: 'absolute', md: 'relative'}} fontFamily="monospace" fontWeight="bold">
+      <Flex
+        h={105}
+        alignItems="center"
+        justify={{ base: "flex-start", md: "center" }}
+      >
+        <CloseButton
+          ml={4}
+          display={{ base: "flex", md: "none" }}
+          onClick={onClose}
+        />
+        <Heading
+          left={{ base: "30%", md: "0%" }}
+          pos={{ base: "absolute", md: "relative" }}
+          fontFamily="monospace"
+          fontWeight="bold"
+        >
           BettrDash
         </Heading>
       </Flex>
@@ -233,6 +246,7 @@ interface MobileProps extends FlexProps {
   user: UserProps;
 }
 const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
+  const location = useLocation();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -260,7 +274,7 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        BettrDash
+        {location.pathname === "/" ? "Projects" : location.pathname.charAt(1).toUpperCase() + location.pathname.slice(2)}
       </Text>
     </Flex>
   );
