@@ -33,6 +33,8 @@ import {
   FiMenu,
   FiChevronDown,
   FiActivity,
+  FiUser,
+  FiLogOut,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
@@ -53,6 +55,7 @@ const LinkItems: Array<LinkItemProps> = [
   // { name: "Explore", icon: FiCompass },
   // { name: "Favourites", icon: FiStar },
   { name: "Monitor", icon: FiActivity, path: "/monitor" },
+  { name: "Profile", icon: FiUser, path: "/profile" },
   { name: "Settings", icon: FiSettings, path: "/settings" },
 ];
 
@@ -91,6 +94,34 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const toast = useToast();
+  const logout = async () => {
+    await axios
+      .post(`${API_URL}/auth/logout`, {}, { withCredentials: true })
+      .then((res) => {
+        if (res.data.success) {
+          window.location.href = "/login";
+        } else {
+          toast({
+            title: "Error",
+            description: res.data.message,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      })
+      .catch(() => {
+        toast({
+          title: "Error",
+          description: "An error has occurred",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+    window.location.href = "/login";
+  };
   return (
     <Box
       // transition="3s ease"
@@ -102,22 +133,55 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+      {/* <Flex mx='8' bg='red' alignItems="center" justifyContent="center">
+        <Heading textAlign={'center'} fontFamily="monospace" fontWeight="bold">
           BettrDash
-        </Text>
+        </Heading>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+      </Flex> */}
+      <Flex h={105} alignItems="center" justify={{base: "flex-start", md: "center"}}>
+        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <Heading left={{base: '25%', md: '0%'}} pos={{base: 'absolute', md: 'relative'}} fontFamily="monospace" fontWeight="bold">
+          BettrDash
+        </Heading>
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem
-          onClose={onClose}
-          path={link.path}
-          key={link.name}
-          icon={link.icon}
+      <Flex h="85%" flexDir={"column"} justify="space-between">
+        <Flex flexDir={"column"}>
+          {LinkItems.map((link) => (
+            <NavItem
+              onClose={onClose}
+              path={link.path}
+              key={link.name}
+              icon={link.icon}
+            >
+              {link.name}
+            </NavItem>
+          ))}
+        </Flex>
+        <Flex
+          p="4"
+          onClick={logout}
+          mt={2}
+          mx="4"
+          borderRadius="lg"
+          role="group"
+          cursor="pointer"
+          color={"white"}
+          _hover={{
+            bgGradient: "linear(to-r, red.400,pink.400)",
+            color: "white",
+          }}
         >
-          {link.name}
-        </NavItem>
-      ))}
+          <Icon
+            mr="4"
+            alignSelf={"center"}
+            fontSize="16"
+            _groupHover={{}}
+            as={FiLogOut}
+          />
+          Logout
+        </Flex>
+      </Flex>
     </Box>
   );
 };
@@ -169,49 +233,19 @@ interface MobileProps extends FlexProps {
   user: UserProps;
 }
 const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
-  const toast = useToast();
-  const navigate = useNavigate();
-  const logout = async () => {
-    await axios
-      .post(`${API_URL}/auth/logout`, {}, { withCredentials: true })
-      .then((res) => {
-        if (res.data.success) {
-          window.location.href = "/login";
-        } else {
-          toast({
-            title: "Error",
-            description: res.data.message,
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
-        }
-      })
-      .catch(() => {
-        toast({
-          title: "Error",
-          description: "An error has occurred",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      });
-    window.location.href = "/login";
-  };
-
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
-      height="20"
+      pt={{ base: 4, md: 4 }}
       alignItems="center"
       bg={useColorModeValue("white", "gray.900")}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-      justifyContent={{ base: "space-between", md: "flex-end" }}
+      justifyContent={"center"}
       {...rest}
     >
       <IconButton
+        pos="absolute"
+        left="4"
         display={{ base: "flex", md: "none" }}
         onClick={onOpen}
         variant="outline"
@@ -220,6 +254,7 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
       />
 
       <Text
+        alignSelf={"center"}
         display={{ base: "flex", md: "none" }}
         fontSize="2xl"
         fontFamily="monospace"
@@ -227,52 +262,6 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
       >
         BettrDash
       </Text>
-
-      <HStack spacing={{ base: "0", md: "6" }}>
-        <ColorModeSwitcher />
-        {/* <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        /> */}
-        <Flex alignItems={"center"}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: "none" }}
-            >
-              <HStack>
-                <Avatar size={"sm"} src={user.profile_img} />
-                <VStack
-                  display={{ base: "none", md: "flex" }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="sm">{user.name}</Text>
-                </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              zIndex={2}
-              bg={useColorModeValue("white", "gray.900")}
-              borderColor={useColorModeValue("gray.200", "gray.700")}
-            >
-              <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
-              <MenuItem onClick={() => navigate("/settings")}>
-                Settings
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem onClick={() => logout()}>Sign out</MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-      </HStack>
     </Flex>
   );
 };
