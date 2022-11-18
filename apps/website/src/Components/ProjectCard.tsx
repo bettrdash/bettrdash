@@ -88,7 +88,7 @@ const ProjectCard = ({ project, view }: Props) => {
           <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
             {project.name}
           </Heading>
-          <Text fontWeight={"200"}>{project.description}</Text>
+          <Text fontWeight={"200"} textAlign='center'>{project.description}</Text>
         </Stack>
       </Box>
     </>

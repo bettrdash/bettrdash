@@ -25,7 +25,7 @@ import {
   Heading,
   Center,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import {
   FiTrendingUp,
@@ -63,7 +63,7 @@ const Nav = ({ children, user }: { children: ReactNode; user: UserProps }) => {
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
-      /> 
+      />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -109,7 +109,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem path={link.path} key={link.name} icon={link.icon}>
+        <NavItem
+          onClose={onClose}
+          path={link.path}
+          key={link.name}
+          icon={link.icon}
+        >
           {link.name}
         </NavItem>
       ))}
@@ -121,37 +126,38 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
   path: string;
+  onClose: () => void;
 }
-const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
+const NavItem = ({ onClose, icon, children, path, ...rest }: NavItemProps) => {
+  const location = useLocation();
   return (
     <Link
+      onClick={onClose}
       to={path}
       style={{ textDecoration: "none" }}
       // _focus={{ boxShadow: "none" }}
     >
       <Flex
+        bgGradient={
+          location.pathname === path
+            ? "linear(to-r, red.400,pink.400)"
+            : "transparent"
+        }
         align="center"
         p="4"
+        mt={2}
         mx="4"
         borderRadius="lg"
         role="group"
         cursor="pointer"
+        color={location.pathname === path ? "white" : "gray.600"}
         _hover={{
           bgGradient: "linear(to-r, red.400,pink.400)",
           color: "white",
         }}
         {...rest}
       >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: "white",
-            }}
-            as={icon}
-          />
-        )}
+        {icon && <Icon mr="4" fontSize="16" _groupHover={{}} as={icon} />}
         {children}
       </Flex>
     </Link>

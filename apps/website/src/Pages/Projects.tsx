@@ -50,24 +50,18 @@ const Projects = () => {
         <Heading>Projects</Heading>
         <NewProject />
       </HStack>
-        {/* <Flex h='100%' flexDir='column' w="100%" alignSelf={'center'}> */}
-        <Grid
-          templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
-          autoRows={"inherit"}
-          gap={20}
-          mt={10}
-        >
-          {/* {[...Array(20)].map((_, i) => (
-            <ProjectCard view={view} key={i} />
-          ))} */}
-          {projects.map((project: ProjectProps, index: number) => (
-            <GridItem key={index}>
-              <ProjectCard project={project} view={view} />
-            </GridItem>
-          ))}
-        </Grid>
-
-      {/* </Flex> */}
+      <Grid
+        templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
+        autoRows={"inherit"}
+        gap={20}
+        mt={10}
+      >
+        {projects.map((project: ProjectProps, index: number) => (
+          <GridItem key={index}>
+            <ProjectCard project={project} view={view} />
+          </GridItem>
+        ))}
+      </Grid>
     </>
   );
 };
