@@ -114,21 +114,18 @@ const Profile = () => {
         <Stack
           spacing={4}
           w={"full"}
-          maxW={"md"}
-          bg={useColorModeValue("white", "gray.700")}
+          maxW={"100%"}
+          bg={useColorModeValue("white", "gray.800")}
           rounded={"xl"}
           boxShadow={"lg"}
           p={6}
           my={10}
         >
-          <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
-            User Profile Edit
-          </Heading>
           <FormControl id="userName">
-            <FormLabel>Profile picture</FormLabel>
-            <Stack direction={["column", "row"]} spacing={6}>
-              <Center>
-                <Text></Text>
+            <Center flexDir={["column", "column"]}>
+              <FormLabel>Profile picture</FormLabel>
+
+              <Center mb={5} mt={5}>
                 <Avatar size="xl" src={profileImg} />
               </Center>
               <Widget
@@ -141,7 +138,7 @@ const Profile = () => {
                   process.env.REACT_APP_UPLOADCARE_PUBLIC_KEY as string
                 }
               />
-            </Stack>
+            </Center>
           </FormControl>
           <FormControl id="userName" isRequired>
             <FormLabel>Name</FormLabel>

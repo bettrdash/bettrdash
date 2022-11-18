@@ -32,7 +32,7 @@ const main = async () => {
         "http://localhost:3000",
         "https://dev.bettrdash.eliaswambugu.com",
         "https://bettrdash.eliaswambugu.com",
-        'http://172.20.10.2:3000'
+        "http://172.20.10.2:3000",
       ],
       credentials: true,
     })
@@ -52,7 +52,7 @@ const main = async () => {
         sameSite: "lax",
         // secure: process.env.NODE_ENV === 'production' ? true : false, // if true: only transmit cookie over https, in prod, always activate this
         // httpOnly: true, // if true: prevents client side JS from reading the cookie
-        maxAge: 60 * 60 * 1000 * 24 * 3, // session max age in milliseconds (3 days)
+        maxAge: 1000 * 60 * 60 * 24 * 30, // session max age in milliseconds (30 days)
         // explicitly set cookie to lax
         // to make sure that all cookies accept it
         // you should never use none anyway
