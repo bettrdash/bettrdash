@@ -4,7 +4,6 @@ import {prisma} from "db";
 
 const main = async () => {
   let services = await prisma.service.findMany();
-  console.log(services)
   gateway({
     routes:services.map((service: any) => {
       return {
