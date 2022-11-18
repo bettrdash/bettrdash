@@ -24,21 +24,18 @@ import {
   Td,
   Avatar,
   useColorModeValue,
-  Divider,
   Tfoot,
 } from "@chakra-ui/react";
 import ModalComp from "../Components/ModalComp";
-import { projectsApi, queryClient, useAddProject } from "../api";
+import { projectsApi, useAddProject } from "../api";
 import { useQuery } from "react-query";
 import { ProjectProps } from "../utils/types";
-import * as Sentry from "@sentry/react";
 import Loading from "../Components/Loading";
 import { FiGrid, FiList } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
   const [filter, setFilter] = useState<string>("name");
-  const [view, _] = useState("list");
   const [display, setDisplay] = useState<string>("grid");
   const { data: projectsData, status: projectsStatus } = useQuery(
     ["projects", filter],
@@ -207,9 +204,6 @@ const NewProject = () => {
 
   const addProject = () => {
     if (!name || !description || !language) {
-      // Sentry.setUser({email: 'randomemail@mail.com'})
-      Sentry.setTag("testTag", "randomuser");
-      Sentry.captureMessage("Missing required fields");
       toast({
         title: "Error",
         description: "All fields are required.",

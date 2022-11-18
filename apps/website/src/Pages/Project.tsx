@@ -1,11 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useUser } from "./App";
 import { useQuery } from "react-query";
 import { projectApi, queryClient } from "../api";
 import {
   Badge,
   Button,
-  Center,
   Flex,
   Heading,
   Image,

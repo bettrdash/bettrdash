@@ -3,16 +3,12 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   useColorModeValue,
   Avatar,
-  Center,
   useToast,
-  Text,
   VStack,
-  HStack,
 } from "@chakra-ui/react";
 import { useUser } from "./App";
 import { useState } from "react";
@@ -31,7 +27,6 @@ const Profile = () => {
   const [rePassword, setRePassword] = useState("");
   const toast = useToast();
   const [profileImg, setImageUrl] = useState(user!.profile_img);
-  const navigate = useNavigate();
   const imageBG = useColorModeValue("gray.100", "gray.900");
   const bg = useColorModeValue("white", "gray.800");
   const [loading, setLoading] = useState(false);

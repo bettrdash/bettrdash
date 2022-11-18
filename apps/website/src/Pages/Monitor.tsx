@@ -1,13 +1,5 @@
 import {
-  Center,
   Heading,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   Text,
   Flex,
   useColorModeValue,
@@ -15,7 +7,6 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { useQuery } from "react-query";
-import { ScaleLoader } from "react-spinners";
 import { projectMonitor } from "../api";
 import Loading from "../Components/Loading";
 
