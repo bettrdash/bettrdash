@@ -27,6 +27,7 @@ const IMAGE =
 
 const ProjectCard = ({ project }: Props) => {
   const navigate = useNavigate();
+  const imageBG = useColorModeValue("gray.500", "gray.700");
   return (
     <>
       <Box
@@ -41,7 +42,6 @@ const ProjectCard = ({ project }: Props) => {
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
-        h="100%"
       >
         <Box
           rounded={"lg"}
@@ -68,6 +68,7 @@ const ProjectCard = ({ project }: Props) => {
           }}
         >
           <Image
+          bg={imageBG}
             alignSelf={"center"}
             alt=""
             rounded={"lg"}

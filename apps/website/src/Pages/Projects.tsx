@@ -232,7 +232,6 @@ const NewProject = () => {
   return (
     <>
       <Button
-        mb={{ base: 5, md: 0 }}
         _hover={{ color: "gray.800", bg: "gray.200" }}
         color="white"
         bgGradient={"linear(to-r, red.400,pink.400)"}
@@ -323,7 +322,7 @@ const GridView = ({ projects }: { projects: any }) => {
         templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
         autoRows={"inherit"}
         gap={20}
-        mt={55}
+        mt={35}
       >
         {projects.map((project: ProjectProps, index: number) => (
           <GridItem key={index}>
@@ -343,7 +342,7 @@ const ListView = ({ projects }: { projects: any }) => {
   const hoverBg = useColorModeValue("gray.100", "gray.700");
   return (
     <>
-      <Table mt={10} rounded={5} bg={tableBg} boxShadow={"lg"} variant="simple">
+      <Table mt={3} rounded={5} bg={tableBg} boxShadow={"lg"} variant="simple">
         <Thead>
           <Tr>
             <Th>Project</Th>

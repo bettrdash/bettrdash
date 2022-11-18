@@ -7,34 +7,43 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button
+  Button,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 type Props = {
-  isOpen: boolean,
-  onClose: () => void,
-  title: string,
-  children: ReactNode,
-  actionText: string,
-  onAction: () => void
-}
-const ModalComp = ({isOpen, onClose, children, title, actionText, onAction}: Props) => {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: ReactNode;
+  actionText: string;
+  onAction: () => void;
+};
+const ModalComp = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  actionText,
+  onAction,
+}: Props) => {
+  const bg = useColorModeValue("white", "gray.800");
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal size={{ base: "sm", md: "lg" }} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
+        <ModalContent bg={bg}>
           <ModalCloseButton />
-          <ModalBody>
-            {children}
-          </ModalBody>
+          <ModalHeader>{title}</ModalHeader>
+          <ModalBody>{children}</ModalBody>
 
           <ModalFooter>
-            <Button colorScheme={'red'} mr={3} onClick={onClose}>
+            <Button colorScheme={"red"} mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button onClick={onAction} variant="ghost">{actionText}</Button>
+            <Button onClick={onAction} variant="ghost">
+              {actionText}
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
