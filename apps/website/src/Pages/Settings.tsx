@@ -18,6 +18,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import ModalComp from "../Components/ModalComp";
+import Loading from "../Components/Loading";
 
 axios.defaults.withCredentials = true;
 
@@ -43,7 +44,7 @@ const Settings = () => {
   }, [apiSettingsData]);
 
   if (apiKeyStatus === "loading" || apiSettingsStatus === "loading") {
-    return <Text>Loading...</Text>;
+    return <Loading />;
   }
 
   if (apiKeyStatus === "error" || apiSettingsStatus === "error") {
