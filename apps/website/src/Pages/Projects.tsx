@@ -55,7 +55,7 @@ const Projects = () => {
         templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
         autoRows={"inherit"}
         gap={20}
-        mt={10}
+        mt={55}
       >
         {projects.map((project: ProjectProps, index: number) => (
           <GridItem key={index}>

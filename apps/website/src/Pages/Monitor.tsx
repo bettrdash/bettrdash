@@ -45,7 +45,7 @@ const Monitor = () => {
   const projects = projectMonitorData.projects;
   return (
     <>
-      <Heading>Monitor</Heading>
+      <Heading textAlign={{base: 'center', md: 'start'}}>Monitor</Heading>
       <Center h="100%">
         <TableContainer
           h="100%"

@@ -89,7 +89,7 @@ const Settings = () => {
 
   return (
     <>
-      <Heading>Settings</Heading>
+      <Heading textAlign={{base: 'center', md: 'start'}}>Settings</Heading>
       <Center>
         <Flex
           flexDir={"column"}
