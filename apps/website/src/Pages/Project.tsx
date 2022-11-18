@@ -123,6 +123,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
   };
   const inputBg = useColorModeValue("#f2f2f2", "gray.900");
   const bg = useColorModeValue("white", "gray.800");
+  const imageBG = useColorModeValue("gray.100", "gray.900");
   return (
     <>
       <Flex
@@ -135,13 +136,19 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
       >
         <Image
           rounded={10}
+          bg={imageBG}
           alt="project image"
           w={{ base: "100%", md: 330 }}
           h={250}
           src={project.image_url}
           fallbackSrc={IMAGE}
         />
-        <Flex ml={{base: 0, md: 5}} w="100%" flexDir={"column"} mt={{ base: 5, md: 0 }}>
+        <Flex
+          ml={{ base: 0, md: 5 }}
+          w="100%"
+          flexDir={"column"}
+          mt={{ base: 5, md: 0 }}
+        >
           <Flex>
             <Heading alignSelf={"center"} fontSize={15}>
               Status:
@@ -173,6 +180,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
           <Flex flexDir={"column"} mt={5}>
             <Heading fontSize={15}>Description: </Heading>
             <Textarea
+            minH={92}
               w="100%"
               mt={2}
               bg={inputBg}

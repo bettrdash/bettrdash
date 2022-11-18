@@ -24,7 +24,7 @@ type ProjectProp = {
   live_url: string;
 };
 const Monitor = () => {
-  const bg = useColorModeValue("white", "gray.800")
+  const bg = useColorModeValue("white", "gray.800");
   const { data: projectMonitorData, status: projectMonitorStatus } = useQuery(
     "projectMonitor",
     projectMonitor
@@ -45,14 +45,12 @@ const Monitor = () => {
   const projects = projectMonitorData.projects;
   return (
     <>
-      <Heading textAlign={{ base: "center", md: "start" }}>Monitor</Heading>
       <Flex
         h="100%"
         overflowY="auto"
         boxShadow={"lg"}
         w="100%"
-        rounded={10}
-        mt={10}
+        rounded={5}
         flexDir="column"
         p={4}
         bg={bg}
