@@ -100,14 +100,14 @@ const Settings = () => {
               <Heading fontSize={15}>API URL: </Heading>
               <Flex justify={"space-between"}>
                 <Text w={{base:  '70%',md: "90%"}} alignSelf={"center"}>
-                  https://api.bettrdash.eliaswambugu.com/v1/api/projects?key=
+                  https://api.bettrdash.eliaswambugu.com/projects/?key=
                   {apiKeyData.apiKey}
                 </Text>
                 <Button
                   bgGradient={"linear(to-r, red.400,pink.400)"}
                   onClick={() =>
                     copyToClipboard(
-                      `https://api.bettrdash.eliaswambugu.com/v1/api/projects?key=${apiKeyData.apiKey}`
+                      `https://api.bettrdash.eliaswambugu.com/projects/?key=${apiKeyData.apiKey}`
                     )
                   }
                   size="sm"

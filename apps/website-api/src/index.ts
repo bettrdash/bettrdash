@@ -2,9 +2,12 @@ import "dotenv-safe/config";
 import "reflect-metadata";
 import express from "express";
 const morgan = require("morgan");
-
+import cors from "cors";
 //routes
-import apiNoAuth from "./routes/api/noauth";
+import auth from "./routes/auth";
+import project from "./routes/project";
+import apiAuth from "./routes/api/auth";
+import monitor from "./routes/monitor";
 
 const session = require("express-session");
 const connectRedis = require("connect-redis");
@@ -24,21 +27,14 @@ const main = async () => {
   );
 
   app.use(
-    (
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction
-    ) => {
-      const origin = req.headers.origin || "";
-      res.setHeader("Access-Control-Allow-Origin", origin as string);
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-      );
-      res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); //@ts-ignore
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      next();
-    }
+    cors({
+      origin: [
+        "http://localhost:3000",
+        "https://dev.bettrdash.eliaswambugu.com",
+        "https://bettrdash.eliaswambugu.com",
+      ],
+      credentials: true,
+    })
   );
 
   app.use(express.json());
@@ -63,9 +59,29 @@ const main = async () => {
     })
   );
 
+  const authenticate = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    if (!req.session || !req.session.user) {
+      req;
+      res.status(200).json({ success: false, message: "Unauthorized" });
+      return;
+    }
+    next();
+  };
 
+  app.get("/", (_, res: express.Response) => {
+    res.send("Hello world");
+  });
 
-  app.use("/", apiNoAuth);
+  app.use("/auth", auth);
+
+  app.use(authenticate);
+  app.use("/projects", project);
+  app.use("/api-settings", apiAuth);
+  app.use("/monitor", monitor);
 
   app.use((_, res: express.Response) => {
     res.status(404).json({ status: "404" });
