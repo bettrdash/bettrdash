@@ -85,7 +85,7 @@ const main = () => {
   }
 
   app.listen(process.env.PORT, () => {
-    console.log(`🚀 Server ready at http://localhost:${process.env.PORT}`);
+    console.log(`🚀 Monitor API ready at http://localhost:${process.env.PORT}`);
   });
 };
 

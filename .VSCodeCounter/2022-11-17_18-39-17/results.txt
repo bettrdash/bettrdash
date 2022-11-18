@@ -1,0 +1,171 @@
+Date : 2022-11-17 18:39:17
+Directory : /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps
+Total : 100 files,  6381 codes, 293 comments, 495 blanks, all 7169 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| TypeScript React   |         32 |      3,973 |         59 |        220 |      4,252 |
+| TypeScript         |         44 |      1,833 |        184 |        216 |      2,233 |
+| JSON               |         10 |        379 |          0 |         10 |        389 |
+| Markdown           |          2 |         80 |          0 |         40 |        120 |
+| JSON with Comments |          8 |         64 |          0 |          2 |         66 |
+| HTML               |          2 |         36 |         50 |          2 |         88 |
+| CSS                |          1 |         15 |          0 |          4 |         19 |
+| JavaScript         |          1 |          1 |          0 |          1 |          2 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                              | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                 |        100 |      6,381 |        293 |        495 |      7,169 |
+| admin                                                                                                             |          5 |        116 |          0 |         12 |        128 |
+| admin/.adminjs                                                                                                    |          1 |          1 |          0 |          1 |          2 |
+| admin/src                                                                                                         |          2 |         81 |          0 |         10 |         91 |
+| api                                                                                                               |         10 |        626 |         31 |         54 |        711 |
+| api-gateway                                                                                                       |          6 |         77 |         36 |         11 |        124 |
+| api-gateway/src                                                                                                   |          4 |         39 |         36 |          9 |         84 |
+| api-gateway/src/routes                                                                                            |          1 |          0 |         36 |          5 |         41 |
+| api-gateway/src/utils                                                                                             |          1 |         14 |          0 |          1 |         15 |
+| api/src                                                                                                           |          8 |        573 |         31 |         53 |        657 |
+| api/src/routes                                                                                                    |          5 |        498 |         24 |         38 |        560 |
+| api/src/routes/api                                                                                                |          2 |        158 |          5 |         15 |        178 |
+| api/src/routes/auth                                                                                               |          1 |        168 |         14 |          9 |        191 |
+| api/src/routes/monitor                                                                                            |          1 |         30 |          0 |          6 |         36 |
+| api/src/routes/project                                                                                            |          1 |        142 |          5 |          8 |        155 |
+| desktop                                                                                                           |         33 |      2,369 |        103 |        174 |      2,646 |
+| desktop/electron                                                                                                  |          3 |         61 |          8 |          5 |         74 |
+| desktop/public                                                                                                    |          2 |         43 |         25 |          2 |         70 |
+| desktop/src                                                                                                       |         25 |      2,135 |         70 |        146 |      2,351 |
+| desktop/src/Components                                                                                            |          5 |        425 |         11 |         28 |        464 |
+| desktop/src/Pages                                                                                                 |          8 |      1,446 |         15 |         70 |      1,531 |
+| desktop/src/api                                                                                                   |          2 |         56 |          0 |         12 |         68 |
+| desktop/src/utils                                                                                                 |          3 |         26 |          2 |          6 |         34 |
+| monitor                                                                                                           |          6 |        153 |          2 |         14 |        169 |
+| monitor/src                                                                                                       |          4 |        116 |          2 |         12 |        130 |
+| monitor/src/routes                                                                                                |          1 |         17 |          0 |          4 |         21 |
+| monitor/src/utils                                                                                                 |          1 |          9 |          0 |          2 |         11 |
+| website                                                                                                           |         30 |      2,398 |         90 |        176 |      2,664 |
+| website-api                                                                                                       |         10 |        642 |         31 |         54 |        727 |
+| website-api/src                                                                                                   |          8 |        589 |         31 |         53 |        673 |
+| website-api/src/routes                                                                                            |          5 |        498 |         24 |         38 |        560 |
+| website-api/src/routes/api                                                                                        |          2 |        158 |          5 |         15 |        178 |
+| website-api/src/routes/auth                                                                                       |          1 |        168 |         14 |          9 |        191 |
+| website-api/src/routes/monitor                                                                                    |          1 |         30 |          0 |          6 |         36 |
+| website-api/src/routes/project                                                                                    |          1 |        142 |          5 |          8 |        155 |
+| website/public                                                                                                    |          2 |         43 |         25 |          2 |         70 |
+| website/src                                                                                                       |         25 |      2,255 |         65 |        153 |      2,473 |
+| website/src/Components                                                                                            |          6 |        453 |         12 |         32 |        497 |
+| website/src/Pages                                                                                                 |          9 |      1,539 |          6 |         73 |      1,618 |
+| website/src/api                                                                                                   |          2 |         63 |          0 |         13 |         76 |
+| website/src/utils                                                                                                 |          2 |         25 |          2 |          6 |         33 |
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                          | language           | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/admin/.adminjs/.entry.js                     | JavaScript         |          1 |          0 |          1 |          2 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/admin/package.json                           | JSON               |         26 |          0 |          1 |         27 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/admin/src/env.d.ts                           | TypeScript         |          6 |          0 |          0 |          6 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/admin/src/index.ts                           | TypeScript         |         75 |          0 |         10 |         85 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/admin/tsconfig.json                          | JSON with Comments |          8 |          0 |          0 |          8 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api-gateway/package.json                     | JSON               |         30 |          0 |          1 |         31 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api-gateway/src/env.d.ts                     | TypeScript         |          5 |          0 |          0 |          5 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api-gateway/src/index.ts                     | TypeScript         |         20 |          0 |          3 |         23 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api-gateway/src/routes/index.ts              | TypeScript         |          0 |         36 |          5 |         41 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api-gateway/src/utils/registry.json          | JSON               |         14 |          0 |          1 |         15 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api-gateway/tsconfig.json                    | JSON with Comments |          8 |          0 |          1 |          9 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/package.json                             | JSON               |         45 |          0 |          1 |         46 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/custom_typings.ts                    | TypeScript         |         10 |          0 |          0 |         10 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/env.d.ts                             | TypeScript         |          7 |          0 |          0 |          7 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/index.ts                             | TypeScript         |         58 |          7 |         15 |         80 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/routes/api/auth.ts                   | TypeScript         |         83 |          5 |         10 |         98 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/routes/api/noauth.ts                 | TypeScript         |         75 |          0 |          5 |         80 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/routes/auth/index.ts                 | TypeScript         |        168 |         14 |          9 |        191 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/routes/monitor/index.ts              | TypeScript         |         30 |          0 |          6 |         36 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/src/routes/project/index.ts              | TypeScript         |        142 |          5 |          8 |        155 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/api/tsconfig.json                            | JSON with Comments |          8 |          0 |          0 |          8 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/README.md                            | Markdown           |         40 |          0 |         20 |         60 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/electron/main.ts                     | TypeScript         |         46 |          8 |          5 |         59 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/electron/preload.ts                  | TypeScript         |          1 |          0 |          0 |          1 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/electron/tsconfig.json               | JSON with Comments |         14 |          0 |          0 |         14 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/package.json                         | JSON               |         85 |          0 |          1 |         86 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/public/index.html                    | HTML               |         18 |         25 |          1 |         44 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/public/manifest.json                 | JSON               |         25 |          0 |          1 |         26 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Components/ColorModeSwitcher.tsx | TypeScript React   |         27 |          0 |          4 |         31 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Components/ModalComp.tsx         | TypeScript React   |         42 |          0 |          4 |         46 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Components/Nav.tsx               | TypeScript React   |        250 |         11 |         11 |        272 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Components/ProjectCard.tsx       | TypeScript React   |         89 |          0 |          5 |         94 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Components/Stat.tsx              | TypeScript React   |         17 |          0 |          4 |         21 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/App.tsx                    | TypeScript React   |         30 |          0 |          9 |         39 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/Home.tsx                   | TypeScript React   |         15 |          0 |          3 |         18 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/Login.tsx                  | TypeScript React   |        138 |          0 |          5 |        143 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/Profile.tsx                | TypeScript React   |        219 |          0 |          3 |        222 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/Project.tsx                | TypeScript React   |        315 |          0 |         18 |        333 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/Projects.tsx               | TypeScript React   |        221 |          3 |         11 |        235 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/Settings.tsx               | TypeScript React   |        192 |         12 |         14 |        218 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/Pages/Signup.tsx                 | TypeScript React   |        316 |          0 |          7 |        323 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/api/constants.ts                 | TypeScript         |          1 |          0 |          1 |          2 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/api/index.ts                     | TypeScript         |         55 |          0 |         11 |         66 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/index.css                        | CSS                |         15 |          0 |          4 |         19 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/index.tsx                        | TypeScript React   |         42 |          6 |          3 |         51 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/react-app-env.d.ts               | TypeScript         |          0 |          1 |          1 |          2 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/reportWebVitals.ts               | TypeScript         |         13 |          0 |          3 |         16 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/serviceWorker.ts                 | TypeScript         |        102 |         31 |         14 |        147 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/setupTests.ts                    | TypeScript         |          1 |          4 |          1 |          6 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/test-utils.tsx                   | TypeScript React   |          9 |          0 |          4 |         13 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/utils/history.ts                 | TypeScript         |          2 |          0 |          0 |          2 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/utils/theme.ts                   | TypeScript         |          7 |          2 |          4 |         13 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/src/utils/types.d.ts                 | TypeScript         |         17 |          0 |          2 |         19 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/desktop/tsconfig.json                        | JSON with Comments |          5 |          0 |          0 |          5 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/monitor/package.json                         | JSON               |         29 |          0 |          1 |         30 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/monitor/src/env.d.ts                         | TypeScript         |          5 |          0 |          0 |          5 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/monitor/src/index.ts                         | TypeScript         |         85 |          2 |          6 |         93 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/monitor/src/routes/status.ts                 | TypeScript         |         17 |          0 |          4 |         21 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/monitor/src/utils/url.ts                     | TypeScript         |          9 |          0 |          2 |         11 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/monitor/tsconfig.json                        | JSON with Comments |          8 |          0 |          1 |          9 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/package.json                     | JSON               |         45 |          0 |          1 |         46 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/custom_typings.ts            | TypeScript         |         10 |          0 |          0 |         10 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/env.d.ts                     | TypeScript         |          7 |          0 |          0 |          7 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/index.ts                     | TypeScript         |         74 |          7 |         15 |         96 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/routes/api/auth.ts           | TypeScript         |         83 |          5 |         10 |         98 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/routes/api/noauth.ts         | TypeScript         |         75 |          0 |          5 |         80 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/routes/auth/index.ts         | TypeScript         |        168 |         14 |          9 |        191 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/routes/monitor/index.ts      | TypeScript         |         30 |          0 |          6 |         36 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/src/routes/project/index.ts      | TypeScript         |        142 |          5 |          8 |        155 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website-api/tsconfig.json                    | JSON with Comments |          8 |          0 |          0 |          8 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/README.md                            | Markdown           |         40 |          0 |         20 |         60 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/package.json                         | JSON               |         55 |          0 |          1 |         56 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/public/index.html                    | HTML               |         18 |         25 |          1 |         44 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/public/manifest.json                 | JSON               |         25 |          0 |          1 |         26 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Components/ColorModeSwitcher.tsx | TypeScript React   |         27 |          0 |          4 |         31 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Components/Loading.tsx           | TypeScript React   |         23 |          0 |          3 |         26 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Components/ModalComp.tsx         | TypeScript React   |         42 |          0 |          4 |         46 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Components/Nav.tsx               | TypeScript React   |        251 |         12 |         12 |        275 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Components/ProjectCard.tsx       | TypeScript React   |         93 |          0 |          5 |         98 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Components/Stat.tsx              | TypeScript React   |         17 |          0 |          4 |         21 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/App.tsx                    | TypeScript React   |         36 |          0 |          9 |         45 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Home.tsx                   | TypeScript React   |         15 |          0 |          3 |         18 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Login.tsx                  | TypeScript React   |        140 |          0 |          6 |        146 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Monitor.tsx                | TypeScript React   |         92 |          0 |          8 |        100 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Profile.tsx                | TypeScript React   |        219 |          0 |          3 |        222 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Project.tsx                | TypeScript React   |        292 |          0 |         14 |        306 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Projects.tsx               | TypeScript React   |        231 |          6 |         11 |        248 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Settings.tsx               | TypeScript React   |        202 |          0 |         12 |        214 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/Pages/Signup.tsx                 | TypeScript React   |        312 |          0 |          7 |        319 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/api/constants.ts                 | TypeScript         |          4 |          0 |          1 |          5 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/api/index.ts                     | TypeScript         |         59 |          0 |         12 |         71 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/index.tsx                        | TypeScript React   |         50 |          9 |          6 |         65 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/react-app-env.d.ts               | TypeScript         |          0 |          1 |          1 |          2 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/reportWebVitals.ts               | TypeScript         |         13 |          0 |          3 |         16 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/serviceWorker.ts                 | TypeScript         |        102 |         31 |         14 |        147 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/setupTests.ts                    | TypeScript         |          1 |          4 |          1 |          6 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/test-utils.tsx                   | TypeScript React   |          9 |          0 |          4 |         13 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/utils/theme.ts                   | TypeScript         |          7 |          2 |          4 |         13 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/src/utils/types.d.ts                 | TypeScript         |         18 |          0 |          2 |         20 |
+| /Users/eliaswambugu/Documents/projects/dashboard/bettrdash-test/apps/website/tsconfig.json                        | JSON with Comments |          5 |          0 |          0 |          5 |
+| Total                                                                                                             |                    |      6,381 |        293 |        495 |      7,169 |
++-------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
