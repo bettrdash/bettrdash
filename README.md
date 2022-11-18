@@ -6,12 +6,22 @@ This is an official Yarn v1 starter turborepo.
 
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
-### Apps and Packages
+### Apps
 
+- `admin`: An adminjs application
 - `api`: an express (typescript) app
-- `web`: a react app
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `api-gateway`: an express (typescript) app to proxy requests to various services
+- `desktop`: an electron (typescript) app to run the app on a mac desktop
+- `monitor`: an express (typescript) app to monitor the health of user's websites and services 
+- `website`: a react (typescript) app 
+- `website-api`: an express (typescript) app to handle requests from the website
+
+### Packages
+
+- `db`: prisma client
+- `eslint-config-custom`: custom eslint config
+- `tsconfig`: custom tsconfig
+
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
