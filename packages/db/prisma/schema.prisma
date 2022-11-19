@@ -44,8 +44,8 @@ model Website {
   updatedAt   DateTime @updatedAt @map("updated_at")
   url         String
   environment String   @default("production")
-  project     Project  @relation(fields: [projectId], references: [id])
-  projectId   Int
+  project     Project?  @relation(fields: [projectId], references: [id])
+  projectId   Int?
 }
 
 model Apikey {
