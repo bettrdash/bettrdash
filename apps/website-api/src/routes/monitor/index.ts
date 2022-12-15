@@ -33,4 +33,31 @@ router.get("/", async (req: express.Request, res: express.Response) => {
   res.status(200).json({ success: true, projects });
 });
 
-export default router
+router.post("/new", async (req: express.Request, res: express.Response) => {
+  try {
+    const { url, environment, projectId } = req.body;
+    if (!url) {
+      res.status(200).json({ success: false, message: "Missing fields" });
+      return;
+    } else {
+      const website = await prisma.website.create({
+        data: {
+          url,
+          environment,
+          projectId,
+          project: {
+            connect: {
+              id: projectId,
+            },
+          },
+        },
+      });
+      res.json({ success: true, website });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(200).json({ success: false, message: "An error has occurred" });
+  }
+});
+
+export default router;

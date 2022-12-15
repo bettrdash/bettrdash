@@ -57,7 +57,7 @@ export const useAddProject = () => {
     onError: () => {
       toast({
         title: "Error",
-        description: "There was an error adding the upload",
+        description: "There was an error adding the project",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -65,6 +65,34 @@ export const useAddProject = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["projects"]);
+    },
+  });
+};
+
+type WebsiteProps = {
+  url: string;
+  environment?: string;
+  projectId: Number;
+};
+
+const addWebsite = (website: WebsiteProps) => {
+  return axios.post(`${API_URL}/webiste/new`, website);
+};
+
+export const useAddWebsite = () => {
+  const toast = useToast();
+  return useMutation(addWebsite, {
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "There was an error adding the upload",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["websites"]);
     },
   });
 };
