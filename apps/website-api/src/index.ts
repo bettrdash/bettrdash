@@ -29,7 +29,7 @@ const main = async () => {
   app.use(
     cors({
       origin: [
-        "http://localhost:3000",
+        "http://localhost:3001",
         "https://dev.bettrdash.eliaswambugu.com",
         "https://bettrdash.eliaswambugu.com",
         "http://172.20.10.2:3000",
