@@ -3,5 +3,6 @@ declare namespace NodeJS {
     PORT: string;
     SESSION_SECRET: string;
     COOKIE_DOMAIN: string;
+    NODE_ENV: "development" | "production";
   }
 }
