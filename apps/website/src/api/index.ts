@@ -72,11 +72,11 @@ export const useAddProject = () => {
 type WebsiteProps = {
   url: string;
   environment?: string;
-  projectId: Number;
+  projectId: Number | null;
 };
 
 const addWebsite = (website: WebsiteProps) => {
-  return axios.post(`${API_URL}/webiste/new`, website);
+  return axios.post(`${API_URL}/monitor/new`, website);
 };
 
 export const useAddWebsite = () => {

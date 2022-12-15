@@ -27,6 +27,7 @@ router.get("/", async (req: express.Request, res: express.Response) => {
       id: true,
       status: true,
       live_url: true,
+      name: true,
     },
   });
 
@@ -35,7 +36,7 @@ router.get("/", async (req: express.Request, res: express.Response) => {
 
 router.post("/new", async (req: express.Request, res: express.Response) => {
   try {
-    const { url, environment, projectId } = req.body;
+    const { url, environment, projectId = null } = req.body;
     if (!url) {
       res.status(200).json({ success: false, message: "Missing fields" });
       return;
@@ -44,12 +45,13 @@ router.post("/new", async (req: express.Request, res: express.Response) => {
         data: {
           url,
           environment,
-          projectId,
-          project: {
-            connect: {
-              id: projectId,
-            },
-          },
+          project: projectId
+            ? {
+                connect: {
+                  id: projectId,
+                },
+              }
+            : undefined,
         },
       });
       res.json({ success: true, website });

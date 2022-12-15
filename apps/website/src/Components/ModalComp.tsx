@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactComponentElement, ReactNode } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -14,7 +14,7 @@ import {
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  title: string | ReactComponentElement<any>;
   children: ReactNode;
   actionText: string;
   onAction: () => void;
