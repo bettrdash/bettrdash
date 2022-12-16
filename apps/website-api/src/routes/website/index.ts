@@ -184,7 +184,7 @@ router.post('/migrate', async(_req, res: express.Response) => {
       const project = projects[i]
       if (project.live_url) {
         if (project.live_url.length > 0) {
-          const website = await prisma.website.create({
+           await prisma.website.create({
             data: {
               url: project.live_url,
               environment: 'production',
