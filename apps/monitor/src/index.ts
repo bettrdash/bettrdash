@@ -21,8 +21,12 @@ const main = () => {
         let websites = await prisma.website.findMany();
         websites.forEach(async (website) => {
           if (isURL(website.url as string)) {
+            let url = website.url;
+            if (website.url.substring(0, 4) !== "http") {
+              url = "https://" + website.url;
+            }
             await axios
-              .get(website.url!)
+              .get(url)
               .then(async (res) => {
                 if (res.status === 200) {
                   if (website.status !== "UP") {

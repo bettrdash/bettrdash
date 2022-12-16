@@ -28,8 +28,12 @@ const main = () => {
             let websites = yield db_1.prisma.website.findMany();
             websites.forEach((website) => __awaiter(void 0, void 0, void 0, function* () {
                 if ((0, url_1.isURL)(website.url)) {
+                    let url = website.url;
+                    if (website.url.substring(0, 4) !== "http") {
+                        url = "https://" + website.url;
+                    }
                     yield axios_1.default
-                        .get(website.url)
+                        .get(url)
                         .then((res) => __awaiter(void 0, void 0, void 0, function* () {
                         if (res.status === 200) {
                             if (website.status !== "UP") {
