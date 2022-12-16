@@ -197,7 +197,7 @@ router.post('/migrate', async(_req, res: express.Response) => {
             where: { id: project.id },
             data: {
               live_url: null,
-              defaultWebsiteId: website.id
+              defaultWebsiteId: 2
             }
           })
         }
