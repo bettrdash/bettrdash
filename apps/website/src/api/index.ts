@@ -7,6 +7,15 @@ axios.defaults.withCredentials = true;
 
 export const queryClient = new QueryClient();
 
+export const projectWebsitesApi = async ({
+  projectId,
+}: {
+  projectId: string;
+}) => {
+  const res = await axios.get(`${API_URL}/websites/all/${projectId}`);
+  return res.data;
+};
+
 export const projectMonitor = async () => {
   const res = await axios.get(`${API_URL}/monitor`);
   return res.data;
@@ -43,7 +52,8 @@ type ProjectProps = {
   description: string;
   language: string;
   active: boolean;
-  live_url?: string;
+  url?: string;
+  environment?: string;
   image_url?: string;
 };
 
@@ -72,11 +82,11 @@ export const useAddProject = () => {
 type WebsiteProps = {
   url: string;
   environment?: string;
-  projectId: Number;
+  projectId: Number | null;
 };
 
 const addWebsite = (website: WebsiteProps) => {
-  return axios.post(`${API_URL}/webiste/new`, website);
+  return axios.post(`${API_URL}/website/new`, website);
 };
 
 export const useAddWebsite = () => {
@@ -92,7 +102,72 @@ export const useAddWebsite = () => {
       });
     },
     onSuccess: () => {
+      queryClient.invalidateQueries(["Monitor"]);
+    },
+  });
+};
+
+type UpdateWebsiteProps = {
+  url: string;
+  environment?: string;
+  default: boolean;
+  id: number;
+};
+
+export const updateWebsite = (website: UpdateWebsiteProps) => {
+  return axios.post(`${API_URL}/website/update`, website);
+};
+
+export const useUpdateWebsite = ({ onClose }: { onClose: () => void }) => {
+  const toast = useToast();
+  return useMutation(updateWebsite, {
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "There was an error updating the website",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Website updated.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
       queryClient.invalidateQueries(["websites"]);
+      onClose();
+    },
+  });
+};
+
+const deleteWebsite = ({id}: {id: number}) => {
+  return axios.post(`${API_URL}/website/delete`);
+};
+
+export const useDeleteWebsite = () => {
+  const toast = useToast();
+  return useMutation(deleteWebsite, {
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "There was an error deleting the website",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["Websites", "Monitor"]);
+      toast({
+        title: "Error",
+        description: "Website deleted",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
     },
   });
 };

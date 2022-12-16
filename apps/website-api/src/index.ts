@@ -8,6 +8,7 @@ import auth from "./routes/auth";
 import project from "./routes/project";
 import apiAuth from "./routes/api/auth";
 import monitor from "./routes/monitor";
+import website from './routes/website';
 
 const session = require("express-session");
 const connectRedis = require("connect-redis");
@@ -30,6 +31,7 @@ const main = async () => {
     cors({
       origin: [
         process.env.NODE_ENV === 'development' ? "http://localhost:3001" : false,
+        process.env.NODE_ENV === 'development' ? "http://192.168.1.39:3001" : false,
         "https://dev.bettrdash.com",
         "https://bettrdash.com",
       ],
@@ -82,6 +84,7 @@ const main = async () => {
   app.use("/projects", project);
   app.use("/api-settings", apiAuth);
   app.use("/monitor", monitor);
+  app.use('/website', website)
 
   app.use((_, res: express.Response) => {
     res.status(404).json({ status: "404" });

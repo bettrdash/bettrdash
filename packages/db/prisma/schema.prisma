@@ -19,23 +19,25 @@ model User {
   api_key                Apikey?
   projects               Project[]
   role                   String    @default("user")
+  websites               Website[]
 }
 
 model Project {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  name        String    @db.Citext
-  github_url  String?
-  language    String
-  description String
-  active      Boolean
-  live_url    String?
-  image_url   String    @default("https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png")
-  owner       User      @relation(fields: [ownerId], references: [id])
-  ownerId     Int
-  status      String    @default("pending")
-  websites    Website[]
+  id               Int       @id @default(autoincrement())
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+  name             String    @db.Citext
+  github_url       String?
+  language         String?
+  description      String?
+  active           Boolean
+  image_url        String    @default("https://res.cloudinary.com/practicaldev/image/fetch/s--qo_Wp38Z--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/e0nl7ziy1la7bpwj7rsp.png")
+  owner            User      @relation(fields: [ownerId], references: [id])
+  ownerId          Int
+  status           String    @default("pending")
+  websites         Website[]
+  defaultWebsiteId Int?
+  live_url         String?
 }
 
 model Website {
@@ -43,9 +45,13 @@ model Website {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   url         String
-  environment String   @default("production")
-  project     Project?  @relation(fields: [projectId], references: [id])
+  environment String?  @default("production")
+  project     Project? @relation(fields: [projectId], references: [id])
   projectId   Int?
+  status      String   @default("pending")
+  owner       User     @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  default     Boolean  @default(false)
 }
 
 model Apikey {

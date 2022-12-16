@@ -82,7 +82,7 @@ const Nav = ({ children, user }: { children: ReactNode; user: UserProps }) => {
       </Drawer>
       {/* mobilenav */}
       <MobileNav user={user} onOpen={onOpen} />
-      <Box minH="100%" h="100%" ml={{ base: 0, md: 60 }} p="4">
+      <Box h="100%" ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
     </Box>
@@ -246,7 +246,6 @@ interface MobileProps extends FlexProps {
   user: UserProps;
 }
 const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
-  const location = useLocation();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -274,7 +273,7 @@ const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        {location.pathname === "/" ? "Projects" : location.pathname.charAt(1).toUpperCase() + location.pathname.slice(2)}
+        BettrDash
       </Text>
     </Flex>
   );

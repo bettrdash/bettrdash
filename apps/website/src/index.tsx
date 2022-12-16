@@ -4,20 +4,23 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./Pages/Login";
-import App from "./Pages/App";
 import { ChakraProvider } from "@chakra-ui/react";
-import Projects from "./Pages/Projects";
-import Settings from "./Pages/Settings";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./api";
-import Signup from "./Pages/Signup";
-import Profile from "./Pages/Profile";
-import theme from './utils/theme'
-import Project from "./Pages/Project";
+import theme from "./utils/theme";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
+
+//pages
+import App from "./Pages/App";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import Projects from "./Pages/Projects";
 import Monitor from "./Pages/Monitor";
+import Project from "./Pages/Project";
+import Profile from "./Pages/Profile";
+import Settings from "./Pages/Settings";
+import Websites from "./Pages/Websites";
 
 Sentry.init({
   dsn: "https://af1db286b9844d3c852640f235b4ab2b@o4504119170105344.ingest.sentry.io/4504119172464640",
@@ -28,7 +31,6 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
@@ -38,10 +40,11 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route index element={<Projects />} />
-              <Route path='/monitor' element={<Monitor />} />
+              <Route path="/monitor" element={<Monitor />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path='/projects/:id' element={<Project />} />
+              <Route path="/projects/:id" element={<Project />} />
+              <Route path="/projects/:id/websites" element={<Websites />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

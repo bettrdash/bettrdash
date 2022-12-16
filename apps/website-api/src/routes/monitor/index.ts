@@ -10,54 +10,51 @@ router.get("/", async (req: express.Request, res: express.Response) => {
     res.status(200).json({ success: false, message: "Unauthorized" });
     return;
   }
-
-  const projects = await prisma.project.findMany({
+  const websites = await prisma.website.findMany({
     where: {
-      ownerId: req!.session!.user!.id,
-    },
-    orderBy: [
-      {
-        name: "desc",
+      owner: {
+        id: user.id,
       },
-      {
-        status: "desc",
-      },
-    ],
-    select: {
-      id: true,
-      status: true,
-      live_url: true,
     },
-  });
-
-  res.status(200).json({ success: true, projects });
-});
-
-router.post("/new", async (req: express.Request, res: express.Response) => {
-  try {
-    const { url, environment, projectId } = req.body;
-    if (!url) {
-      res.status(200).json({ success: false, message: "Missing fields" });
-      return;
-    } else {
-      const website = await prisma.website.create({
-        data: {
-          url,
-          environment,
-          projectId,
-          project: {
-            connect: {
-              id: projectId,
-            },
-          },
-        },
-      });
-      res.json({ success: true, website });
+    include: {
+      project: true
     }
-  } catch (e) {
-    console.log(e);
-    res.status(200).json({ success: false, message: "An error has occurred" });
-  }
+  });
+  const projects = await prisma.project.findMany({where: {
+    owner: {
+      id: user.id
+    }
+  }})
+
+  res.status(200).json({ success: true, websites, projects });
 });
+
+// router.post("/new", async (req: express.Request, res: express.Response) => {
+//   try {
+//     const { url, environment, projectId = null } = req.body;
+//     if (!url) {
+//       res.status(200).json({ success: false, message: "Missing fields" });
+//       return;
+//     } else {
+//       const website = await prisma.website.create({
+//         data: {
+//           url,
+//           environment,
+//           project: projectId
+//             ? {
+//                 connect: {
+//                   id: projectId,
+//                 },
+//               }
+//             : undefined,
+//         },
+//       });
+//       res.json({ success: true, website });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//     res.status(200).json({ success: false, message: "An error has occurred" });
+//   }
+// });
 
 export default router;
