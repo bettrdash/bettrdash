@@ -184,18 +184,20 @@ router.post('/migrate', async(_req, res: express.Response) => {
       const project = projects[i]
       if (project.live_url) {
         if (project.live_url.length > 0) {
-          await prisma.website.create({
+          const website = await prisma.website.create({
             data: {
               url: project.live_url,
               environment: 'production',
               project: { connect: { id: project.id } },
               owner: { connect: { id: project.ownerId } },
+              default: true
             },
           })
           await prisma.project.update({
             where: { id: project.id },
             data: {
               live_url: null,
+              defaultWebsiteId: website.id
             }
           })
         }
