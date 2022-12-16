@@ -177,7 +177,7 @@ router.post('/delete', async(req: express.Request, res: express.Response) => {
 
 
 //migrate live_url to website 
-router.post('/migrate', async(res: express.Response) => {
+router.post('/migrate', async(_req, res: express.Response) => {
   try {
     const projects = await prisma.project.findMany()
     for (let i=0; i<projects.length; i++) {
