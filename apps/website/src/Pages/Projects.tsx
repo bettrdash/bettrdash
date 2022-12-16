@@ -25,6 +25,7 @@ import {
   Avatar,
   useColorModeValue,
   Tfoot,
+  Heading,
 } from "@chakra-ui/react";
 import ModalComp from "../Components/ModalComp";
 import { projectsApi, useAddProject } from "../api";
@@ -148,13 +149,16 @@ const Header = ({
 const NewProject = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState("");
-  const [live_url, setLiveURL] = useState("");
+  const [url, setURL] = useState("");
+  const [environment, setEnvironment] = useState('production')
   const [github_url, setGithubUrl] = useState("");
   const [language, setLanguage] = useState("");
   const [description, setDescription] = useState("");
   const [active, setActive] = useState(false);
   const [image_url, setImageUrl] = useState("");
   const toast = useToast();
+
+  const inputBg = useColorModeValue("gray.200", "gray.900");
 
   const {
     mutate: addUpload,
@@ -203,10 +207,10 @@ const NewProject = () => {
   ]);
 
   const addProject = () => {
-    if (!name || !description || !language) {
+    if (!name) {
       toast({
         title: "Error",
-        description: "All fields are required.",
+        description: "Name field is required",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -218,7 +222,8 @@ const NewProject = () => {
         github_url,
         language,
         active,
-        live_url,
+        url,
+        environment,
         image_url,
       });
       onClose();
@@ -246,42 +251,53 @@ const NewProject = () => {
         onClose={onClose}
         onAction={addProject}
       >
+        <Heading color="gray.500" fontSize={12}>
+          Active?
+        </Heading>
+        <HStack>
+          <Text fontSize={20} fontWeight={"200"}>
+            Active?
+          </Text>
+          <Switch
+            isChecked={active}
+            onChange={() => setActive(!active)}
+            colorScheme={"green"}
+          />
+        </HStack>
+        <Heading color="gray.500" fontSize={12} mt={5}>
+          Project Name
+        </Heading>
         <Input
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          variant={"flushed"}
-          placeholder="Project Title"
+          placeholder="Project Name"
+          mt={3}
+          backgroundColor={inputBg}
+          borderColor={inputBg}
         />
-        <Input
-          name="live_url"
-          value={live_url}
-          onChange={(e) => setLiveURL(e.target.value)}
-          mt={5}
-          variant={"flushed"}
-          placeholder="Live Link"
+         <Heading color="gray.500" fontSize={12} mt={5}>
+          Description
+        </Heading>
+        <Textarea
+          name={"description"}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Description"
+          mt={3}
+          backgroundColor={inputBg}
+          borderColor={inputBg}
         />
-        <Input
-          name="github_url"
-          value={github_url}
-          onChange={(e) => setGithubUrl(e.target.value)}
-          mt={5}
-          variant={"flushed"}
-          placeholder="Github URL"
-        />
-        <Input
-          name="image_url"
-          value={image_url}
-          onChange={(e) => setImageUrl(e.target.value)}
-          mt={5}
-          variant={"flushed"}
-          placeholder="Image URL"
-        />
+        <Heading color="gray.500" fontSize={12} mt={5}>
+          Select Language
+        </Heading>
         <Select
+          mt={3}
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          placeholder="Select language"
-          mt={5}
+          placeholder="Select Language"
+          backgroundColor={inputBg}
+          borderColor={inputBg}
         >
           <option>Javascript</option>
           <option>Python</option>
@@ -292,23 +308,63 @@ const NewProject = () => {
           <option>C</option>
           <option>C#</option>
         </Select>
-        <Textarea
-          name={"description"}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          mt={5}
-          placeholder="Description"
-        />
-        <HStack mt={5}>
-          <Text fontSize={20} fontWeight={"200"}>
-            Active?
-          </Text>
-          <Switch
-            isChecked={active}
-            onChange={() => setActive(!active)}
-            colorScheme={"green"}
-          />
+        <HStack>
+          <Flex flexDir={'column'}>
+            <Heading color="gray.500" fontSize={12} mt={5}>
+             URL
+            </Heading>
+            <Input
+              name="url"
+              value={url}
+              onChange={(e) => setURL(e.target.value)}
+              placeholder="URL"
+              mt={3}
+              backgroundColor={inputBg}
+              borderColor={inputBg}
+            />
+          </Flex>
+          <Flex flexDir={'column'}>
+            <Heading color="gray.500" fontSize={12} mt={5}>
+              Environment
+            </Heading>
+            <Input
+              name="environment"
+              value={environment}
+              onChange={(e) => setEnvironment(e.target.value)}
+              placeholder="Environment"
+              mt={3}
+              backgroundColor={inputBg}
+              borderColor={inputBg}
+            />
+          </Flex>
         </HStack>
+        <Heading color="gray.500" fontSize={12} mt={5}>
+          github_url
+        </Heading>
+        <Input
+          name="github_url"
+          value={github_url}
+          onChange={(e) => setGithubUrl(e.target.value)}
+          placeholder="Github URL"
+          mt={3}
+          backgroundColor={inputBg}
+          borderColor={inputBg}
+        />
+        <Heading color="gray.500" fontSize={12} mt={5}>
+          image_url
+        </Heading>
+        <Input
+          name="image_url"
+          value={image_url}
+          onChange={(e) => setImageUrl(e.target.value)}
+          mt={3}
+          backgroundColor={inputBg}
+          borderColor={inputBg}
+          placeholder="Image URL"
+        />
+        
+       
+        
       </ModalComp>
     </>
   );
@@ -347,7 +403,7 @@ const ListView = ({ projects }: { projects: any }) => {
           <Tr>
             <Th>Project</Th>
             <Th>Description</Th>
-            <Th display={{base: 'none', sm: 'block'}}>Active</Th>
+            {/* <Th >Active</Th> */}
           </Tr>
         </Thead>
         <Tbody>
@@ -364,7 +420,9 @@ const ListView = ({ projects }: { projects: any }) => {
                 </HStack>
               </Td>
               <Td>{project.description}</Td>
-              <Td display={{base: 'none', sm: 'block'}}>{project.active ? "Yes" : "No"}</Td>
+              {/* <Td>
+                {project.active ? "Yes" : "No"}
+              </Td> */}
             </Tr>
           ))}
         </Tbody>
@@ -372,7 +430,7 @@ const ListView = ({ projects }: { projects: any }) => {
           <Tr>
             <Th>Project</Th>
             <Th>Description</Th>
-            <Th display={{base: 'none', sm: 'block'}}>Active</Th>
+            {/* <Th display={{ base: "none", sm: "block" }}>Active</Th> */}
           </Tr>
         </Tfoot>
       </Table>

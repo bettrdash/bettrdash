@@ -1,11 +1,15 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { projectApi, queryClient } from "../api";
 import {
   Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
   Button,
   Flex,
   Heading,
+  HStack,
   Image,
   Input,
   Switch,
@@ -17,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import "moment-timezone";
 import { ProjectProps } from "../utils/types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../api/constants";
 import ModalComp from "../Components/ModalComp";
@@ -130,135 +134,144 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
         bg={bg}
         rounded={5}
         boxShadow="lg"
-        flexDir={{ base: "column", md: "row" }}
+        flexDir={"column"}
         padding={5}
       >
-        <Image
-          rounded={10}
-          bg={imageBG}
-          alt="project image"
-          w={{ base: "100%", md: 330 }}
-          h={250}
-          src={project.image_url}
-          fallbackSrc={IMAGE}
-        />
-        <Flex
-          ml={{ base: 0, md: 5 }}
-          w="100%"
-          flexDir={"column"}
-          mt={{ base: 5, md: 0 }}
-        >
-          <Flex>
-            <Heading alignSelf={"center"} fontSize={15}>
-              Status:
-            </Heading>
-            <Badge ml={2} colorScheme={project.status === "ONLINE" ? "green" : "red"}>
-              {project.status}
-            </Badge>
-          </Flex>
-          <Flex mt={5} w={"100%"} flexDir={"column"}>
-            <Heading fontSize={15}>Name</Heading>
-            <Input
-              mt={2}
-              w="100%"
-              bg={inputBg}
-              name="name"
-              border="none"
-              value={updatedProject.name}
-              onChange={handleChange}
-              placeholder="Name"
-            />
-          </Flex>
-          <Flex flexDir={"column"} mt={5}>
-            <Heading fontSize={15}>Description: </Heading>
-            <Textarea
-              minH={92}
-              w="100%"
-              mt={2}
-              bg={inputBg}
-              border="none"
-              name="description"
-              placeholder="Description"
-              value={updatedProject.description}
-              onChange={handleChange}
-            />
-          </Flex>
-          <Flex flexDir={"column"} mt={5}>
-            <Heading fontSize={15}>Language: </Heading>
-            <Input
-              mt={2}
-              bg={inputBg}
-              border="none"
-              name="language"
-              value={updatedProject.language}
-              onChange={handleChange}
-              placeholder="Language"
-            />
-          </Flex>
-          <Flex mt={5}>
-            <Heading fontSize={15}>Active: </Heading>
-            <Switch
-              onChange={() => {
-                setUnsaved(true);
-                setUpdatedProject({
-                  ...updatedProject,
-                  active: !updatedProject.active,
-                });
-              }}
-              isChecked={updatedProject.active}
-              colorScheme={"green"}
-              ml={3}
-              alignSelf={"center"}
-            />
-          </Flex>
-          <Flex flexDir={"column"} mt={5}>
-            <Heading fontSize={15}>Live URL: </Heading>
-            <Input
-              mt={2}
-              bg={inputBg}
-              border="none"
-              name="live_url"
-              value={updatedProject.live_url}
-              onChange={handleChange}
-              placeholder="Live Url"
-            />
-          </Flex>
-          <Flex flexDir={"column"} mt={5}>
-            <Heading fontSize={15}>Github URL: </Heading>
-            <Input
-              mt={2}
-              border="none"
-              bg={inputBg}
-              name="github_url"
-              value={updatedProject.github_url}
-              onChange={handleChange}
-              placeholder="Github Url"
-            />
-          </Flex>
-          <Flex flexDir={"column"} mt={5}>
-            <Heading fontSize={15}>Image URL: </Heading>
-            <Input
-              mt={2}
-              bg={inputBg}
-              border="none"
-              name="image_url"
-              value={updatedProject.image_url}
-              onChange={handleChange}
-              placeholder="Image Url"
-            />
-          </Flex>
-          <Button
-            isLoading={loading}
-            _hover={{ color: "#1A202C", bg: "gray.200" }}
-            disabled={!unsaved}
-            mt={5}
-            color="white"
-            onClick={handleSave}
-            bgGradient={"linear(to-r, red.400,pink.400)"}
+        <Breadcrumb alignSelf={{ base: "center", md: "start" }}>
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} to="/">Projects</BreadcrumbLink>
+          </BreadcrumbItem>
+
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink as={Link} to={`/projects/${project.id}`}>{project.name}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+        <Flex mt={5} flexDir={{ base: "column", md: "row" }}>
+          <Image
+            rounded={10}
+            bg={imageBG}
+            alt="project image"
+            w={{ base: "100%", md: 330 }}
+            h={250}
+            src={project.image_url}
+            fallbackSrc={IMAGE}
+          />
+          <Flex
+            ml={{ base: 0, md: 5 }}
+            w="100%"
+            flexDir={"column"}
+            mt={{ base: 5, md: 0 }}
           >
-            Save
-          </Button>
-          <DeleteProject id={project.id} />
+            <Link style={{ width: 120 }} to={`websites`}>
+              <Text fontWeight={'bold'} bgGradient="linear(to-r, red.400,pink.400)" bgClip="text">
+                View Websites
+              </Text>
+            </Link>
+            <Flex mt={5}>
+              <Heading fontSize={15}>Active: </Heading>
+              <Switch
+                onChange={() => {
+                  setUnsaved(true);
+                  setUpdatedProject({
+                    ...updatedProject,
+                    active: !updatedProject.active,
+                  });
+                }}
+                isChecked={updatedProject.active}
+                colorScheme={"green"}
+                ml={3}
+                alignSelf={"center"}
+              />
+            </Flex>
+            <Flex mt={5} w={"100%"} flexDir={"column"}>
+              <Heading fontSize={15}>Name</Heading>
+              <Input
+                mt={2}
+                w="100%"
+                bg={inputBg}
+                name="name"
+                border="none"
+                value={updatedProject.name}
+                onChange={handleChange}
+                placeholder="Name"
+              />
+            </Flex>
+            <Flex flexDir={"column"} mt={5}>
+              <Heading fontSize={15}>Description: </Heading>
+              <Textarea
+                minH={92}
+                w="100%"
+                mt={2}
+                bg={inputBg}
+                border="none"
+                name="description"
+                placeholder="Description"
+                value={updatedProject.description}
+                onChange={handleChange}
+              />
+            </Flex>
+            <Flex flexDir={"column"} mt={5}>
+              <Heading fontSize={15}>Language: </Heading>
+              <Input
+                mt={2}
+                bg={inputBg}
+                border="none"
+                name="language"
+                value={updatedProject.language}
+                onChange={handleChange}
+                placeholder="Language"
+              />
+            </Flex>
+
+            <Flex flexDir={"column"} mt={5}>
+              <Heading fontSize={15}>Live URL: </Heading>
+              <Input
+                mt={2}
+                bg={inputBg}
+                border="none"
+                name="live_url"
+                value={updatedProject.live_url}
+                onChange={handleChange}
+                placeholder="Live Url"
+              />
+            </Flex>
+            <Flex flexDir={"column"} mt={5}>
+              <Heading fontSize={15}>Github URL: </Heading>
+              <Input
+                mt={2}
+                border="none"
+                bg={inputBg}
+                name="github_url"
+                value={updatedProject.github_url}
+                onChange={handleChange}
+                placeholder="Github Url"
+              />
+            </Flex>
+            <Flex flexDir={"column"} mt={5}>
+              <Heading fontSize={15}>Image URL: </Heading>
+              <Input
+                mt={2}
+                bg={inputBg}
+                border="none"
+                name="image_url"
+                value={updatedProject.image_url}
+                onChange={handleChange}
+                placeholder="Image Url"
+              />
+            </Flex>
+            <Button
+              isLoading={loading}
+              _hover={{ color: "#1A202C", bg: "gray.200" }}
+              disabled={!unsaved}
+              mt={5}
+              color="white"
+              onClick={handleSave}
+              bgGradient={"linear(to-r, red.400,pink.400)"}
+            >
+              Save
+            </Button>
+            <DeleteProject id={project.id} />
+          </Flex>
         </Flex>
       </Flex>
     </>

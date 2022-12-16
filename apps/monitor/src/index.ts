@@ -18,47 +18,40 @@ const main = () => {
     const job = new CronJob(
       "*/5 * * * *",
       async () => {
-        let projects = await prisma.project.findMany({
-          select: {
-            id: true,
-            live_url: true,
-            name: true,
-            status: true,
-          },
-        });
-        projects.forEach(async (project) => {
-          if (isURL(project.live_url as string)) {
+        let websites = await prisma.website.findMany();
+        websites.forEach(async (website) => {
+          if (isURL(website.url as string)) {
             await axios
-              .get(project.live_url!)
+              .get(website.url!)
               .then(async (res) => {
                 if (res.status === 200) {
-                  if (project.status !== "ONLINE") {
-                    await prisma.project.update({
+                  if (website.status !== "UP") {
+                    await prisma.website.update({
                       where: {
-                        id: project.id,
+                        id: website.id,
                       },
                       data: {
-                        status: "ONLINE",
+                        status: "UP",
                       },
                     });
                   }
                 } else {
-                  if (project.status !== "DOWN") {
-                    await prisma.project.update({
+                  if (website.status !== "DOWN") {
+                    await prisma.website.update({
                       where: {
-                        id: project.id,
+                        id: website.id,
                       },
                       data: {
-                        status: "DOWN",
+                        status: "UP",
                       },
                     });
                   }
                 }
               })
               .catch(async (e) => {
-                await prisma.project.update({
+                await prisma.website.update({
                   where: {
-                    id: project.id,
+                    id: website.id,
                   },
                   data: {
                     status: "INVALID URL",
@@ -68,12 +61,12 @@ const main = () => {
                 return e;
               });
           } else {
-            await prisma.project.update({
+            await prisma.website.update({
               where: {
-                id: project.id,
+                id: website.id,
               },
               data: {
-                status: "NO LIVE URL",
+                status: "INVALID URL",
               },
             });
           }

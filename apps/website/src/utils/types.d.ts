@@ -17,3 +17,15 @@ export type UserProps = {
   email: string;
   id: number;
 };
+
+export type WebsiteProps = {
+  createdAt: string;
+  environment: string;
+  id: number;
+  ownerId: number;
+  projectId?: number;
+  status: string;
+  updatedAt: string;
+  url: string;
+  default: boolean;
+};

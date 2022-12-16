@@ -39,7 +39,6 @@ const Settings = () => {
   useEffect(() => {
     if (apiSettingsData) {
       setSettings(apiSettingsData.settings);
-      console.log(apiSettingsData.settings.authorized_urls);
     }
   }, [apiSettingsData]);
 
