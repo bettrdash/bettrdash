@@ -52,6 +52,7 @@ model Website {
   owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     Int
   default     Boolean  @default(false)
+  tracking    Boolean  @default(false)
 }
 
 model Apikey {
