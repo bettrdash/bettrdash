@@ -179,7 +179,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           borderRadius="lg"
           role="group"
           cursor="pointer"
-          color={"white"}
+          fontWeight='semibold'
+          // color={"white"}
           _hover={{
             bgGradient: "linear(to-r, red.400,pink.400)",
             color: "white",
@@ -226,6 +227,7 @@ const NavItem = ({ onClose, icon, children, path, ...rest }: NavItemProps) => {
         mx="4"
         borderRadius="lg"
         role="group"
+        fontWeight='semibold'
         cursor="pointer"
         color={location.pathname === path ? "white" : "gray.600"}
         _hover={{

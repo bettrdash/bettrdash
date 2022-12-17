@@ -137,7 +137,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
         flexDir={"column"}
         padding={5}
       >
-        <Breadcrumb alignSelf={{ base: "center", md: "start" }}>
+        <Breadcrumb fontWeight={'semibold'} alignSelf={{ base: "center", md: "start" }}>
           <BreadcrumbItem>
             <BreadcrumbLink as={Link} to="/">Projects</BreadcrumbLink>
           </BreadcrumbItem>

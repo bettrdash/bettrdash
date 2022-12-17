@@ -4,5 +4,6 @@ declare namespace NodeJS {
     SESSION_SECRET: string;
     COOKIE_DOMAIN: string;
     NODE_ENV: "development" | "production";
+    PLAUSIBLE_API_KEY: string;
   }
 }

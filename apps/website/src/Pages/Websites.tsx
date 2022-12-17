@@ -45,7 +45,7 @@ const Websites = () => {
         padding={5}
         height="100%"
       >
-        <Breadcrumb mb={5} alignSelf={{ base: "center", md: "start" }}>
+        <Breadcrumb fontWeight={'semibold'} mb={5} alignSelf={{ base: "center", md: "start" }}>
           <BreadcrumbItem>
             <BreadcrumbLink as={Link} to="/">
               Projects

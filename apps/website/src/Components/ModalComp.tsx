@@ -60,28 +60,29 @@ const ModalComp = ({
               Close
             </Button>
             {gradientBG ? (
-            <Button
-            _hover={{color: 'gray.700', bg: 'gray.200'}}
-              isLoading={isLoading}
-              bgGradient={
-                gradientBG ? "linear(to-r, red.400,pink.400)" : ""
-              }
-              // colorScheme={deleteBG ? "red" : "gray"}
-              onClick={onAction}
-              variant={deleteBG ? "solid" : "ghost"}
-              color={'white'}
-            >
-              {actionText}
-            </Button>) : (<Button
-            // _hover={{color: 'gray.700'}}
-              isLoading={isLoading}
-              colorScheme={deleteBG ? "red" : "gray"}
-              onClick={onAction}
-              variant={deleteBG ? "solid" : "ghost"}
-              color={deleteBG ? "white" : "gray.800"}
-            >
-              {actionText}
-            </Button>)}
+              <Button
+                _hover={{ color: "gray.700" }}
+                isLoading={isLoading}
+                bgGradient={gradientBG ? "linear(to-r, red.400,pink.400)" : ""}
+                // colorScheme={deleteBG ? "red" : "gray"}
+                onClick={onAction}
+                variant={deleteBG ? "solid" : "ghost"}
+                color={"white"}
+              >
+                {actionText}
+              </Button>
+            ) : (
+              <Button
+                // _hover={{color: 'gray.700'}}
+                isLoading={isLoading}
+                colorScheme={deleteBG ? "red" : "gray"}
+                onClick={onAction}
+                variant={deleteBG ? "solid" : "ghost"}
+                // color={deleteBG ? "white" : "gray.800"}
+              >
+                {actionText}
+              </Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>
