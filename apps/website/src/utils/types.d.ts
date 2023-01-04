@@ -28,4 +28,30 @@ export type WebsiteProps = {
   updatedAt: string;
   url: string;
   default: boolean;
+  tracking: boolean;
+};
+
+export type AggregateProps = {
+  bounce_rate: {
+    value: number;
+  };
+  pageviews: {
+    value: number;
+  };
+  visit_duration: {
+    value: number;
+  };
+  visitors: {
+    value: number;
+  };
+};
+
+export type SourcesProps = {
+  source: string;
+  visitors: number;
+};
+
+export type TopPagesProps = {
+  page: string;
+  visitors: number;
 };

@@ -20,11 +20,11 @@ import { FiHelpCircle } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { projectMonitor, useAddWebsite } from "../api";
-import Loading from "../Components/Loading";
-import ModalComp from "../Components/ModalComp";
+import Loading from "../components/Loading";
+import ModalComp from "../components/ModalComp";
 import { ProjectProps } from "../utils/types";
-import WebsitesTable from "../Components/WebsitesTable";
-import NewWebsite from "../Components/NewWebsite";
+import WebsitesTable from "../components/WebsitesTable";
+import NewWebsite from "../components/NewWebsite";
 
 type ProjectProp = {
   id: number;
@@ -34,7 +34,7 @@ type ProjectProp = {
 const Monitor = () => {
   const bg = useColorModeValue("white", "gray.800");
   const { data: websiteMonitorData, status: websiteMonitorStatus } = useQuery(
-    "Monitor",
+    "monitor",
     projectMonitor
   );
 

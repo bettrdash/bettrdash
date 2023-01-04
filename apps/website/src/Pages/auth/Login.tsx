@@ -15,8 +15,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
-import { API_URL } from "../api/constants";
-import { ColorModeSwitcher } from "../Components/ColorModeSwitcher";
+import { API_URL } from "../../api/constants";
+import { ColorModeSwitcher } from "../../components/ColorModeSwitcher";
 import * as Sentry from '@sentry/react'
 import { useNavigate } from "react-router-dom";
 

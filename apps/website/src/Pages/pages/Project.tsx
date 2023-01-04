@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { projectApi, queryClient } from "../api";
+import { projectApi, queryClient } from "../../api";
 import {
   Badge,
   Breadcrumb,
@@ -20,12 +20,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import "moment-timezone";
-import { ProjectProps } from "../utils/types";
+import { ProjectProps } from "../../utils/types";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../api/constants";
-import ModalComp from "../Components/ModalComp";
-import Loading from "../Components/Loading";
+import { API_URL } from "../../api/constants";
+import ModalComp from "../../components/ModalComp";
+import Loading from "../../components/Loading";
 
 axios.defaults.withCredentials = true;
 const IMAGE =

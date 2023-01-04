@@ -23,10 +23,16 @@ import { WebsiteProps } from "../utils/types";
 import { FiEdit, FiTrash } from "react-icons/fi";
 import ModalComp from "./ModalComp";
 import { useEffect, useState } from "react";
-import { queryClient, updateWebsite, useDeleteWebsite, useUpdateWebsite } from "../api";
+import {
+  queryClient,
+  updateWebsite,
+  useDeleteWebsite,
+  useUpdateWebsite,
+} from "../api";
 import { useMutation } from "react-query";
 
 const WebsitesTable = ({ websites }: { websites: WebsiteProps[] }) => {
+  
   return (
     <>
       {websites.length > 0 ? (
@@ -94,7 +100,12 @@ const Edit = ({ website }: { website: WebsiteProps }) => {
   const [environment, setEnvironment] = useState(website.environment);
   const [makeDefault, setMakeDefault] = useState(website.default);
   const toast = useToast();
-  const { isLoading, mutate } = useUpdateWebsite({onClose});
+  const { isLoading, mutate } = useUpdateWebsite({ onClose });
+  const {
+    isOpen: isTrackingErrorOpen,
+    onOpen: onTrackingErrorOpen,
+    onClose: onTrackingErrorClose,
+  } = useDisclosure();
 
   const save = () => {
     if (url) {
@@ -108,11 +119,20 @@ const Edit = ({ website }: { website: WebsiteProps }) => {
       });
     }
   };
+
+  const checkTracking = () => {
+    if (!website.tracking) {
+      onOpen();
+    } else {
+      onTrackingErrorOpen();
+    }
+  };
+
   return (
     <>
       <Icon
-        onClick={onOpen}
-        _hover={{ cursor: "pointer" }}
+        onClick={checkTracking}
+        _hover={{ cursor: "pointer", color: 'gray.300' }}
         w={18}
         h={18}
         as={FiEdit}
@@ -167,17 +187,28 @@ const Edit = ({ website }: { website: WebsiteProps }) => {
           />
         </HStack>
       </ModalComp>
+      <ModalComp
+        isOpen={isTrackingErrorOpen}
+        onClose={onTrackingErrorClose}
+        title="Uh Oh!"
+      >
+        <Text>
+          Since this website is being tracked with analytics, you must delete
+          the website first then add a new one to edit the url
+        </Text>
+      </ModalComp>
     </>
   );
 };
 
-const Delete = ({id}: {id: number}) => {
+const Delete = ({ id }: { id: number }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {mutate, isLoading} = useDeleteWebsite();
+  const { mutate, isLoading } = useDeleteWebsite();
 
   const deleteWebsite = () => {
-    mutate({id})
-  }
+    mutate({ id });
+    onClose()
+  };
   return (
     <>
       <Icon

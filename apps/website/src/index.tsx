@@ -12,15 +12,17 @@ import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 
 //pages
-import App from "./Pages/App";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import Projects from "./Pages/Projects";
-import Monitor from "./Pages/Monitor";
-import Project from "./Pages/Project";
-import Profile from "./Pages/Profile";
-import Settings from "./Pages/Settings";
-import Websites from "./Pages/Websites";
+import App from "./pages/App";
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
+import Projects from "./pages/pages/Projects";
+import Monitor from "./pages/Monitor";
+import Project from "./pages/pages/Project";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Websites from "./pages/Websites";
+import Analytics from "./pages/analytics/Analytics";
+import WebsiteAnalytic from "./pages/analytics/WebsiteAnalytic";
 
 Sentry.init({
   dsn: "https://af1db286b9844d3c852640f235b4ab2b@o4504119170105344.ingest.sentry.io/4504119172464640",
@@ -43,6 +45,8 @@ ReactDOM.render(
               <Route path="/monitor" element={<Monitor />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/analytics/:id" element={<WebsiteAnalytic />} />
               <Route path="/projects/:id" element={<Project />} />
               <Route path="/projects/:id/websites" element={<Websites />} />
             </Route>
