@@ -19,7 +19,6 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import {
