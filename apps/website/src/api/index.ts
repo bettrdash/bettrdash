@@ -7,6 +7,26 @@ axios.defaults.withCredentials = true;
 
 export const queryClient = new QueryClient();
 
+export const analyticsAggregate = async ({ id }: { id: string }) => {
+  const res = await axios.get(`${API_URL}/analytics/website/${id}/aggregate`);
+  return res.data;
+};
+
+export const analyticsSources = async ({ id }: { id: string }) => {
+  const res = await axios.get(`${API_URL}/analytics/website/${id}/sources`);
+  return res.data;
+};
+
+export const analyticsTopPages = async ({ id }: { id: string }) => {
+  const res = await axios.get(`${API_URL}/analytics/website/${id}/top-pages`);
+  return res.data;
+};
+
+export const analytics = async () => {
+  const res = await axios.get(`${API_URL}/analytics/all`);
+  return res.data;
+};
+
 export const projectWebsitesApi = async ({
   projectId,
 }: {
@@ -73,8 +93,18 @@ export const useAddProject = () => {
         isClosable: true,
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["projects"]);
+    onSuccess: ({ data }) => {
+      if (data.message) {
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        queryClient.invalidateQueries(["projects"]);
+      }
     },
   });
 };
@@ -101,8 +131,18 @@ export const useAddWebsite = () => {
         isClosable: true,
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["Monitor"]);
+    onSuccess: ({ data }) => {
+      if (data.message) {
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        queryClient.invalidateQueries(["Monitor"]);
+      }
     },
   });
 };
@@ -130,21 +170,32 @@ export const useUpdateWebsite = ({ onClose }: { onClose: () => void }) => {
         isClosable: true,
       });
     },
-    onSuccess: () => {
-      toast({
-        title: "Website updated.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      queryClient.invalidateQueries(["websites"]);
-      onClose();
+    onSuccess: ({ data }) => {
+      if (data.message) {
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Website updated.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        queryClient.invalidateQueries(["monitor"]);
+        queryClient.invalidateQueries(["websites"]);
+        onClose();
+      }
     },
   });
 };
 
-const deleteWebsite = ({id}: {id: number}) => {
-  return axios.post(`${API_URL}/website/delete`);
+const deleteWebsite = (id: { id: number }) => {
+  return axios.post(`${API_URL}/website/delete`, id);
 };
 
 export const useDeleteWebsite = () => {
@@ -159,15 +210,102 @@ export const useDeleteWebsite = () => {
         isClosable: true,
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["Websites", "Monitor"]);
+    onSuccess: ({ data }) => {
+      if (data.message) {
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        queryClient.invalidateQueries(["websites"]);
+        queryClient.invalidateQueries(["monitor"]);
+        toast({
+          title: "Error",
+          description: "Website deleted",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    },
+  });
+};
+
+const trackWebsite = ({ id, timezone }: { id: number; timezone: string }) => {
+  return axios.post(`${API_URL}/analytics/track`, { id, timezone });
+};
+
+export const useTrackWebsite = () => {
+  const toast = useToast();
+  return useMutation(trackWebsite, {
+    onError: () => {
       toast({
         title: "Error",
-        description: "Website deleted",
-        status: "success",
+        description: "There was an error tracking the website",
+        status: "error",
         duration: 5000,
         isClosable: true,
       });
+    },
+    onSuccess: ({ data }) => {
+      if (data.message) {
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Website tracking setup.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        queryClient.invalidateQueries(["analytics"]);
+      }
+    },
+  });
+};
+
+const removeTracking = (id: { id: number }) => {
+  return axios.post(`${API_URL}/analytics/remove`, id);
+};
+
+export const useRemoveTracking = () => {
+  const toast = useToast();
+  return useMutation(removeTracking, {
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "There was an error removing the website tracking",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+    onSuccess: ({ data }) => {
+      if (data.message) {
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Website tracking removed.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        queryClient.invalidateQueries(["analytics"]);
+      }
     },
   });
 };

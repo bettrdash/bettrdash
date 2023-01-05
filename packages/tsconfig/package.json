@@ -5,6 +5,9 @@
   "files": [
     "base.json",
     "nextjs.json",
-    "react-library.json"
+    "react-library.json",
+    "client.json",
+    "server.json",
+    "desktop.json"
   ]
 }

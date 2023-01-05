@@ -1,6 +1,6 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { projectApi, queryClient } from "../api";
+import { projectApi, queryClient } from "../../api";
 import {
   Badge,
   Breadcrumb,
@@ -18,14 +18,15 @@ import {
   useColorModeValue,
   useDisclosure,
   useToast,
+  Link
 } from "@chakra-ui/react";
 import "moment-timezone";
-import { ProjectProps } from "../utils/types";
+import { ProjectProps } from "../../utils/types";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../api/constants";
-import ModalComp from "../Components/ModalComp";
-import Loading from "../Components/Loading";
+import { API_URL } from "../../api/constants";
+import ModalComp from "../../components/ModalComp";
+import Loading from "../../components/Loading";
 
 axios.defaults.withCredentials = true;
 const IMAGE =
@@ -137,7 +138,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
         flexDir={"column"}
         padding={5}
       >
-        <Breadcrumb alignSelf={{ base: "center", md: "start" }}>
+        <Breadcrumb fontWeight={'semibold'} alignSelf={{ base: "center", md: "start" }}>
           <BreadcrumbItem>
             <BreadcrumbLink as={Link} to="/">Projects</BreadcrumbLink>
           </BreadcrumbItem>
@@ -162,7 +163,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             flexDir={"column"}
             mt={{ base: 5, md: 0 }}
           >
-            <Link style={{ width: 120 }} to={`websites`}>
+            <Link as={RouterLink} style={{ width: 120 }} to={`websites`}>
               <Text fontWeight={'bold'} bgGradient="linear(to-r, red.400,pink.400)" bgClip="text">
                 View Websites
               </Text>

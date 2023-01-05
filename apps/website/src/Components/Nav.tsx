@@ -35,6 +35,7 @@ import {
   FiActivity,
   FiUser,
   FiLogOut,
+  FiBarChart2
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
@@ -55,6 +56,7 @@ const LinkItems: Array<LinkItemProps> = [
   // { name: "Explore", icon: FiCompass },
   // { name: "Favourites", icon: FiStar },
   { name: "Monitor", icon: FiActivity, path: "/monitor" },
+  { name: "Analytics", icon: FiBarChart2, path: "/analytics" },
   { name: "Profile", icon: FiUser, path: "/profile" },
   { name: "Settings", icon: FiSettings, path: "/settings" },
 ];
@@ -124,7 +126,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   };
   return (
     <Box
-      // transition="3s ease"
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
@@ -179,7 +180,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           borderRadius="lg"
           role="group"
           cursor="pointer"
-          color={"white"}
+          fontWeight='semibold'
+          // color={"white"}
           _hover={{
             bgGradient: "linear(to-r, red.400,pink.400)",
             color: "white",
@@ -226,6 +228,7 @@ const NavItem = ({ onClose, icon, children, path, ...rest }: NavItemProps) => {
         mx="4"
         borderRadius="lg"
         role="group"
+        fontWeight='semibold'
         cursor="pointer"
         color={location.pathname === path ? "white" : "gray.600"}
         _hover={{

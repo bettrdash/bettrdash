@@ -16,6 +16,9 @@ router.get("/", async (req: express.Request, res: express.Response) => {
         id: user.id,
       },
     },
+    orderBy: {
+      status: "desc",
+    },
     include: {
       project: true
     }

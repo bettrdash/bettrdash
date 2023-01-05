@@ -2,8 +2,8 @@ import { Flex, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { Navigate, Outlet, useOutletContext } from "react-router-dom";
 import { checkAuth } from "../api";
-import Loading from "../Components/Loading";
-import Nav from "../Components/Nav";
+import Loading from "../components/Loading";
+import Nav from "../components/Nav";
 import { UserProps } from "../utils/types";
 
 type ContextType = { user: UserProps | null };

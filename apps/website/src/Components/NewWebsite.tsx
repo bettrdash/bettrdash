@@ -4,22 +4,25 @@ import {
   HStack,
   Icon,
   Input,
+  InputGroup,
+  InputLeftAddon,
   Select,
   Text,
   Tooltip,
+  useColorModeValue,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FiHelpCircle } from "react-icons/fi";
-import { useAddWebsite } from "../api";
+import { queryClient, useAddWebsite } from "../api";
 import { ProjectProps } from "../utils/types";
 import ModalComp from "./ModalComp";
 
 const NewWebsite = ({
   projects,
-  linkToProject=false,
-  id=null
+  linkToProject = false,
+  id = null,
 }: {
   projects?: ProjectProps[];
   linkToProject?: boolean;
@@ -30,6 +33,8 @@ const NewWebsite = ({
   const [environment, setEnvironment] = useState("production");
   const [projectId, setProjectId] = useState<number | null>(id as number);
   const toast = useToast();
+
+  const bg = useColorModeValue("gray.200", "gray.900");
 
   const {
     mutate: addWebsite,
@@ -58,6 +63,8 @@ const NewWebsite = ({
           duration: 5000,
           isClosable: true,
         });
+        queryClient.invalidateQueries(["websites"]);
+        queryClient.invalidateQueries(["monitor"]);
       } else {
         toast({
           title: "Error",
@@ -106,7 +113,7 @@ const NewWebsite = ({
         color="white"
         bgGradient={"linear(to-r, red.400,pink.400)"}
         onClick={onOpen}
-        w={{base: '100%', md: 150}}
+        w={{ base: "100%", md: 150 }}
       >
         New Website
       </Button>
@@ -115,9 +122,6 @@ const NewWebsite = ({
           <>
             <HStack>
               <Text>Add Website</Text>
-              {/* <Tooltip label="Hover me">
-                <Icon color="gray.400" as={FiHelpCircle} />
-              </Tooltip> */}
             </HStack>
           </>
         }
@@ -129,23 +133,31 @@ const NewWebsite = ({
         <Heading color="gray.500" fontSize={12} mt={5}>
           URL
         </Heading>
-        <Input
-          name="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          variant={"flushed"}
-          placeholder="URL"
-        />
+        <InputGroup>
+          <InputLeftAddon mt={3}>
+            https://
+          </InputLeftAddon>
+          <Input
+            name="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="example.com"
+            bg={bg}
+            mt={3}
+          />
+        </InputGroup>
         <Heading color="gray.500" fontSize={12} mt={5}>
           Environment
         </Heading>
         <Input
+        // _hover={{borderColor: 'gray.800'}}
           name="environment"
           value={environment}
           onChange={(e) => setEnvironment(e.target.value)}
-          mt={0}
-          variant={"flushed"}
           placeholder="Environment"
+          bg={bg}
+          border='none'
+          mt={3}
         />
         {linkToProject && (
           <>
@@ -155,6 +167,9 @@ const NewWebsite = ({
             <Select
               onChange={(e) => setProjectId(parseInt(e.target.value))}
               mt={3}
+              bg={bg}
+              borderWidth={1}
+              _hover={{ cursor: "pointer" }}
             >
               <option key={null} value={undefined}>
                 None
