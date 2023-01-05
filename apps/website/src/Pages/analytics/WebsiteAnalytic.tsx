@@ -18,10 +18,12 @@ import {
   Thead,
   Tr,
   useColorModeValue,
-  Link
+  Link,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useQuery } from "react-query";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { CopyBlock, dracula } from "react-code-blocks";
+import { useQueries } from "react-query";
+import { useParams } from "react-router-dom";
 import {
   analyticsAggregate,
   analyticsSources,
@@ -29,57 +31,53 @@ import {
 } from "../../api";
 import AnalyticCard from "../../components/AnalyticCard";
 import Loading from "../../components/Loading";
+import ModalComp from "../../components/ModalComp";
 import { AggregateProps, SourcesProps, TopPagesProps } from "../../utils/types";
 
 const WebsiteAnalytic = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const bg = useColorModeValue("white", "gray.800");
   const { id } = useParams();
-  const {
-    data: aggregateData,
-    isLoading: aggregateLoading,
-    isError: aggregateError,
-  } = useQuery({
-    queryKey: "analyticsAggregate",
-    queryFn: () => analyticsAggregate({ id: id! }),
-  });
+  const results = useQueries([
+    {
+      queryKey: "analyticsAggregate",
+      queryFn: () => analyticsAggregate({ id: id! }),
+    },
+    {
+      queryKey: "analyticsSources",
+      queryFn: () => analyticsSources({ id: id! }),
+    },
+    {
+      queryKey: "analyticsTopPages",
+      queryFn: () => analyticsTopPages({ id: id! }),
+    },
+  ]);
 
-  const {
-    data: sourcesData,
-    isLoading: sourcesLoading,
-    isError: sourcesError,
-  } = useQuery({
-    queryKey: "analyticsSources",
-    queryFn: () => analyticsSources({ id: id! }),
-  });
-
-  const {
-    data: topPagesData,
-    isLoading: topPagesLoading,
-    isError: topPagesError,
-  } = useQuery({
-    queryKey: "analyticsTopPages",
-    queryFn: () => analyticsTopPages({ id: id! }),
-  });
-
-  if (aggregateLoading || sourcesLoading || topPagesLoading) {
+  if (results[0].isLoading || results[1].isLoading || results[2].isLoading) {
     return <Loading />;
   }
 
-  if (aggregateError || sourcesError || topPagesError) {
+  if (results[0].isError || results[1].isError || results[2].isError) {
     return <Text>An error has occurred</Text>;
   }
 
-  if (aggregateData.message || sourcesData.message || topPagesData.message) {
+  if (
+    results[0].data.message ||
+    results[1].data.message ||
+    results[2].data.message
+  ) {
     return (
       <Text>
-        {aggregateData.message || sourcesData.message || topPagesData.message}
+        {results[0].data.message ||
+          results[1].data.message ||
+          results[2].data.message}
       </Text>
     );
   }
 
-  const aggregate = aggregateData.aggregate.results;
-  const sources = sourcesData.sources.results;
-  const topPages = topPagesData.topPages.results;
+  const aggregate = results[0].data.aggregate.results;
+  const sources = results[1].data.sources.results;
+  const topPages = results[2].data.topPages.results;
 
   return (
     <>
@@ -92,7 +90,7 @@ const WebsiteAnalytic = () => {
         padding={5}
         height="100%"
       >
-        <Flex w='100%'>
+        <Flex w="100%">
           <Breadcrumb
             fontWeight={"semibold"}
             alignSelf={{ base: "center", md: "start" }}
@@ -103,18 +101,35 @@ const WebsiteAnalytic = () => {
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink>{aggregateData.websiteUrl}</BreadcrumbLink>
+              <BreadcrumbLink>{results[0].data.websiteUrl}</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          <Link ml={5} as={RouterLink} to={`websites`}>
-            <Text
-              fontWeight={"bold"}
-              bgGradient="linear(to-r, red.400,pink.400)"
-              bgClip="text"
-            >
-              View Code Snippet
-            </Text>
-          </Link>
+          <Text
+            ml={5}
+            _hover={{ cursor: "pointer", textDecoration: "underline" }}
+            onClick={onOpen}
+            fontWeight={"bold"}
+            bgGradient="linear(to-r, red.400,pink.400)"
+            bgClip="text"
+          >
+            View Code Snippet
+          </Text>
+          <ModalComp
+            title="Code Snippet"
+            isOpen={isOpen}
+            onClose={onClose}
+            actionText="Track Website"
+            size={{ base: "md", md: "2xl" }}
+          >
+            <CopyBlock
+              text={`<script defer data-domain="${results[0].data.websiteUrl}" 
+src="${process.env.REACT_APP_ANALYTICS_URL}" >
+</script>`}
+              language={"html"}
+              showLineNumbers={false}
+              theme={dracula}
+            />
+          </ModalComp>
         </Flex>
         <Aggregate aggregate={aggregate} />
       </Flex>

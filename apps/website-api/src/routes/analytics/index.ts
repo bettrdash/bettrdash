@@ -160,7 +160,7 @@ router.get('/website/:id/sources', async (req: express.Request, res: express.Res
         if (website.tracking) {
           await axios.get(`${process.env.ANALYTICS_API}/stats/breakdown?site_id=${website.url}&period=30d&property=visit:source&metrics=visitors&limit=10`).then(response => {
             if (response.status === 200) {
-              res.status(200).json({ success: true, sources: response.data })
+              res.status(200).json({ success: true, sources: response.data, websiteUrl: website.url })
             } else {
               res.status(200).json({ success: false, message: 'An error has occurred' })
             }
@@ -221,7 +221,7 @@ router.get('/website/:id/top-pages', async (req: express.Request, res: express.R
         if (website.tracking) {
           await axios.get(`${process.env.ANALYTICS_API}/stats/breakdown?site_id=${website.url}&period=30d&property=event:page&limit=10`).then(response => {
             if (response.status === 200) {
-              res.status(200).json({ success: true, topPages: response.data })
+              res.status(200).json({ success: true, topPages: response.data, websiteUrl: website.url })
             } else {
               res.status(200).json({ success: false, message: 'An error has occurred' })
             }
