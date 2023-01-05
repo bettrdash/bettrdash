@@ -4,20 +4,25 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./Pages/Login";
-import App from "./Pages/App";
 import { ChakraProvider } from "@chakra-ui/react";
-import Projects from "./Pages/Projects";
-import Settings from "./Pages/Settings";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./api";
-import Signup from "./Pages/Signup";
-import Profile from "./Pages/Profile";
-import theme from './utils/theme'
-import Project from "./Pages/Project";
+import theme from "./utils/theme";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
-import Monitor from "./Pages/Monitor";
+
+//pages
+import App from "./pages/App";
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
+import Projects from "./pages/projects/Projects";
+import Monitor from "./pages/Monitor";
+import Project from "./pages/projects/Project";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Websites from "./pages/Websites";
+import Analytics from "./pages/analytics/Analytics";
+import WebsiteAnalytic from "./pages/analytics/WebsiteAnalytic";
 
 Sentry.init({
   dsn: "https://af1db286b9844d3c852640f235b4ab2b@o4504119170105344.ingest.sentry.io/4504119172464640",
@@ -28,7 +33,6 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
@@ -38,10 +42,13 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route index element={<Projects />} />
-              <Route path='/monitor' element={<Monitor />} />
+              <Route path="/monitor" element={<Monitor />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path='/projects/:id' element={<Project />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/analytics/:id" element={<WebsiteAnalytic />} />
+              <Route path="/projects/:id" element={<Project />} />
+              <Route path="/projects/:id/websites" element={<Websites />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

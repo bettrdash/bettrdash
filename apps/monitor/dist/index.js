@@ -25,48 +25,45 @@ const main = () => {
     const CronJob = cron_1.default.CronJob;
     try {
         const job = new CronJob("*/5 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
-            let projects = yield db_1.prisma.project.findMany({
-                select: {
-                    id: true,
-                    live_url: true,
-                    name: true,
-                    status: true,
-                },
-            });
-            projects.forEach((project) => __awaiter(void 0, void 0, void 0, function* () {
-                if ((0, url_1.isURL)(project.live_url)) {
+            let websites = yield db_1.prisma.website.findMany();
+            websites.forEach((website) => __awaiter(void 0, void 0, void 0, function* () {
+                if ((0, url_1.isURL)(website.url)) {
+                    let url = website.url;
+                    if (website.url.substring(0, 4) !== "http") {
+                        url = "https://" + website.url;
+                    }
                     yield axios_1.default
-                        .get(project.live_url)
+                        .get(url)
                         .then((res) => __awaiter(void 0, void 0, void 0, function* () {
                         if (res.status === 200) {
-                            if (project.status !== "ONLINE") {
-                                yield db_1.prisma.project.update({
+                            if (website.status !== "UP") {
+                                yield db_1.prisma.website.update({
                                     where: {
-                                        id: project.id,
+                                        id: website.id,
                                     },
                                     data: {
-                                        status: "ONLINE",
+                                        status: "UP",
                                     },
                                 });
                             }
                         }
                         else {
-                            if (project.status !== "DOWN") {
-                                yield db_1.prisma.project.update({
+                            if (website.status !== "DOWN") {
+                                yield db_1.prisma.website.update({
                                     where: {
-                                        id: project.id,
+                                        id: website.id,
                                     },
                                     data: {
-                                        status: "DOWN",
+                                        status: "UP",
                                     },
                                 });
                             }
                         }
                     }))
                         .catch((e) => __awaiter(void 0, void 0, void 0, function* () {
-                        yield db_1.prisma.project.update({
+                        yield db_1.prisma.website.update({
                             where: {
-                                id: project.id,
+                                id: website.id,
                             },
                             data: {
                                 status: "INVALID URL",
@@ -77,12 +74,12 @@ const main = () => {
                     }));
                 }
                 else {
-                    yield db_1.prisma.project.update({
+                    yield db_1.prisma.website.update({
                         where: {
-                            id: project.id,
+                            id: website.id,
                         },
                         data: {
-                            status: "NO LIVE URL",
+                            status: "INVALID URL",
                         },
                     });
                 }

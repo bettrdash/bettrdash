@@ -80,13 +80,13 @@ const ProjectCard = ({ project }: Props) => {
           />
         </Box>
         <Stack pt={10} align={"center"}>
-          <Text
+          {/* <Text
             color={useColorModeValue("green.400", "green.200")}
             fontSize={"sm"}
             textTransform={"uppercase"}
           >
             {project.active ? "Active" : "Inactive"}
-          </Text>
+          </Text> */}
           <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
             {project.name}
           </Heading>

@@ -151,7 +151,6 @@ const Profile = () => {
           <Avatar mb={5} size="xl" src={profileImg} />
           <Widget
             onChange={(res) => {
-              console.log(res.cdnUrl);
               setImageUrl(res.cdnUrl as string);
               updateProfile(res.cdnUrl);
             }}

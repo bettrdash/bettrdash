@@ -17,8 +17,8 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import ModalComp from "../Components/ModalComp";
-import Loading from "../Components/Loading";
+import ModalComp from "../components/ModalComp";
+import Loading from "../components/Loading";
 
 axios.defaults.withCredentials = true;
 
@@ -39,7 +39,6 @@ const Settings = () => {
   useEffect(() => {
     if (apiSettingsData) {
       setSettings(apiSettingsData.settings);
-      console.log(apiSettingsData.settings.authorized_urls);
     }
   }, [apiSettingsData]);
 
