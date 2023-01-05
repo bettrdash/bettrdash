@@ -18,9 +18,10 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Link
 } from "@chakra-ui/react";
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import {
   analyticsAggregate,
   analyticsSources,
@@ -91,19 +92,30 @@ const WebsiteAnalytic = () => {
         padding={5}
         height="100%"
       >
-        <Breadcrumb
-          fontWeight={"semibold"}
-          alignSelf={{ base: "center", md: "start" }}
-        >
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/analytics">
-              Analytics
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink>{aggregateData.websiteUrl}</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <Flex w='100%'>
+          <Breadcrumb
+            fontWeight={"semibold"}
+            alignSelf={{ base: "center", md: "start" }}
+          >
+            <BreadcrumbItem>
+              <BreadcrumbLink as={Link} to="/analytics">
+                Analytics
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink>{aggregateData.websiteUrl}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+          <Link ml={5} as={RouterLink} to={`websites`}>
+            <Text
+              fontWeight={"bold"}
+              bgGradient="linear(to-r, red.400,pink.400)"
+              bgClip="text"
+            >
+              View Code Snippet
+            </Text>
+          </Link>
+        </Flex>
         <Aggregate aggregate={aggregate} />
       </Flex>
       <Stack gap={10} mt={10} direction={{ base: "column", md: "row" }}>

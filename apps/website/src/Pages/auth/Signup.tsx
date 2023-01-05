@@ -18,6 +18,7 @@ import {
   Link
 } from "@chakra-ui/react";
 import axios from "axios";
+import {Link as RouterLink} from 'react-router-dom'
 import { useState } from "react";
 import { API_URL } from "../../api/constants";
 import { ColorModeSwitcher } from "../../components/ColorModeSwitcher";
@@ -260,7 +261,7 @@ const Signup = () => {
                 </Stack>
                 <HStack mt={5} color='gray.800'>
                   <Text>Already a user?</Text>
-                  <Link bgClip='text' bgGradient={"linear(to-r, red.400,pink.400)"} href="/login" >
+                  <Link as={RouterLink} bgClip='text' bgGradient={"linear(to-r, red.400,pink.400)"} to="/login" >
                     Login
                   </Link>
                 </HStack>

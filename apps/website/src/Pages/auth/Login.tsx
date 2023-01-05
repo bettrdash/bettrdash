@@ -13,6 +13,8 @@ import {
   HStack,
   useToast,
 } from "@chakra-ui/react";
+import {Link as RouterLink} from 'react-router-dom'
+
 import axios from "axios";
 import { useState } from "react";
 import { API_URL } from "../../api/constants";
@@ -115,7 +117,7 @@ const Login = () => {
               <Stack spacing={10}>
                 <HStack>
                   <Text>New User?</Text>
-                  <Link bgClip='text' bgGradient={"linear(to-r, red.400,pink.400)"} href="/signup" >
+                  <Link as={RouterLink} bgClip='text' bgGradient={"linear(to-r, red.400,pink.400)"} to="/signup" >
                     Sign Up!
                   </Link>
                 </HStack>

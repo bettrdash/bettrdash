@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { projectApi, queryClient } from "../../api";
 import {
@@ -18,6 +18,7 @@ import {
   useColorModeValue,
   useDisclosure,
   useToast,
+  Link
 } from "@chakra-ui/react";
 import "moment-timezone";
 import { ProjectProps } from "../../utils/types";
@@ -162,7 +163,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             flexDir={"column"}
             mt={{ base: 5, md: 0 }}
           >
-            <Link style={{ width: 120 }} to={`websites`}>
+            <Link as={RouterLink} style={{ width: 120 }} to={`websites`}>
               <Text fontWeight={'bold'} bgGradient="linear(to-r, red.400,pink.400)" bgClip="text">
                 View Websites
               </Text>
