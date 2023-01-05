@@ -71,7 +71,7 @@ const WebsitesTable = ({ websites }: { websites: WebsiteProps[] }) => {
                   <Td isNumeric>
                     {/* <Flex> */}
                     <Edit website={website} />
-                    <Delete id={website.id} />
+                    <Delete tracking={website.tracking} id={website.id} />
                     {/* </Flex> */}
                   </Td>
                 </Tr>
@@ -201,14 +201,17 @@ const Edit = ({ website }: { website: WebsiteProps }) => {
   );
 };
 
-const Delete = ({ id }: { id: number }) => {
+const Delete = ({ id, tracking }: { id: number, tracking: boolean }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { mutate, isLoading } = useDeleteWebsite();
-
+  const [text, setText] = useState(tracking ? 'This website has analytics tracking set up. Deleting it will also delete all previously tracked data. ' : '')
   const deleteWebsite = () => {
     mutate({ id });
     onClose()
   };
+
+
+
   return (
     <>
       <Icon
@@ -229,7 +232,7 @@ const Delete = ({ id }: { id: number }) => {
         deleteBG={true}
         title="Delete Website"
       >
-        <Text>Are you sure? This action cannot be reversed.</Text>
+        <Text>{text}Are you sure, this action cannot be reversed.</Text>
       </ModalComp>
     </>
   );
