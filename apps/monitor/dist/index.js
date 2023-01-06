@@ -15,13 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cron_1 = __importDefault(require("cron"));
 require("dotenv-safe/config");
-const db_1 = require("db");
-const status_1 = __importDefault(require("./routes/status"));
 const axios_1 = __importDefault(require("axios"));
 const url_1 = require("./utils/url");
+const db_1 = require("db");
 const main = () => {
     const app = (0, express_1.default)();
-    app.use("/v1/status", status_1.default);
+    cron_1.default;
     const CronJob = cron_1.default.CronJob;
     try {
         const job = new CronJob("*/5 * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -69,8 +68,9 @@ const main = () => {
                                 status: "INVALID URL",
                             },
                         });
-                        console.log(e);
-                        return e;
+                        console.log(`${website.url} --> ${e.message}`);
+                        console.log("----DOWN----");
+                        return;
                     }));
                 }
                 else {
@@ -88,7 +88,7 @@ const main = () => {
         job.start();
     }
     catch (e) {
-        console.log(e);
+        console.log(e.message);
     }
     app.listen(process.env.PORT, () => {
         console.log(`🚀 Monitor API ready at http://localhost:${process.env.PORT}`);

@@ -16,8 +16,6 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import Moment from "react-moment";
-import "moment-timezone";
 import { ProjectProps } from "../utils/types";
 import React, { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
@@ -83,7 +81,6 @@ const ViewMode = ({
         <Heading ml={3}>{project.name}</Heading>
         <Flex fontWeight={"500"} ml={3} alignSelf={"end"} mb={1.5}>
           <Text mr={3}>•</Text>
-          <Moment format="MMMM Do YYYY">{project.createdAt}</Moment>
         </Flex>
         
       </Flex>
