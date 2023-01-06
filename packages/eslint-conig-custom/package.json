@@ -10,5 +10,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "typescript": ">=2.8.0"
   }
 }
