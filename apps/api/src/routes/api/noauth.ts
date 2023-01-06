@@ -34,6 +34,11 @@ router.get("/", async (req, res) => {
             image_url: true,
             createdAt: true,
             updatedAt: true,
+            websites: {
+              where: {
+                default: true
+              }
+            }
           },
         });
         if (apiKey.user.show_inactive_projects) {
@@ -56,6 +61,11 @@ router.get("/", async (req, res) => {
               image_url: true,
               createdAt: true,
               updatedAt: true,
+              websites: {
+                where: {
+                  default: true
+                }
+              }
             },
           });
           projects = [...inactiveProjects, ...activeProjects];
