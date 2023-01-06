@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "@pm2/io": "^5.0.0",
-    "@prisma/client": "^3.12.0",
     "axios": "^1.2.2",
     "bcrypt": "^5.0.1",
     "connect-redis": "^6.1.3",
