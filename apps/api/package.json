@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "watch": "tsc -w",
     "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",

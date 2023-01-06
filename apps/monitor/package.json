@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "Elias",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "watch": "tsc -w",
     "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
