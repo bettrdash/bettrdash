@@ -1,19 +1,16 @@
 import express from "express";
 import cron from "cron";
 import "dotenv-safe/config";
-import { prisma } from "db";
-import status from "./routes/status";
 import axios from "axios";
 import { isURL } from "./utils/url";
+import { prisma } from "db";
 
 const main = () => {
   const app = express();
-
-  app.use("/v1/status", status);
-  //cron
+  cron;
   const CronJob = cron.CronJob;
 
-  //run every 5 minutes
+  // run every 5 minutes
   try {
     const job = new CronJob(
       "*/5 * * * *",
@@ -61,8 +58,9 @@ const main = () => {
                     status: "INVALID URL",
                   },
                 });
-                console.log(e);
-                return e;
+                console.log(`${website.url} --> ${e.message}`);
+                console.log("----DOWN----");
+                return;
               });
           } else {
             await prisma.website.update({
@@ -82,7 +80,7 @@ const main = () => {
     );
     job.start();
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
   }
 
   app.listen(process.env.PORT, () => {
