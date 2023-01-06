@@ -24,11 +24,9 @@
     "env-cmd": "^10.1.0",
     "framer-motion": "^4.0.0",
     "history": "^5.3.0",
-    "moment-timezone": "^0.5.34",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",
-    "react-moment": "^1.1.2",
     "react-query": "^3.35.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -72,6 +70,11 @@
     }
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-syntax-flow": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@chakra-ui/system": ">=1.0.0",
+    "@testing-library/dom": ">=7.21.4",
     "@types/node": "^18.7.23",
     "concurrently": "^7.4.0",
     "copyfiles": "^2.4.1",
