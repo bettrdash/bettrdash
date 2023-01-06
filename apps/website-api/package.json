@@ -13,6 +13,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "private": true,
   "dependencies": {
     "@pm2/io": "^5.0.0",
     "axios": "^1.2.2",
