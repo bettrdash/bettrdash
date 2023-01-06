@@ -10,9 +10,9 @@ import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { projectApi, projectWebsitesApi } from "../api";
-import Loading from "../components/Loading";
-import NewWebsite from "../components/NewWebsite";
-import WebsitesTable from "../components/WebsitesTable";
+import Loading from "../Components/Loading";
+import NewWebsite from "../Components/NewWebsite";
+import WebsitesTable from "../Components/WebsitesTable";
 import { ProjectProps, WebsiteProps } from "../utils/types";
 
 const Websites = () => {

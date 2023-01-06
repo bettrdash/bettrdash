@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProjectCard from "../../components/ProjectCard";
+import ProjectCard from "../../Components/ProjectCard";
 import {
   Flex,
   HStack,
@@ -27,11 +27,11 @@ import {
   Tfoot,
   Heading,
 } from "@chakra-ui/react";
-import ModalComp from "../../components/ModalComp";
+import ModalComp from "../../Components/ModalComp";
 import { projectsApi, useAddProject } from "../../api";
 import { useQuery } from "react-query";
 import { ProjectProps } from "../../utils/types";
-import Loading from "../../components/Loading";
+import Loading from "../../Components/Loading";
 import { FiGrid, FiList } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
