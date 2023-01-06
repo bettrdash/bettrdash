@@ -20,9 +20,8 @@ import {
   useToast,
   Link
 } from "@chakra-ui/react";
-import "moment-timezone";
 import { ProjectProps } from "../../utils/types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../api/constants";
 import ModalComp from "../../components/ModalComp";
