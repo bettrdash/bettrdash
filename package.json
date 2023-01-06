@@ -6,6 +6,11 @@
     "apps/*",
     "packages/*"
   ],
+  "homepage": "https://bettrdash.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HelixHEX/bettrdash"
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
