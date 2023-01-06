@@ -1,6 +1,4 @@
-# Turborepo starter
-
-This is an official Yarn v1 starter turborepo.
+# BettrDash
 
 ## What's inside?
 
@@ -23,7 +21,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 - `tsconfig`: custom tsconfig
 
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Each app/package is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Utilities
 
@@ -38,7 +36,6 @@ This turborepo has some additional tools already setup for you:
 To build all apps and packages, run the following command:
 
 ```bash
-cd my-turborepo
 yarn run build
 ```
 
@@ -47,8 +44,7 @@ yarn run build
 To develop all apps and packages, run the following command:
 
 ```bash
-cd my-turborepo
-yarn run dev
+yarn dev
 ```
 
 ### Remote Caching
@@ -57,8 +53,7 @@ Turborepo can use a technique known as [Remote Caching](https://turborepo.org/do
 
 By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-```
-cd my-turborepo
+```bash
 npx turbo login
 ```
 
