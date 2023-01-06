@@ -29,9 +29,9 @@ import {
   analyticsSources,
   analyticsTopPages,
 } from "../../api";
-import AnalyticCard from "../../Components/AnalyticCard";
-import Loading from "../../Components/Loading";
-import ModalComp from "../../Components/ModalComp";
+import AnalyticCard from "../../components/AnalyticCard";
+import Loading from "../../components/Loading";
+import ModalComp from "../../components/ModalComp";
 import { AggregateProps, SourcesProps, TopPagesProps } from "../../utils/types";
 
 const WebsiteAnalytic = () => {
