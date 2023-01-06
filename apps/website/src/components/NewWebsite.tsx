@@ -36,6 +36,9 @@ const NewWebsite = ({
 
   const bg = useColorModeValue("gray.200", "gray.900");
 
+  useEffect(() => {
+    console.log(projectId);
+  }, [projectId])
   const {
     mutate: addWebsite,
     isSuccess,
@@ -102,7 +105,6 @@ const NewWebsite = ({
       onClose();
       setUrl("");
       setEnvironment("production");
-      setProjectId(null);
     }
   };
 

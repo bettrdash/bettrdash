@@ -186,8 +186,9 @@ export const useUpdateWebsite = ({ onClose }: { onClose: () => void }) => {
           duration: 5000,
           isClosable: true,
         });
-        queryClient.invalidateQueries(["monitor"]);
-        queryClient.invalidateQueries(["websites"]);
+        // queryClient.invalidateQueries(["monitor"]);
+        // queryClient.invalidateQueries(["websites"]);
+        window.location.reload()
         onClose();
       }
     },
@@ -223,7 +224,7 @@ export const useDeleteWebsite = () => {
         queryClient.invalidateQueries(["websites"]);
         queryClient.invalidateQueries(["monitor"]);
         toast({
-          title: "Error",
+          title: "Success",
           description: "Website deleted",
           status: "success",
           duration: 5000,

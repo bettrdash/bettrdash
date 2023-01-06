@@ -44,7 +44,7 @@ router.get(
         },
         include: { owner: { select: { id: true } }, websites: {
           orderBy: {
-            environment: "desc",
+            url: "asc",
           }
         } },
       });
