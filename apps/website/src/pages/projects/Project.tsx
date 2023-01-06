@@ -23,8 +23,8 @@ import { ProjectProps } from "../../utils/types";
 import React, { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../api/constants";
-import ModalComp from "../../Components/ModalComp";
-import Loading from "../../Components/Loading";
+import ModalComp from "../../components/ModalComp";
+import Loading from "../../components/Loading";
 
 axios.defaults.withCredentials = true;
 const IMAGE =
