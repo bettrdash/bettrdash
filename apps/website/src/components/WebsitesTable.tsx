@@ -17,6 +17,7 @@ import {
   useToast,
   useDisclosure,
   Switch,
+  Tooltip,
 } from "@chakra-ui/react";
 import { WebsiteProps } from "../utils/types";
 
@@ -32,7 +33,6 @@ import {
 import { useMutation } from "react-query";
 
 const WebsitesTable = ({ websites }: { websites: WebsiteProps[] }) => {
-  
   return (
     <>
       {websites.length > 0 ? (
@@ -120,19 +120,19 @@ const Edit = ({ website }: { website: WebsiteProps }) => {
     }
   };
 
-  const checkTracking = () => {
-    if (!website.tracking) {
-      onOpen();
-    } else {
-      onTrackingErrorOpen();
-    }
-  };
+  // const checkTracking = () => {
+  //   if (!website.tracking) {
+  //     onOpen();
+  //   } else {
+  //     onTrackingErrorOpen();
+  //   }
+  // };
 
   return (
     <>
       <Icon
-        onClick={checkTracking}
-        _hover={{ cursor: "pointer", color: 'gray.300' }}
+        onClick={onOpen}
+        _hover={{ cursor: "pointer", color: "gray.300" }}
         w={18}
         h={18}
         as={FiEdit}
@@ -155,13 +155,16 @@ const Edit = ({ website }: { website: WebsiteProps }) => {
         <Heading color="gray.500" fontSize={12}>
           URL
         </Heading>
-        <Input
-          name="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          variant={"flushed"}
-          placeholder="URL"
-        />
+        <Tooltip label="Since this website is being tracked with analytics, you must delete the website first then create a new one to change the url">
+          <Input
+            disabled={website.tracking}
+            name="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            variant={"flushed"}
+            placeholder="URL"
+          />
+        </Tooltip>
         <Heading color="gray.500" fontSize={12} mt={5}>
           Environment
         </Heading>
@@ -201,16 +204,18 @@ const Edit = ({ website }: { website: WebsiteProps }) => {
   );
 };
 
-const Delete = ({ id, tracking }: { id: number, tracking: boolean }) => {
+const Delete = ({ id, tracking }: { id: number; tracking: boolean }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { mutate, isLoading } = useDeleteWebsite();
-  const [text, setText] = useState(tracking ? 'This website has analytics tracking set up. Deleting it will also delete all previously tracked data. ' : '')
+  const [text, setText] = useState(
+    tracking
+      ? "This website has analytics tracking set up. Deleting it will also delete all previously tracked data. "
+      : ""
+  );
   const deleteWebsite = () => {
     mutate({ id });
-    onClose()
+    onClose();
   };
-
-
 
   return (
     <>
