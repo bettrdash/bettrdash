@@ -102,7 +102,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       .post(`${API_URL}/auth/logout`, {}, { withCredentials: true })
       .then((res) => {
         if (res.data.success) {
-          window.location.href = "/login";
+          window.location.href = "/";
         } else {
           toast({
             title: "Error",

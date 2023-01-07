@@ -5,6 +5,7 @@ import {
   FormLabel,
   Input,
   Stack,
+  Link,
   Button,
   Heading,
   Text,
@@ -12,13 +13,14 @@ import {
   HStack,
   useToast,
 } from "@chakra-ui/react";
-import { useNavigate } from 'react-router-dom'
-import { Link } from "react-router-dom";
+import {Link as RouterLink} from 'react-router-dom'
+
 import axios from "axios";
 import { useState } from "react";
-import { API_URL } from "../api/constants";
-import { ColorModeSwitcher } from "../Components/ColorModeSwitcher";
-import history from "../utils/history";
+import { API_URL } from "../../api/constants";
+import { ColorModeSwitcher } from "../../components/ColorModeSwitcher";
+import * as Sentry from '@sentry/react'
+import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = false;
 
@@ -26,10 +28,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     if (email === "" || password === "") {
       toast({
         title: "Error",
@@ -49,8 +52,11 @@ const Login = () => {
         )
         .then((res) => {
           if (res.data.success) {
-            navigate('/')
+            Sentry.setUser({ email: email });
+            // navigate('/')
+            window.location.href='/monitor'
           } else {
+            Sentry.captureMessage(res.data.message);
             toast({
               title: "Error",
               description: res.data.message,
@@ -112,7 +118,7 @@ const Login = () => {
               <Stack spacing={10}>
                 <HStack>
                   <Text>New User?</Text>
-                  <Link  to="/signup" >
+                  <Link as={RouterLink} bgClip='text' bgGradient={"linear(to-r, red.400,pink.400)"} to="/signup" >
                     Sign Up!
                   </Link>
                 </HStack>
