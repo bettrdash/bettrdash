@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { apiKeyAPI, apiSettingsApi, queryClient } from "../api";
 import axios from "axios";
@@ -11,14 +11,22 @@ import {
   useToast,
   useDisclosure,
   Switch,
+  Center,
+  Divider,
+  Select,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import ModalComp from "../Components/ModalComp";
+import ModalComp from "../components/ModalComp";
+import Loading from "../components/Loading";
 
 axios.defaults.withCredentials = true;
 
 const Settings = () => {
+  const { toggleColorMode, colorMode } = useColorMode();
   const [settings, setSettings] = useState<any>({});
   const toast = useToast();
+  const bg = useColorModeValue("white", "gray.800");
   const { data: apiKeyData, status: apiKeyStatus } = useQuery(
     "api_key",
     apiKeyAPI
@@ -31,23 +39,18 @@ const Settings = () => {
   useEffect(() => {
     if (apiSettingsData) {
       setSettings(apiSettingsData.settings);
-      console.log((apiSettingsData.settings.authorized_urls))
     }
   }, [apiSettingsData]);
 
-  // useEffect(() => {
-   
-  // }, [settings])
-
   if (apiKeyStatus === "loading" || apiSettingsStatus === "loading") {
-    return <Text>Loading...</Text>;
+    return <Loading />;
   }
 
   if (apiKeyStatus === "error" || apiSettingsStatus === "error") {
     return <Text>An error has occurred</Text>;
   }
 
-  const copyToClipboard = (text:string) => {
+  const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
       title: "Copied",
@@ -88,82 +91,102 @@ const Settings = () => {
 
   return (
     <>
-      <Heading>Settings</Heading>
-      <Flex mt={5}>
-        <Text fontWeight={"600"} fontSize={25}>
-          API Settings
-        </Text>
-        <GenerateKey />
-      </Flex>
-      <Flex mt={3}>
-        <Text alignSelf={"center"}>{apiKeyData.message}</Text>
-        <Flex>
-          <Text fontSize={20} fontWeight={"600"}>
-            API URL:{" "}
-          </Text>
-          <Text ml={3} alignSelf={"center"}>
-          https://api.bettrdash.eliaswambugu.com/v1/api/projects?key={apiKeyData.apiKey}
-          </Text>
-          <Button
-            bgGradient={"linear(to-r, red.400,pink.400)"}
-            onClick={() => copyToClipboard(`https://api.bettrdash.eliaswambugu.com/v1/api/projects?key=${apiKeyData.apiKey}`)}
-            size="sm"
-            ml={3}
-            color="white"
-            _hover={{ bg: "gray.200", color: "gray.800" }}
-          >
-            Copy
-          </Button>
+      <Center>
+        <Flex
+          bg={bg}
+          flexDir={"column"}
+          boxShadow={"xl"}
+          w={"100%"}
+          padding={5}
+          rounded={5}
+        >
+          <Flex flexDir={"column"}>
+            <Heading>Appearance</Heading>
+            <Flex mt={3}>
+              <Heading alignSelf={"center"} fontSize={15}>
+                Mode:{" "}
+              </Heading>
+              <Select
+                ml={3}
+                value={colorMode}
+                onChange={(e) => toggleColorMode()}
+                w={120}
+              >
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </Select>
+            </Flex>
+            <Divider mt={5} />
+            <Heading mt={5}>API Settings</Heading>
+            <Text mt={5} alignSelf={"center"}>
+              {apiKeyData.message}
+            </Text>
+            <Flex mt={3} flexDir={"column"}>
+              <Heading fontSize={15}>API URL: </Heading>
+              <Flex justify={"space-between"}>
+                <Text w={{ base: "70%", md: "90%" }} alignSelf={"center"}>
+                  https://api.bettrdash.com/projects/?key=
+                  {apiKeyData.apiKey}
+                </Text>
+                <Button
+                  bgGradient={"linear(to-r, red.400,pink.400)"}
+                  onClick={() =>
+                    copyToClipboard(
+                      `https://api.bettrdash.com/projects/?key=${apiKeyData.apiKey}`
+                    )
+                  }
+                  size="sm"
+                  color="white"
+                  _hover={{ bg: "gray.200", color: "gray.800" }}
+                >
+                  Copy
+                </Button>
+              </Flex>
+            </Flex>
+          </Flex>
+          <Flex flexDir={"column"} mt={5}>
+            <Text alignSelf={"center"}>{apiKeyData.message}</Text>
+            <Flex flexDir={"column"}>
+              <Heading fontSize={15}>API Key: </Heading>
+              <Flex justify={"space-between"}>
+                <Text w={{ base: "70%", md: "90%" }} alignSelf={"center"}>
+                  {apiKeyData.apiKey}
+                </Text>
+                <Button
+                  bgGradient={"linear(to-r, red.400,pink.400)"}
+                  onClick={() => copyToClipboard(`${apiKeyData.apiKey}`)}
+                  size="sm"
+                  color="white"
+                  _hover={{ bg: "gray.200", color: "gray.800" }}
+                >
+                  Copy
+                </Button>
+              </Flex>
+            </Flex>
+          </Flex>
+          <Flex flexDir={"column"} mt={5}>
+            <Text alignSelf={"center"}>{apiKeyData.message}</Text>
+            <Flex>
+              <Heading alignSelf={"center"} fontSize={15}>
+                Show Inactive Projects:{" "}
+              </Heading>
+              <Switch
+                onChange={() =>
+                  updateSettings(
+                    "show_inactive_projects",
+                    !settings.show_inactive_projects
+                  )
+                }
+                isChecked={settings.show_inactive_projects}
+                colorScheme="green"
+                ml={3}
+                alignSelf="center"
+              />
+            </Flex>
+          </Flex>
+          <GenerateKey />
         </Flex>
-      </Flex>
-      <Flex mt={3}>
-        <Text alignSelf={"center"}>{apiKeyData.message}</Text>
-        <Flex>
-          <Text  fontSize={20} fontWeight={"600"}>
-            API Key:{" "}
-          </Text>
-          <Text ml={3} alignSelf={"center"}>
-            {apiKeyData.apiKey}
-          </Text>
-          <Button
-            bgGradient={"linear(to-r, red.400,pink.400)"}
-            onClick={() => copyToClipboard(apiKeyData.apiKey)}
-            size="sm"
-            ml={3}
-            color="white"
-            _hover={{ bg: "gray.200", color: "gray.800" }}
-          >
-            Copy
-          </Button>
-        </Flex>
-      </Flex>
-      <Flex mt={3}>
-        <Text fontSize={20} fontWeight={"600"}>
-          Show Inactive Projects:{" "}
-        </Text>
-        <Switch
-          onChange={() =>
-            updateSettings(
-              "show_inactive_projects",
-              !settings.show_inactive_projects
-            )
-          }
-          isChecked={settings.show_inactive_projects}
-          colorScheme="green"
-          ml={3}
-          alignSelf="center"
-        />
-      </Flex>
-      {/* <Flex>
-        <Text fontSize={20} fontWeight={"600"}>
-          Authorized Urls: 
-        </Text>
-        <Text>{settings.}</Text>
-        {settings.settings.authorized_urls.map(() => (<></>))}
-        {settings.authorized_urls.map((url: string, index: number) => (
-          <Text key={index}>{url}</Text>
-        ))}
-      </Flex> */}
+      </Center>
     </>
   );
 };
@@ -197,7 +220,7 @@ const GenerateKey = () => {
 
   return (
     <>
-      <Button onClick={onOpen} ml={3}>
+      <Button mt={5} onClick={onOpen}>
         Generate API Key
       </Button>
       <ModalComp

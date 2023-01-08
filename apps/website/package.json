@@ -7,6 +7,7 @@
     "@chakra-ui/react": "2.3.6",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
+    "@fontsource/poppins": "^4.5.10",
     "@sentry/react": "^7.17.4",
     "@sentry/tracing": "^7.17.4",
     "@testing-library/jest-dom": "^5.9.0",
@@ -33,7 +34,7 @@
     "web-vitals": "^0.2.2"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
+    "start": "react-scripts start",
     "dev": "yarn start",
     "build": "env-cmd -f .env react-scripts build",
     "test": "react-scripts test",

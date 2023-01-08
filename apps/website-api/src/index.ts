@@ -31,10 +31,11 @@ const main = async () => {
   app.use(
     cors({
       origin: [
-        process.env.NODE_ENV === 'development' ? "http://localhost:3001" : false,
-        process.env.NODE_ENV === 'development' ? "http://192.168.1.39:3001" : false,
+        process.env.NODE_ENV === 'development' ? "http://localhost:3000" : false,
+        process.env.NODE_ENV === 'development' ? "http://192.168.1.39:3000" : false,
         "https://dev.bettrdash.com",
         "https://bettrdash.com",
+        'http://192.168.1.39:3000'
       ],
       credentials: true,
     })
