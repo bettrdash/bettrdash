@@ -132,7 +132,7 @@ const Landing = () => {
               alignSelf={{ base: "center", md: "start" }}
               h={65}
               rounded={"full"}
-              w={300}
+              w={{base: 240, sm: 240, md: 300}}
               color="white"
               _hover={{ bg: "gray.200", color: "gray.800" }}
             >
@@ -146,7 +146,7 @@ const Landing = () => {
             src={dashboardImage}
             alt="dashboard"
             w={{ base: "100%", md: 400, lg: 600 }}
-            h={400}
+            h={{base: 300, sm: 400}}
           />
         </Flex>
         <Flex
@@ -168,8 +168,8 @@ const Landing = () => {
             <TabPanels>
               <TabPanel>
                 <Image
-                  w={{ base: "100%", md: 400, lg: 600 }}
-                  h={{ base: 400, lg: 500 }}
+                  w={{ base: 800, md: 800, lg:800 }}
+                  h={{ base: 300, sm: 400, lg: 500 }}
                   alt="Code demo"
                   mt={12}
                   rounded={5}
@@ -187,8 +187,8 @@ const Landing = () => {
                   NPM Package
                 </Link>
                 <Image
-                  w={{ base: "100%", md: 400, lg: 600 }}
-                  h={{ base: 400, lg: 500 }}
+                  w={{ base: "100%", md: 500, lg: 600 }}
+                  h={{ base: 400, md: 300, lg: 500 }}
                   alt="Code demo"
                   mt={4}
                   rounded={5}
@@ -311,7 +311,7 @@ const Landing = () => {
             mt={{ base: 10, md: 0 }}
             src={monitorImage}
             w={{ base: "100%", md: 400, lg: 700 }}
-            h={{ base: 150, md: 100, lg: 150 }}
+            h={{ base: 110, md: 100, lg: 150 }}
             alt="monitoring"
             rounded={5}
             boxShadow="2xl"
