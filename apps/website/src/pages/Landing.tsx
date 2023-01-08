@@ -21,7 +21,14 @@ import {
   ListItem,
   ListIcon,
 } from "@chakra-ui/react";
-import { FaCode, FaInfinity, FaNpm, FaCheckCircle } from "react-icons/fa";
+import {
+  FaCode,
+  FaInfinity,
+  FaNpm,
+  FaCheckCircle,
+  FaGithub,
+  FaGit,
+} from "react-icons/fa";
 import { IconType } from "react-icons";
 import { Link as RouterLink } from "react-router-dom";
 import "@fontsource/poppins/400.css";
@@ -56,14 +63,27 @@ const Landing = () => {
             // left={{ base: "30%", md: "0%" }}
             // pos={{ base: "absolute", md: "relative" }}
             fontFamily="monospace"
+            alignSelf={"center"}
             fontWeight="bold"
             bgGradient="linear(to-r, red.400, pink.400)"
             bgClip="text"
+            fontSize={{ base: "2xl", md: "4xl" }}
           >
             BettrDash
           </Heading>
           <Flex>
+            <Icon
+            alignSelf={'center'}
+              cursor={"pointer"}
+              _hover={{ color: "gray.200" }}
+              color="red.400"
+              as={FaGithub}
+              onClick={() =>
+                window.open("https://github.com/HelixHEX/bettrdash")
+              }
+            />
             <Text
+              ml={{ base: 2, md: 5 }}
               bgGradient="linear(to-r, red.400, pink.400)"
               bgClip="text"
               fontFamily={"Poppins"}
@@ -78,16 +98,16 @@ const Landing = () => {
               Signin
             </Text>
             <Button
-            ml={5}
-            rounded='full'
-          bgGradient="linear(to-r, red.400, pink.400)"
-          w={120}
-          h={45}
-          >
-            Signup
-          </Button>
+              ml={{ base: 2, md: 5 }}
+              rounded="full"
+              bgGradient="linear(to-r, red.400, pink.400)"
+              w={{ base: 78, md: 120 }}
+              h={{ base: 10, md: 12 }}
+              fontSize={{ base: "sm", md: "md" }}
+            >
+              Signup
+            </Button>
           </Flex>
-          
         </Flex>
         <Flex
           mt={10}
@@ -344,9 +364,11 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
   return (
     <Stack>
       <Flex
+      
         w={16}
         h={16}
         align={"center"}
+        alignSelf={{ base: "center", md: "flex-start"}}
         justify={"center"}
         color={"white"}
         rounded={"full"}
@@ -355,8 +377,8 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
       >
         <Icon color="red.400" as={icon} w={10} h={10} />
       </Flex>
-      <Text fontWeight={600}>{title}</Text>
-      <Text color={"gray.600"}>{text}</Text>
+      <Text alignSelf={{ base: "center", md: "flex-start"}} fontWeight={600}>{title}</Text>
+      <Text textAlign={{ base: "center", md: "start"}} color={"gray.600"}>{text}</Text>
     </Stack>
   );
 };
