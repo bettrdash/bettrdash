@@ -50,42 +50,47 @@ router.post("/new", async (req: express.Request, res: express.Response) => {
   const { url, environment, projectId } = req.body;
   try {
     if (url) {
-      const website = await prisma.website.create({
-        data: {
-          url,
-          environment,
-          owner: { connect: { id: req!.session!.user!.id } },
-        },
-      });
-      if (projectId) {
-        const project = await prisma.project.findUnique({
-          where: { id: projectId },
-          include: { websites: true },
+      let website = await prisma.website.findUnique({where: {url}})
+      if (website) {
+        res.status(200).json({ success: false, message: "Website already exists" });
+      } else {
+        website = await prisma.website.create({
+          data: {
+            url,
+            environment,
+            owner: { connect: { id: req!.session!.user!.id } },
+          },
         });
-        if (project) {
-          if (project.websites.length === 0) {
-            await prisma.website.update({
-              where: { id: website.id },
-              data: { default: true, project: { connect: { id: project.id } } },
-            });
-            await prisma.project.update({
-              where: { id: project.id },
-              data: {
-                defaultWebsiteId: website.id,
-                websites: { connect: { id: website.id } },
-              },
-            });
-          } else {
-            await prisma.project.update({
-              where: { id: project.id },
-              data: {
-                websites: { connect: { id: website.id } },
-              },
-            });
+        if (projectId) {
+          const project = await prisma.project.findUnique({
+            where: { id: projectId },
+            include: { websites: true },
+          });
+          if (project) {
+            if (project.websites.length === 0) {
+              await prisma.website.update({
+                where: { id: website.id },
+                data: { default: true, project: { connect: { id: project.id } } },
+              });
+              await prisma.project.update({
+                where: { id: project.id },
+                data: {
+                  defaultWebsiteId: website.id,
+                  websites: { connect: { id: website.id } },
+                },
+              });
+            } else {
+              await prisma.project.update({
+                where: { id: project.id },
+                data: {
+                  websites: { connect: { id: website.id } },
+                },
+              });
+            }
           }
         }
+        res.status(200).json({ success: true, website });
       }
-      res.status(200).json({ success: true, website });
     } else {
       res.status(200).json({ success: false, message: "Missing url field" });
     }
