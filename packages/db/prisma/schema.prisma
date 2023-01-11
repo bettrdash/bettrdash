@@ -20,6 +20,7 @@ model User {
   projects               Project[]
   role                   String    @default("user")
   websites               Website[]
+  plan                   String    @default("hobby")
 }
 
 model Project {
@@ -44,7 +45,7 @@ model Website {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  url         String
+  url         String   @unique
   environment String?  @default("production")
   project     Project? @relation(fields: [projectId], references: [id])
   projectId   Int?
