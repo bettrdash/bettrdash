@@ -39,10 +39,10 @@ const IMAGE =
 
 const Project = () => {
   const { setBreadcrumbs } = useOutlet();
-  const { id } = useParams();
+  const { projectId } = useParams();
   const { data: projectData, status: projectStatus } = useQuery({
     queryKey: "project",
-    queryFn: () => projectApi(id!),
+    queryFn: () => projectApi(projectId!),
   });
 
   useEffect(() => {

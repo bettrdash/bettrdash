@@ -42,13 +42,26 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route index element={<Projects />} />
-              <Route path="/monitor" element={<Monitor />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/analytics/:id" element={<WebsiteAnalytic />} />
-              <Route path="/projects/:id" element={<Project />} />
-              <Route path="/projects/:id/websites" element={<Websites />} />
+              <Route path="/projects/:projectId" element={<Project />} />
+              <Route
+                path="/projects/:projectId/monitor"
+                element={<Monitor />}
+              />
+              <Route
+                path="/projects/:projectId//websites"
+                element={<Websites />}
+              />
+              <Route
+                path="/projects/:projectId/analytics"
+                element={<Analytics />}
+              >
+                <Route
+                  path="/projects/:projectId/analytics/:id"
+                  element={<WebsiteAnalytic />}
+                />
+              </Route>
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
