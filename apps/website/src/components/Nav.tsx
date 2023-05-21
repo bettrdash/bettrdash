@@ -39,7 +39,7 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useParams } from "react-router-dom";
 import { BreadCrumbProps, UserProps } from "../utils/types";
 import Logo from "./Logo";
 
@@ -94,7 +94,9 @@ const Nav = ({ children, user, breadcrumbs }: NavProps) => {
       </Drawer>
       {/* mobilenav */}
       <MobileNav breadcrumbs={breadcrumbs} user={user} onOpen={onOpen} />
-      <Box mt={{base: 0, md: 20}} ml={{ base: 0, md: isHomePage ? 0 : 60 }}>{children}</Box>
+      <Box mt={{ base: 0, md: 20 }} ml={{ base: 0, md: isHomePage ? 0 : 60 }}>
+        {children}
+      </Box>
     </Box>
   );
 };
@@ -105,9 +107,11 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, breadcrumbs, ...rest }: SidebarProps) => {
+  const {projectId} = useParams();
+
   return (
     <Box
-    mt={{base: 0, md: 20}}
+      mt={{ base: 0, md: 20 }}
       transition="3s ease"
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
@@ -120,14 +124,14 @@ const SidebarContent = ({ onClose, breadcrumbs, ...rest }: SidebarProps) => {
       <Flex h="20" alignItems="center" mx="4" justifyContent="space-between">
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      <NavItem path={""} icon={FiBarChart}>
+      <NavItem path={''} icon={FiBarChart}>
         Overview
       </NavItem>
       {LinkItems.map((link) => {
         const lastItemPath = breadcrumbs.slice(-1)[0].path;
         return (
           <NavItem
-            path={lastItemPath + `/${link.path}`}
+            path={link.path}
             key={link.name}
             icon={link.icon}
           >
@@ -146,11 +150,13 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ path, icon, children, ...rest }: NavItemProps) => {
   const location = useLocation();
+  const {projectId} = useParams();
+  path =  `/projects/${projectId}/${path}`
   return (
     <RouterLink to={`${path}`} style={{ textDecoration: "none" }}>
       <Flex
         bgGradient={
-          location.pathname.includes(path)
+          location.pathname === path
             ? "linear(to-r, red.400,pink.400)"
             : "transparent"
         }
@@ -159,10 +165,10 @@ const NavItem = ({ path, icon, children, ...rest }: NavItemProps) => {
         mx="4"
         mt={2}
         borderRadius="lg"
-        color={location.pathname.includes(path) ? "white" : "gray.600"}
+        color={location.pathname === path ? "white" : "gray.600"}
         role="group"
         cursor="pointer"
-        fontWeight={location.pathname.includes(path) ? "semibold" : "normal"}
+        fontWeight={location.pathname === path ? "semibold" : "normal"}
         _hover={{
           bgGradient: "linear(to-r, red.400,pink.400)",
           color: "white",
@@ -198,7 +204,7 @@ const MobileNav = ({ onOpen, user, breadcrumbs, ...rest }: MobileProps) => {
   };
   return (
     <Flex
-    w='100%'
+      w="100%"
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
@@ -207,7 +213,7 @@ const MobileNav = ({ onOpen, user, breadcrumbs, ...rest }: MobileProps) => {
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent={{ base: "space-between", md: "space-between" }}
       {...rest}
-      pos={{base: 'relative', md: 'fixed'}}
+      pos={{ base: "relative", md: "fixed" }}
       zIndex={1000}
     >
       <IconButton
