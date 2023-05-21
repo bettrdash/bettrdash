@@ -34,8 +34,10 @@ import { ProjectProps } from "../../utils/types";
 import Loading from "../../components/Loading";
 import { FiGrid, FiList } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useOutlet } from "../App";
 
 const Projects = () => {
+  const { setBreadcrumbs } = useOutlet();
   const [filter, setFilter] = useState<string>("name");
   const [display, setDisplay] = useState<string>("grid");
   const { data: projectsData, status: projectsStatus } = useQuery(
@@ -43,16 +45,14 @@ const Projects = () => {
     () => projectsApi({ filter })
   );
 
+  useEffect(() => {
+    setBreadcrumbs([{path: 'projects', label: 'Projects'}]);
+  }, [setBreadcrumbs]);
+
   if (projectsStatus === "loading") {
     return (
       <>
         <Flex flexDir={"column"} w="100%" h="100%">
-          <Header
-            setDisplay={setDisplay}
-            display={display}
-            filter={filter}
-            setFilter={setFilter}
-          />
           <Center w="100%" h="100%">
             <Loading />
           </Center>
@@ -72,17 +72,15 @@ const Projects = () => {
   const projects = projectsData.projects;
   return (
     <>
-      <Header
-        setDisplay={setDisplay}
-        display={display}
-        filter={filter}
-        setFilter={setFilter}
-      />
-      {display === "grid" ? (
+      <Flex p={{base: 5, md: 32}} flexDir={"column"}>
+        <Flex>
+          <Heading mr={4} alignSelf={"center"} color="gray.500">
+            Projects
+          </Heading>
+          <NewProject />
+        </Flex>
         <GridView projects={projects} />
-      ) : (
-        <ListView projects={projects} />
-      )}
+      </Flex>
     </>
   );
 };
@@ -151,15 +149,15 @@ const GridView = ({ projects }: { projects: any }) => {
     <>
       <Grid
         w="100%"
-        templateColumns="repeat(auto-fit, minmax(280px, 1fr))"
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
         autoRows={"inherit"}
         gap={20}
-        mt={35}
+        mt={20}
       >
         {projects.map((project: ProjectProps, index: number) => (
           <GridItem key={index}>
             <Center>
-              <ProjectCard project={project} />
+              <ProjectCard {...project} />
             </Center>
           </GridItem>
         ))}
@@ -168,57 +166,11 @@ const GridView = ({ projects }: { projects: any }) => {
   );
 };
 
-const ListView = ({ projects }: { projects: any }) => {
-  const tableBg = useColorModeValue("white", "gray.800");
-  const navigate = useNavigate();
-  const hoverBg = useColorModeValue("gray.100", "gray.700");
-  return (
-    <>
-      <Table mt={3} rounded={5} bg={tableBg} boxShadow={"lg"} variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Project</Th>
-            <Th>Description</Th>
-            {/* <Th >Active</Th> */}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {projects.map((project: ProjectProps, index: number) => (
-            <Tr
-              onClick={() => navigate(`/projects/${project.id}`)}
-              _hover={{ cursor: "pointer", bg: hoverBg }}
-              key={index}
-            >
-              <Td>
-                <HStack>
-                  <Avatar size={"sm"} src={project.image_url} />
-                  <Text>{project.name}</Text>
-                </HStack>
-              </Td>
-              <Td>{project.description}</Td>
-              {/* <Td>
-                {project.active ? "Yes" : "No"}
-              </Td> */}
-            </Tr>
-          ))}
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>Project</Th>
-            <Th>Description</Th>
-            {/* <Th display={{ base: "none", sm: "block" }}>Active</Th> */}
-          </Tr>
-        </Tfoot>
-      </Table>
-    </>
-  );
-};
-
 const NewProject = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState("");
   const [url, setURL] = useState("");
-  const [environment, setEnvironment] = useState('production')
+  const [environment, setEnvironment] = useState("production");
   const [github_url, setGithubUrl] = useState("");
   const [language, setLanguage] = useState("");
   const [description, setDescription] = useState("");
@@ -309,6 +261,7 @@ const NewProject = () => {
         color="white"
         bgGradient={"linear(to-r, red.400,pink.400)"}
         onClick={onOpen}
+        alignSelf={"center"}
       >
         New Project
       </Button>
@@ -344,7 +297,7 @@ const NewProject = () => {
           backgroundColor={inputBg}
           borderColor={inputBg}
         />
-         <Heading color="gray.500" fontSize={12} mt={5}>
+        <Heading color="gray.500" fontSize={12} mt={5}>
           Description
         </Heading>
         <Textarea
@@ -377,9 +330,9 @@ const NewProject = () => {
           <option>C#</option>
         </Select>
         <HStack>
-          <Flex flexDir={'column'}>
+          <Flex flexDir={"column"}>
             <Heading color="gray.500" fontSize={12} mt={5}>
-             URL
+              URL
             </Heading>
             <Input
               name="url"
@@ -391,7 +344,7 @@ const NewProject = () => {
               borderColor={inputBg}
             />
           </Flex>
-          <Flex flexDir={'column'}>
+          <Flex flexDir={"column"}>
             <Heading color="gray.500" fontSize={12} mt={5}>
               Environment
             </Heading>
@@ -430,9 +383,6 @@ const NewProject = () => {
           borderColor={inputBg}
           placeholder="Image URL"
         />
-        
-       
-        
       </ModalComp>
     </>
   );

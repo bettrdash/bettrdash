@@ -8,6 +8,7 @@ router.get("/all", async (req: express.Request, res: express.Response) => {
   try {
     const { filter } = req.query;
     console.log(filter);
+    
     const projects = await prisma.project.findMany({
       where: {
         ownerId: req!.session!.user!.id,
@@ -20,9 +21,12 @@ router.get("/all", async (req: express.Request, res: express.Response) => {
           : { status: "desc" },
       include: {
         websites: {
-          orderBy: {
-            environment: "asc",
+          where: {
+            default: true,
           },
+          // orderBy: {
+          //   environment: "asc",
+          // },
         },
       },
     });
@@ -42,15 +46,20 @@ router.get(
         where: {
           id: parseInt(req.params.projectId),
         },
-        include: { owner: { select: { id: true } }, websites: {
-          orderBy: {
-            url: "asc",
-          }
-        } },
+        include: {
+          owner: { select: { id: true } },
+          websites: {
+            orderBy: {
+              url: "asc",
+            },
+          },
+        },
       });
       if (project) {
         if (project.ownerId === req!.session!.user!.id) {
-          res.status(200).json({ success: true, project, websites: project.websites });
+          res
+            .status(200)
+            .json({ success: true, project, websites: project.websites });
         } else {
           res.status(200).json({ success: false, message: "Unauthorizedsss" });
         }
@@ -102,7 +111,7 @@ router.post("/new", async (req: express.Request, res: express.Response) => {
               id: project.id,
             },
           },
-          owner: {connect: {id: req!.session!.user!.id}}
+          owner: { connect: { id: req!.session!.user!.id } },
         },
       });
     }
@@ -114,40 +123,28 @@ router.post("/new", async (req: express.Request, res: express.Response) => {
 });
 
 //update project
-router.post(
-  "/update",
-  async (req: express.Request, res: express.Response) => {
-    const {
-      id,
-      name,
-      github_url,
-      language,
-      description,
-      active,
-      image_url,
-    } = req.body.project;
-    try {
-      const project = await prisma.project.update({
-        where: { id: parseInt(id) },
-        data: {
-          name,
-          github_url,
-          language,
-          description,
-          active,
-          image_url,
-        },
-      });
+router.post("/update", async (req: express.Request, res: express.Response) => {
+  const { id, name, github_url, language, description, active, image_url } =
+    req.body.project;
+  try {
+    const project = await prisma.project.update({
+      where: { id: parseInt(id) },
+      data: {
+        name,
+        github_url,
+        language,
+        description,
+        active,
+        image_url,
+      },
+    });
 
-      res.status(200).json({ success: true, project });
-    } catch (e) {
-      console.log(e);
-      res
-        .status(500)
-        .json({ success: false, message: "An error has occurred" });
-    }
+    res.status(200).json({ success: true, project });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ success: false, message: "An error has occurred" });
   }
-);
+});
 
 //delete project
 router.post("/delete", async (req: express.Request, res: express.Response) => {

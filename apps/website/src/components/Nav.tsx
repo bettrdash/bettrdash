@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import {
   IconButton,
   Avatar,
@@ -10,6 +9,7 @@ import {
   VStack,
   Icon,
   useColorModeValue,
+  Link,
   Drawer,
   DrawerContent,
   Text,
@@ -21,12 +21,11 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  useToast,
-  Heading,
-  Center,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
 } from "@chakra-ui/react";
-import { Link, useLocation } from "react-router-dom";
-
 import {
   FiTrendingUp,
   FiSettings,
@@ -35,39 +34,50 @@ import {
   FiActivity,
   FiUser,
   FiLogOut,
-  FiBarChart2
+  FiBarChart2,
+  FiBarChart,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
-import axios from "axios";
-import { API_URL } from "../api/constants";
-import { UserProps } from "../utils/types";
-import { useNavigate } from "react-router-dom";
-import * as Sentry from "@sentry/react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
+import { BreadCrumbProps, UserProps } from "../utils/types";
+import Logo from "./Logo";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
   path: string;
 }
+
 const LinkItems: Array<LinkItemProps> = [
-  // { name: "Home", icon: FiHome, path: "/" },
-  { name: "Projects", icon: FiTrendingUp, path: "/" },
-  // { name: "Explore", icon: FiCompass },
-  // { name: "Favourites", icon: FiStar },
-  { name: "Monitor", icon: FiActivity, path: "/monitor" },
-  { name: "Analytics", icon: FiBarChart2, path: "/analytics" },
-  { name: "Profile", icon: FiUser, path: "/profile" },
-  { name: "Settings", icon: FiSettings, path: "/settings" },
+  // { name: "Overview", icon: FiBarChart, path: "" },
+  { name: "Monitor", icon: FiActivity, path: "monitor" },
+  { name: "Analytics", icon: FiBarChart2, path: "analytics" },
+  { name: "Settings", icon: FiSettings, path: "settings" },
 ];
 
-const Nav = ({ children, user }: { children: ReactNode; user: UserProps }) => {
+const useHomePage = () => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  return pathname === "/";
+};
+
+interface NavProps {
+  children: ReactNode;
+  user: UserProps;
+  breadcrumbs: BreadCrumbProps["breadcrumbs"];
+}
+
+const Nav = ({ children, user, breadcrumbs }: NavProps) => {
+  const isHomePage = useHomePage();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Box h="auto" minH="100vh" bg={useColorModeValue("white", "gray.900")}>
+    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
+        breadcrumbs={breadcrumbs}
         onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
+        display={{ base: "none", md: isHomePage ? "none" : "block" }}
       />
       <Drawer
         autoFocus={false}
@@ -79,53 +89,26 @@ const Nav = ({ children, user }: { children: ReactNode; user: UserProps }) => {
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent breadcrumbs={breadcrumbs} onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav user={user} onOpen={onOpen} />
-      <Box h="100%" ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+      <MobileNav breadcrumbs={breadcrumbs} user={user} onOpen={onOpen} />
+      <Box mt={{base: 0, md: 20}} ml={{ base: 0, md: isHomePage ? 0 : 60 }}>{children}</Box>
     </Box>
   );
 };
 
 interface SidebarProps extends BoxProps {
   onClose: () => void;
+  breadcrumbs: BreadCrumbProps["breadcrumbs"];
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const toast = useToast();
-  const logout = async () => {
-    await axios
-      .post(`${API_URL}/auth/logout`, {}, { withCredentials: true })
-      .then((res) => {
-        if (res.data.success) {
-          window.location.href = "/";
-        } else {
-          toast({
-            title: "Error",
-            description: res.data.message,
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
-        }
-      })
-      .catch(() => {
-        toast({
-          title: "Error",
-          description: "An error has occurred",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      });
-    window.location.href = "/login";
-  };
+const SidebarContent = ({ onClose, breadcrumbs, ...rest }: SidebarProps) => {
   return (
     <Box
+    mt={{base: 0, md: 20}}
+      transition="3s ease"
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
@@ -134,69 +117,24 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      {/* <Flex mx='8' bg='red' alignItems="center" justifyContent="center">
-        <Heading textAlign={'center'} fontFamily="monospace" fontWeight="bold">
-          BettrDash
-        </Heading>
+      <Flex h="20" alignItems="center" mx="4" justifyContent="space-between">
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
-      </Flex> */}
-      <Flex
-        h={105}
-        alignItems="center"
-        justify={{ base: "flex-start", md: "center" }}
-      >
-        <CloseButton
-          ml={4}
-          display={{ base: "flex", md: "none" }}
-          onClick={onClose}
-        />
-        <Heading
-          left={{ base: "30%", md: "0%" }}
-          pos={{ base: "absolute", md: "relative" }}
-          fontFamily="monospace"
-          fontWeight="bold"
-        >
-          BettrDash
-        </Heading>
       </Flex>
-      <Flex h="80%" flexDir={"column"} justify="space-between">
-        <Flex flexDir={"column"}>
-          {LinkItems.map((link) => (
-            <NavItem
-              onClose={onClose}
-              path={link.path}
-              key={link.name}
-              icon={link.icon}
-            >
-              {link.name}
-            </NavItem>
-          ))}
-        </Flex>
-        <Flex
-          p="4"
-          onClick={logout}
-          mt={2}
-          mx="4"
-          borderRadius="lg"
-          role="group"
-          cursor="pointer"
-          fontWeight='semibold'
-          // color={"white"}
-          _hover={{
-            bgGradient: "linear(to-r, red.400,pink.400)",
-            color: "white",
-          }}
-        >
-          <Icon
-            mr="4"
-            alignSelf={"center"}
-            fontSize="16"
-            _groupHover={{}}
-            as={FiLogOut}
-          />
-          Logout
-        </Flex>
-      </Flex>
+      <NavItem path={""} icon={FiBarChart}>
+        Overview
+      </NavItem>
+      {LinkItems.map((link) => {
+        const lastItemPath = breadcrumbs.slice(-1)[0].path;
+        return (
+          <NavItem
+            path={lastItemPath + `/${link.path}`}
+            key={link.name}
+            icon={link.icon}
+          >
+            {link.name}
+          </NavItem>
+        );
+      })}
     </Box>
   );
 };
@@ -205,79 +143,154 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
   path: string;
-  onClose: () => void;
 }
-const NavItem = ({ onClose, icon, children, path, ...rest }: NavItemProps) => {
+const NavItem = ({ path, icon, children, ...rest }: NavItemProps) => {
   const location = useLocation();
   return (
-    <Link
-      onClick={onClose}
-      to={path}
-      style={{ textDecoration: "none" }}
-      // _focus={{ boxShadow: "none" }}
-    >
+    <RouterLink to={`${path}`} style={{ textDecoration: "none" }}>
       <Flex
         bgGradient={
-          location.pathname === path
+          location.pathname.includes(path)
             ? "linear(to-r, red.400,pink.400)"
             : "transparent"
         }
         align="center"
         p="4"
-        mt={2}
         mx="4"
+        mt={2}
         borderRadius="lg"
+        color={location.pathname.includes(path) ? "white" : "gray.600"}
         role="group"
-        fontWeight='semibold'
         cursor="pointer"
-        color={location.pathname === path ? "white" : "gray.600"}
+        fontWeight={location.pathname.includes(path) ? "semibold" : "normal"}
         _hover={{
           bgGradient: "linear(to-r, red.400,pink.400)",
           color: "white",
         }}
         {...rest}
       >
-        {icon && <Icon mr="4" fontSize="16" _groupHover={{}} as={icon} />}
+        {icon && (
+          <Icon
+            mr="4"
+            fontSize="16"
+            _groupHover={{
+              color: "white",
+            }}
+            as={icon}
+          />
+        )}
         {children}
       </Flex>
-    </Link>
+    </RouterLink>
   );
 };
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
   user: UserProps;
+  breadcrumbs: BreadCrumbProps["breadcrumbs"];
 }
-const MobileNav = ({ user, onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen, user, breadcrumbs, ...rest }: MobileProps) => {
+  const isHomePage = useHomePage();
+  const location = useLocation();
+  const mapLocation = () => {
+    return location.pathname.split("/");
+  };
   return (
     <Flex
-      ml={{ base: 0, md: 60 }}
+    w='100%'
       px={{ base: 4, md: 4 }}
-      pt={{ base: 4, md: 4 }}
+      height="20"
       alignItems="center"
       bg={useColorModeValue("white", "gray.900")}
-      justifyContent={"center"}
+      borderBottomWidth="1px"
+      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+      justifyContent={{ base: "space-between", md: "space-between" }}
       {...rest}
+      pos={{base: 'relative', md: 'fixed'}}
+      zIndex={1000}
     >
       <IconButton
-        pos="absolute"
-        left="4"
-        display={{ base: "flex", md: "none" }}
+        display={{ base: isHomePage ? "none" : "flex", md: "none" }}
         onClick={onOpen}
         variant="outline"
         aria-label="open menu"
         icon={<FiMenu />}
       />
+      <HStack spacing={8}>
+        <Logo />
+        {breadcrumbs.length > 0 && (
+          <Breadcrumb
+            alignSelf={"center"}
+            display={{ base: "none", md: "flex" }}
+          >
+            {breadcrumbs.map((breadcrumb, index) => (
+              <BreadcrumbItem
+                isCurrentPage={index === breadcrumbs.length - 1}
+                key={index}
+              >
+                {index === 0 && <BreadcrumbSeparator color="gray.400" />}
+                <BreadcrumbLink
+                  color={breadcrumb.color ? breadcrumb.color : "gray.400"}
+                  fontWeight={"semibold"}
+                  href={breadcrumb.path}
+                >
+                  {breadcrumb.label}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            ))}
+          </Breadcrumb>
+        )}
+      </HStack>
+      {/* <Breadcrumb display={{ base: "none", md: "flex" }}>
+        {LinkItems.map((link, index) => (
+          <BreadcrumbItem key={index}>
+            <BreadcrumbLink
+              href={link.path}
+            >{link.name}</BreadcrumbLink>
+          </BreadcrumbItem>
+        ))}
+      </Breadcrumb> */}
+      {/* {location.pathname.split('/').map(test => (
+        <Text>{test}</Text>
+      ))} */}
 
-      <Text
-        alignSelf={"center"}
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        BettrDash
-      </Text>
+      <HStack spacing={{ base: "0", md: "6" }}>
+        <Flex alignItems={"center"}>
+          <Menu>
+            <MenuButton
+              py={2}
+              transition="all 0.3s"
+              _focus={{ boxShadow: "none" }}
+            >
+              <HStack>
+                <Avatar size={"sm"} src={user.profile_img} />
+                <VStack
+                  display={{ base: "none", md: "flex" }}
+                  alignItems="flex-start"
+                  spacing="1px"
+                  ml="2"
+                >
+                  <Text fontSize="sm">{user.name}</Text>
+                </VStack>
+                <Box display={{ base: "none", md: "flex" }}>
+                  <FiChevronDown />
+                </Box>
+              </HStack>
+            </MenuButton>
+            <MenuList
+              bg={useColorModeValue("white", "gray.900")}
+              borderColor={useColorModeValue("gray.200", "gray.700")}
+            >
+              <MenuItem>Profile</MenuItem>
+              <MenuItem>Settings</MenuItem>
+              <MenuItem>Billing</MenuItem>
+              <MenuDivider />
+              <MenuItem>Sign out</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      </HStack>
     </Flex>
   );
 };

@@ -1,14 +1,17 @@
 export type ProjectProps = {
-  createdAt: string;
   id: number;
+  createdAt: string;
+  updatedAt: string;
   name: string;
   github_url?: string;
-  description: string;
   language: string;
+  description: string;
   active: boolean;
   image_url: string;
-  live_url?: string;
   status: string;
+  websites?: WebsiteProps[];
+  defaultWebsiteId?: number;
+  live_url?: string;
 };
 
 export type UserProps = {
@@ -54,4 +57,21 @@ export type SourcesProps = {
 export type TopPagesProps = {
   page: string;
   visitors: number;
+};
+
+export type BreadCrumbProps = {
+  breadcrumbs: Array<{
+    path: string;
+    label: string;
+    color?: string;
+  }>;
+  setBreadcrumbs: React.Dispatch<
+    React.setStateAction<
+      Array<{
+        path: string;
+        label: string;
+        color?: string;
+      }>
+    >
+  >;
 };
