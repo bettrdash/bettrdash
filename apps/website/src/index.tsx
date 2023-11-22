@@ -46,14 +46,14 @@ ReactDOM.render(
               <Route path="/profile" element={<Profile />} />
               <Route path="/projects/:projectId" element={<Project />} />
               <Route
-                path="/projects/:projectId/monitor"
+                path="/projects/:projectId/monitor" 
                 element={<Monitor />}
               />
               <Route
-                path="/projects/:projectId//websites"
+                path="/projects/:projectId/websites"
                 element={<Websites />}
               />
-              <Route
+              {/* <Route
                 path="/projects/:projectId/analytics"
                 element={<Analytics />}
               >
@@ -61,7 +61,7 @@ ReactDOM.render(
                   path="/projects/:projectId/analytics/:id"
                   element={<WebsiteAnalytic />}
                 />
-              </Route>
+              </Route> */}
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

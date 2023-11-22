@@ -36,7 +36,7 @@ const ProjectCard = (project: ProjectProps) => {
       <Flex
         _hover={{ 
           cursor: "pointer",
-          translate: "0px -5px",
+          translate: "0px  = -5px",
           boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.1)",
         }}
         onClick={() => navigate(`/projects/${project.id}`)}
@@ -48,8 +48,9 @@ const ProjectCard = (project: ProjectProps) => {
         // pos={"relative"}
         // zIndex={1}
         h={250}
-        borderColor={"gray.200"}
         borderWidth={2}
+
+        borderColor={useColorModeValue('gray.200', 'gray.700')}
         p={4}
         justifyContent={"space-between"}
         flexDir={"column"}

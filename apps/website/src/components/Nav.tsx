@@ -25,6 +25,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbSeparator,
+  useToast,
 } from "@chakra-ui/react";
 import {
   FiTrendingUp,
@@ -42,6 +43,8 @@ import { ReactText } from "react";
 import { Link as RouterLink, useLocation, useParams } from "react-router-dom";
 import { BreadCrumbProps, UserProps } from "../utils/types";
 import Logo from "./Logo";
+import { API_URL } from "../api/constants";
+import axios from "axios";
 
 interface LinkItemProps {
   name: string;
@@ -51,9 +54,9 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
   // { name: "Overview", icon: FiBarChart, path: "" },
-  { name: "Monitor", icon: FiActivity, path: "monitor" },
-  { name: "Analytics", icon: FiBarChart2, path: "analytics" },
-  { name: "Settings", icon: FiSettings, path: "settings" },
+  { name: "Monitor", icon: FiActivity, path: "/monitor" },
+  // { name: "Analytics", icon: FiBarChart2, path: "/analytics" },
+  { name: "Settings", icon: FiSettings, path: "/settings" },
 ];
 
 const useHomePage = () => {
@@ -107,7 +110,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, breadcrumbs, ...rest }: SidebarProps) => {
-  const {projectId} = useParams();
+  const { projectId } = useParams();
 
   return (
     <Box
@@ -124,17 +127,13 @@ const SidebarContent = ({ onClose, breadcrumbs, ...rest }: SidebarProps) => {
       <Flex h="20" alignItems="center" mx="4" justifyContent="space-between">
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      <NavItem path={''} icon={FiBarChart}>
+      <NavItem originalPath={"/"} icon={FiBarChart}>
         Overview
       </NavItem>
       {LinkItems.map((link) => {
         const lastItemPath = breadcrumbs.slice(-1)[0].path;
         return (
-          <NavItem
-            path={link.path}
-            key={link.name}
-            icon={link.icon}
-          >
+          <NavItem originalPath={link.path} key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
         );
@@ -146,29 +145,31 @@ const SidebarContent = ({ onClose, breadcrumbs, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
-  path: string;
+  originalPath: string;
 }
-const NavItem = ({ path, icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ originalPath, icon, children, ...rest }: NavItemProps) => {
   const location = useLocation();
-  const {projectId} = useParams();
-  path =  `/projects/${projectId}/${path}`
+  const { projectId } = useParams();
+  const path = `/projects/${projectId}${originalPath}`;
+  const currentPath = location.pathname === path
+  // const currentPath =
+  //   location.pathname === path ||
+  //   (location.pathname !== path && originalPath === "/");
   return (
     <RouterLink to={`${path}`} style={{ textDecoration: "none" }}>
       <Flex
         bgGradient={
-          location.pathname === path
-            ? "linear(to-r, red.400,pink.400)"
-            : "transparent"
+          currentPath ? "linear(to-r, red.400,pink.400)" : "transparent"
         }
         align="center"
         p="4"
         mx="4"
         mt={2}
         borderRadius="lg"
-        color={location.pathname === path ? "white" : "gray.600"}
+        color={currentPath ? "white" : "gray.600"}
         role="group"
         cursor="pointer"
-        fontWeight={location.pathname === path ? "semibold" : "normal"}
+        fontWeight={currentPath ? "semibold" : "normal"}
         _hover={{
           bgGradient: "linear(to-r, red.400,pink.400)",
           color: "white",
@@ -185,7 +186,7 @@ const NavItem = ({ path, icon, children, ...rest }: NavItemProps) => {
             as={icon}
           />
         )}
-        {children}
+        {originalPath}
       </Flex>
     </RouterLink>
   );
@@ -201,6 +202,34 @@ const MobileNav = ({ onOpen, user, breadcrumbs, ...rest }: MobileProps) => {
   const location = useLocation();
   const mapLocation = () => {
     return location.pathname.split("/");
+  };
+  const toast = useToast();
+  const logout = async () => {
+    await axios
+      .post(`${API_URL}/auth/logout`, {}, { withCredentials: true })
+      .then((res) => {
+        if (res.data.success) {
+          window.location.href = "/";
+        } else {
+          toast({
+            title: "Error",
+            description: res.data.message,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      })
+      .catch(() => {
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+    window.location.href = "/login";
   };
   return (
     <Flex
@@ -288,11 +317,15 @@ const MobileNav = ({ onOpen, user, breadcrumbs, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
+              <MenuItem>
+                <RouterLink to="/profile">Profile</RouterLink>
+              </MenuItem>
+              <MenuItem>
+                <RouterLink to="/settings">settings</RouterLink>
+              </MenuItem>
+              {/* <RouterLink to="/billing">Billing</RouterLink> */}
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={logout}>Logout</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

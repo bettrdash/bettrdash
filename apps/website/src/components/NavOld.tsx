@@ -35,6 +35,7 @@ import {
   FiActivity,
   FiUser,
   FiLogOut,
+  
   FiBarChart2
 } from "react-icons/fi";
 import { IconType } from "react-icons";

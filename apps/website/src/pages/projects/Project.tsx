@@ -152,7 +152,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
   return (
     <>
       <Flex w="100%" flexDir={"column"}>
-        <Flex p={10} bg="white">
+        <Flex p={10} bg={useColorModeValue('white', 'gray.900')}>
           <Heading fontSize={30} color="gray.400">
             {project.name}
           </Heading>
@@ -175,7 +175,7 @@ const EditMode = ({ project }: { project: ProjectProps }) => {
             />
           </Flex>
         </Flex>
-        <VStack spacing={8} py={4} px={10}>
+        <VStack bg={useColorModeValue('gray.100', 'gray.800')} spacing={8} py={4} px={10}>
           <Image
             rounded={10}
             bg={imageBG}
