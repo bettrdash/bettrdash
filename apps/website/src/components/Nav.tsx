@@ -56,7 +56,7 @@ const LinkItems: Array<LinkItemProps> = [
   // { name: "Overview", icon: FiBarChart, path: "" },
   { name: "Monitor", icon: FiActivity, path: "/monitor" },
   // { name: "Analytics", icon: FiBarChart2, path: "/analytics" },
-  { name: "Settings", icon: FiSettings, path: "/settings" },
+  // { name: "Settings", icon: FiSettings, path: "/settings" },
 ];
 
 const useHomePage = () => {
@@ -151,7 +151,10 @@ const NavItem = ({ originalPath, icon, children, ...rest }: NavItemProps) => {
   const location = useLocation();
   const { projectId } = useParams();
   const path = `/projects/${projectId}${originalPath}`;
-  const currentPath = location.pathname === path
+  const currentPath =
+    location.pathname === path ||
+    (originalPath === "/" &&
+      parseInt(location.pathname.substring(location.pathname.length - 1)));
   // const currentPath =
   //   location.pathname === path ||
   //   (location.pathname !== path && originalPath === "/");
@@ -186,7 +189,7 @@ const NavItem = ({ originalPath, icon, children, ...rest }: NavItemProps) => {
             as={icon}
           />
         )}
-        {originalPath}
+        {children}
       </Flex>
     </RouterLink>
   );
