@@ -9,7 +9,6 @@ import {
   VStack,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
@@ -28,14 +27,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import {
-  FiTrendingUp,
-  FiSettings,
   FiMenu,
   FiChevronDown,
   FiActivity,
-  FiUser,
-  FiLogOut,
-  FiBarChart2,
   FiBarChart,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
@@ -65,6 +59,12 @@ const useHomePage = () => {
   return pathname === "/";
 };
 
+const useSettingsPage = () => {
+  const location = useLocation()
+  const pathname = location.pathname
+  return pathname === '/settings'
+}
+
 interface NavProps {
   children: ReactNode;
   user: UserProps;
@@ -73,6 +73,7 @@ interface NavProps {
 
 const Nav = ({ children, user, breadcrumbs }: NavProps) => {
   const isHomePage = useHomePage();
+  const isSettingsPage = useSettingsPage()
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -80,7 +81,7 @@ const Nav = ({ children, user, breadcrumbs }: NavProps) => {
       <SidebarContent
         breadcrumbs={breadcrumbs}
         onClose={() => onClose}
-        display={{ base: "none", md: isHomePage ? "none" : "block" }}
+        display={{ base: "none", md: isHomePage || isSettingsPage ? "none" : "block" }}
       />
       <Drawer
         autoFocus={false}
@@ -97,7 +98,7 @@ const Nav = ({ children, user, breadcrumbs }: NavProps) => {
       </Drawer>
       {/* mobilenav */}
       <MobileNav breadcrumbs={breadcrumbs} user={user} onOpen={onOpen} />
-      <Box mt={{ base: 0, md: 20 }} ml={{ base: 0, md: isHomePage ? 0 : 60 }}>
+      <Box mt={{ base: 0, md: 20 }} ml={{ base: 0, md: isHomePage || isSettingsPage ? 0 : 60 }}>
         {children}
       </Box>
     </Box>
@@ -257,27 +258,29 @@ const MobileNav = ({ onOpen, user, breadcrumbs, ...rest }: MobileProps) => {
       />
       <HStack spacing={8}>
         <Logo />
-        {breadcrumbs.length > 0 && (
-          <Breadcrumb
-            alignSelf={"center"}
-            display={{ base: "none", md: "flex" }}
-          >
-            {breadcrumbs.map((breadcrumb, index) => (
-              <BreadcrumbItem
-                isCurrentPage={index === breadcrumbs.length - 1}
-                key={index}
-              >
-                {index === 0 && <BreadcrumbSeparator color="gray.400" />}
-                <BreadcrumbLink
-                  color={breadcrumb.color ? breadcrumb.color : "gray.400"}
-                  fontWeight={"semibold"}
-                  href={breadcrumb.path}
+        {location.pathname !== '/settings' && (
+          breadcrumbs.length > 0 && (
+            <Breadcrumb
+              alignSelf={"center"}
+              display={{ base: "none", md: "flex" }}
+            >
+              {breadcrumbs.map((breadcrumb, index) => (
+                <BreadcrumbItem
+                  isCurrentPage={index === breadcrumbs.length - 1}
+                  key={index}
                 >
-                  {breadcrumb.label}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-            ))}
-          </Breadcrumb>
+                  {index === 0 && <BreadcrumbSeparator color="gray.400" />}
+                  <BreadcrumbLink
+                    color={breadcrumb.color ? breadcrumb.color : "gray.400"}
+                    fontWeight={"semibold"}
+                    href={breadcrumb.path}
+                  >
+                    {breadcrumb.label}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              ))}
+            </Breadcrumb>
+          )
         )}
       </HStack>
       {/* <Breadcrumb display={{ base: "none", md: "flex" }}>

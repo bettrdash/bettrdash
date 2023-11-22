@@ -16,9 +16,12 @@ import {
   Select,
   useColorMode,
   useColorModeValue,
+  Link,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import ModalComp from "../components/ModalComp";
 import Loading from "../components/Loading";
+import { Link as RouterLink } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
@@ -26,6 +29,7 @@ const Settings = () => {
   const { toggleColorMode, colorMode } = useColorMode();
   const [settings, setSettings] = useState<any>({});
   const toast = useToast();
+  const navigate = useNavigate();
   const bg = useColorModeValue("white", "gray.800");
   const { data: apiKeyData, status: apiKeyStatus } = useQuery(
     "api_key",
@@ -101,7 +105,16 @@ const Settings = () => {
           rounded={5}
         >
           <Flex flexDir={"column"}>
-            <Heading>Appearance</Heading>
+            <Heading
+            w={20}
+              size="sm"
+              _hover={{ cursor: "pointer", textDecorationLine: "underline" }}
+              fontWeight={"600"}
+              onClick={() => navigate(-1)}
+            >
+              Go Back
+            </Heading>
+            <Heading mt={3}>Appearance</Heading>
             <Flex mt={3}>
               <Heading alignSelf={"center"} fontSize={15}>
                 Mode:{" "}
