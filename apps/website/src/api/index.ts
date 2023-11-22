@@ -36,8 +36,8 @@ export const projectWebsitesApi = async ({
   return res.data;
 };
 
-export const projectMonitor = async () => {
-  const res = await axios.get(`${API_URL}/monitor`);
+export const projectMonitor = async ({projectId}: {projectId: string}) => {
+  const res = await axios.get(`${API_URL}/monitor/${projectId}`);
   return res.data;
 };
 

@@ -28,7 +28,9 @@
     "redis": "3.0.2",
     "reflect-metadata": "^0.1.13",
     "tsc-watch": "^5.0.3",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "tsconfig": "*",
+    "db": "*"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.14",

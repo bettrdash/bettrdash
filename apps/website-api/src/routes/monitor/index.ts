@@ -3,18 +3,16 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", async (req: express.Request, res: express.Response) => {
+router.get("/:projectId", async (req: express.Request, res: express.Response) => {
   const user = req!.session!.user!;
-
+const { projectId } = req.params
   if (!user) {
     res.status(200).json({ success: false, message: "Unauthorized" });
     return;
   }
   const websites = await prisma.website.findMany({
     where: {
-      owner: {
-        id: user.id,
-      },
+      projectId: parseInt(projectId)
     },
     orderBy: {
       status: "desc",

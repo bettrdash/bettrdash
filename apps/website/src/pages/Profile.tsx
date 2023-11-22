@@ -10,7 +10,7 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import { useUser } from "./App";
+import { useOutlet } from "./App";
 import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../api/constants";
@@ -19,7 +19,7 @@ import { queryClient } from "../api";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { user } = useUser();
+  const { user } = useOutlet();
   const [name, setName] = useState(user!.name);
   const [email, setEmail] = useState(user!.email);
   const [currentPassword, setCurrentPassword] = useState("");
